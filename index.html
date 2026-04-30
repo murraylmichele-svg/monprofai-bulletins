@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MonProf.ai — Générateur de bulletins</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bleu: #1a3a5c;
+    --bleu-clair: #2d6a9f;
+    --or: #c9a84c;
+    --or-clair: #f0d080;
+    --fond: #f7f4ef;
+    --blanc: #ffffff;
+    --gris-clair: #e8e4dd;
+    --gris-texte: #4a4540;
+    --rouge-doux: #8b3a3a;
+    --vert-doux: #2d6b4a;
+    --orange-doux: #8b5e2d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Sans 3', sans-serif; background: var(--fond); color: var(--gris-texte); min-height: 100vh; }
+
+  header { background: var(--bleu); color: white; }
+  .header-inner { max-width: 1100px; margin: 0 auto; padding: 28px 40px; display: flex; align-items: center; gap: 16px; }
+  .logo-mark { width: 48px; height: 48px; background: var(--or); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--bleu); flex-shrink: 0; }
+  .header-text h1 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; }
+  .header-text p { font-size: 12px; opacity: 0.65; margin-top: 2px; font-weight: 300; letter-spacing: 0.04em; }
+  .header-stripe { height: 3px; background: linear-gradient(90deg, var(--or), var(--or-clair), var(--or)); }
+
+  .tabs { max-width: 1100px; margin: 0 auto; padding: 24px 40px 0; display: flex; gap: 4px; }
+  .tab { padding: 10px 20px; border: none; background: var(--gris-clair); color: var(--gris-texte); font-family: 'Source Sans 3', sans-serif; font-size: 13px; font-weight: 500; border-radius: 8px 8px 0 0; cursor: pointer; transition: all 0.2s; }
+  .tab.active { background: var(--blanc); color: var(--bleu); font-weight: 600; box-shadow: 0 -2px 0 var(--or) inset; }
+  .tab:hover:not(.active) { background: #ddd9d2; }
+
+  .main { max-width: 1100px; margin: 0 auto; padding: 0 40px 60px; }
+  .panel { background: var(--blanc); border-radius: 0 12px 12px 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.07); padding: 32px; display: none; }
+  .panel.active { display: block; }
+
+  /* FORM ELEMENTS */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--bleu); }
+  select, textarea, input[type="text"] { font-family: 'Source Sans 3', sans-serif; font-size: 14px; padding: 9px 12px; border: 1.5px solid var(--gris-clair); border-radius: 7px; background: #fafaf8; color: var(--gris-texte); transition: border-color 0.2s; width: 100%; }
+  select:focus, textarea:focus, input:focus { outline: none; border-color: var(--bleu-clair); background: white; }
+  textarea { resize: vertical; line-height: 1.5; }
+
+  /* NIVEAU BUTTONS */
+  .niveau-group { display: flex; gap: 6px; flex-wrap: wrap; }
+  .niveau-btn { padding: 7px 13px; border: 1.5px solid var(--gris-clair); border-radius: 18px; background: white; font-family: 'Source Sans 3', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; color: var(--gris-texte); }
+  .niveau-btn.sel-A { background: #e8f4e8; border-color: var(--vert-doux); color: var(--vert-doux); font-weight: 700; }
+  .niveau-btn.sel-B { background: #e8f0f8; border-color: var(--bleu-clair); color: var(--bleu-clair); font-weight: 700; }
+  .niveau-btn.sel-C { background: #fef6e4; border-color: var(--orange-doux); color: var(--orange-doux); font-weight: 700; }
+  .niveau-btn.sel-D { background: #fceaea; border-color: var(--rouge-doux); color: var(--rouge-doux); font-weight: 700; }
+
+  .pronom-group { display: flex; gap: 6px; }
+  .pronom-btn { flex: 1; padding: 7px; border: 1.5px solid var(--gris-clair); border-radius: 7px; background: white; font-family: 'Source Sans 3', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; text-align: center; }
+  .pronom-btn.selected { background: var(--bleu); border-color: var(--bleu); color: white; font-weight: 600; }
+
+  /* ATTENTES CHECKBOXES */
+  .attentes-list { display: flex; flex-direction: column; gap: 6px; max-height: 200px; overflow-y: auto; padding: 4px; }
+  .attente-item { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border: 1.5px solid var(--gris-clair); border-radius: 7px; cursor: pointer; transition: all 0.15s; }
+  .attente-item:hover { border-color: var(--bleu-clair); background: #f0f5fb; }
+  .attente-item.selected { border-color: var(--bleu); background: #edf3fb; }
+  .attente-item input { margin-top: 2px; flex-shrink: 0; accent-color: var(--bleu); }
+  .attente-item span { font-size: 13px; line-height: 1.4; }
+
+  /* BUTTONS */
+  .btn-primary { padding: 13px 20px; background: var(--bleu); color: white; border: none; border-radius: 9px; font-family: 'Source Sans 3', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary:hover { background: var(--bleu-clair); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,58,92,0.2); }
+  .btn-primary:disabled { background: #9aabb8; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-secondary { padding: 9px 16px; background: white; color: var(--bleu); border: 1.5px solid var(--bleu); border-radius: 7px; font-family: 'Source Sans 3', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .btn-secondary:hover { background: var(--bleu); color: white; }
+  .btn-success { padding: 9px 16px; background: var(--vert-doux); color: white; border: none; border-radius: 7px; font-family: 'Source Sans 3', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .btn-success:hover { background: #1a5a38; }
+
+  /* SECTION DIVIDERS */
+  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--bleu); padding-bottom: 6px; border-bottom: 2px solid var(--or); display: inline-block; margin-bottom: 14px; }
+
+  /* PASTE AREA */
+  .paste-area { font-family: 'Courier New', monospace; font-size: 12px; min-height: 160px; line-height: 1.6; }
+  .paste-instructions { background: #f0f5fb; border: 1.5px solid #c5d8ed; border-radius: 8px; padding: 14px 16px; margin-bottom: 14px; font-size: 13px; line-height: 1.6; }
+  .paste-instructions strong { color: var(--bleu); }
+  .paste-instructions code { background: #e0ecf8; padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: 'Courier New', monospace; }
+
+  /* MATIERE SECTIONS */
+  .matiere-section { border: 1.5px solid var(--gris-clair); border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+  .matiere-header { background: #f4f1ec; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+  .matiere-header h3 { font-size: 14px; font-weight: 600; color: var(--bleu); }
+  .matiere-header .toggle { font-size: 18px; color: var(--bleu-clair); }
+  .matiere-body { padding: 16px; display: none; }
+  .matiere-body.open { display: block; }
+
+  /* PROGRESS */
+  .progress-section { margin: 20px 0; display: none; }
+  .progress-section.visible { display: block; }
+  .progress-bar { height: 6px; background: var(--gris-clair); border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--bleu), var(--or)); border-radius: 3px; transition: width 0.3s; }
+  .progress-text { font-size: 13px; color: var(--bleu-clair); font-style: italic; }
+
+  /* RESULTS TABLE */
+  .results-section { margin-top: 24px; display: none; }
+  .results-section.visible { display: block; }
+  .results-actions { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+  .results-title { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--bleu); font-weight: 600; flex: 1; }
+
+  .subject-results { margin-bottom: 28px; }
+  .subject-results-title { font-size: 14px; font-weight: 700; color: var(--bleu); padding: 10px 14px; background: #edf3fb; border-radius: 8px 8px 0 0; border: 1.5px solid #c5d8ed; border-bottom: none; }
+  .subject-attentes-note { font-size: 11px; color: #666; padding: 6px 14px; background: #f5f8fc; border-left: 1.5px solid #c5d8ed; border-right: 1.5px solid #c5d8ed; font-style: italic; }
+
+  .results-table { width: 100%; border-collapse: collapse; border: 1.5px solid #c5d8ed; }
+  .results-table th { background: var(--bleu); color: white; padding: 10px 14px; font-size: 12px; font-weight: 600; text-align: left; letter-spacing: 0.04em; }
+  .results-table td { padding: 12px 14px; border-bottom: 1px solid var(--gris-clair); font-size: 13px; vertical-align: top; }
+  .results-table tr:last-child td { border-bottom: none; }
+  .results-table tr:nth-child(even) td { background: #fafaf8; }
+  .comment-cell { line-height: 1.6; }
+  .comment-cell[contenteditable="true"] { outline: none; background: #fffef5; border: 1.5px dashed var(--or); border-radius: 4px; padding: 4px; }
+  .cote-cell { font-weight: 700; font-size: 14px; white-space: nowrap; }
+  .name-cell { font-weight: 600; white-space: nowrap; }
+  .edit-cell { text-align: center; white-space: nowrap; }
+  .btn-mini { padding: 4px 10px; border: 1px solid var(--bleu); border-radius: 5px; background: white; color: var(--bleu); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s; margin: 2px; }
+  .btn-mini:hover { background: var(--bleu); color: white; }
+  .btn-mini.copied { background: var(--vert-doux); border-color: var(--vert-doux); color: white; }
+
+  /* SINGLE STUDENT */
+  .comment-card { background: #fafaf8; border: 1.5px solid var(--gris-clair); border-radius: 10px; padding: 18px; margin-bottom: 12px; }
+  .comment-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--bleu-clair); margin-bottom: 8px; }
+  .comment-text { font-size: 14px; line-height: 1.75; }
+  .comment-text[contenteditable="true"] { outline: none; border: 1.5px dashed var(--bleu-clair); border-radius: 6px; padding: 6px; background: white; }
+  .comment-actions { display: flex; gap: 8px; margin-top: 10px; justify-content: flex-end; }
+
+  /* LOADING */
+  .loading-bar { display: none; margin: 14px 0; }
+  .loading-bar.visible { display: block; }
+  .loading-track { height: 3px; background: var(--gris-clair); border-radius: 2px; overflow: hidden; }
+  .loading-fill { height: 100%; background: linear-gradient(90deg, var(--bleu), var(--or), var(--bleu)); background-size: 200% 100%; animation: loadAnim 1.5s linear infinite; width: 100%; }
+  @keyframes loadAnim { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  .loading-text { font-size: 12px; color: var(--bleu-clair); margin-top: 6px; font-style: italic; }
+
+  /* HAB */
+  .hab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .hab-item { background: #fafaf8; border: 1.5px solid var(--gris-clair); border-radius: 8px; padding: 14px; }
+  .hab-item label { font-size: 12px; font-weight: 600; color: var(--bleu); text-transform: none; letter-spacing: 0; margin-bottom: 8px; display: block; }
+  .hab-cote { display: flex; gap: 5px; }
+  .cote-btn { flex: 1; padding: 6px 3px; border: 1.5px solid var(--gris-clair); border-radius: 5px; background: white; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.15s; text-align: center; }
+  .cote-btn.sel-E { background: #1a6b3a; border-color: #1a6b3a; color: white; }
+  .cote-btn.sel-T { background: var(--vert-doux); border-color: var(--vert-doux); color: white; }
+  .cote-btn.sel-S { background: var(--orange-doux); border-color: var(--orange-doux); color: white; }
+  .cote-btn.sel-N { background: var(--rouge-doux); border-color: var(--rouge-doux); color: white; }
+
+  @media (max-width: 700px) {
+    .header-inner, .tabs, .main { padding-left: 16px; padding-right: 16px; }
+    .form-grid, .hab-grid { grid-column: 1fr; }
+    .panel { padding: 16px; }
+  }
+
+  .info-box { background: #edf3fb; border: 1.5px solid #c5d8ed; border-radius: 8px; padding: 12px 16px; font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
+  .tag { display: inline-block; background: var(--bleu); color: white; border-radius: 12px; padding: 2px 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; margin-left: 6px; vertical-align: middle; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-mark">M</div>
+    <div class="header-text">
+      <h1>MonProf.ai — Générateur de bulletins</h1>
+      <p>Écoles de langue française catholiques de l'Ontario · 1ère à 6e année</p>
+    </div>
+  </div>
+  <div class="header-stripe"></div>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('classe')">👥 Classe entière <span class="tag">NOUVEAU</span></button>
+  <button class="tab" onclick="switchTab('individuel')">👤 Élève individuel</button>
+  <button class="tab" onclick="switchTab('habiletes')">⭐ Habiletés</button>
+  <button class="tab" onclick="switchTab('modele')">📋 Modèle Google Sheets</button>
+</div>
+
+<div class="main">
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 1: CLASSE ENTIÈRE
+═══════════════════════════════════════════════════════════ -->
+<div class="panel active" id="panel-classe">
+
+  <div class="paste-instructions">
+    <strong>📋 Comment utiliser le mode Classe entière :</strong><br>
+    1. Ouvrez votre liste de classe dans Google Sheets (utilisez l'onglet <em>Modèle Google Sheets</em> si vous n'avez pas encore votre liste)<br>
+    2. Sélectionnez toutes vos données <strong>sans la ligne d'en-tête</strong> et copiez (<code style="background:#dce8f5; padding:1px 5px; border-radius:3px; font-size:11px;">Ctrl+C</code>)<br>
+    3. Collez dans la zone ci-dessous (<code style="background:#dce8f5; padding:1px 5px; border-radius:3px; font-size:11px;">Ctrl+V</code>) — les matières sans cote seront ignorées automatiquement
+  </div>
+
+  <div class="form-group full" style="margin-bottom:18px;">
+    <label>Liste de classe</label>
+    <textarea class="paste-area" id="class-paste" rows="10" placeholder="Collez votre liste de classe ici..."></textarea>
+  </div>
+
+  <div class="form-group" style="margin-bottom: 20px;">
+    <label>Année d'études</label>
+    <select id="classe-annee" onchange="updateClasseAttentes()">
+      <option value="">— Sélectionner —</option>
+      <option value="1">1re année</option>
+      <option value="2">2e année</option>
+      <option value="3">3e année</option>
+      <option value="4">4e année</option>
+      <option value="5">5e année</option>
+      <option value="6">6e année</option>
+    </select>
+  </div>
+
+  <div class="section-label">Attentes évaluées par matière</div>
+  <div class="info-box">Sélectionnez les attentes enseignées cette période. Seules les matières avec des cotes dans votre liste seront incluses dans le document Word.</div>
+
+  <div id="classe-attentes-container">
+    <!-- Populated dynamically -->
+    <p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d'abord l'année d'études.</p>
+  </div>
+
+  <div style="display:flex; gap:12px; margin-top:20px; flex-wrap:wrap;">
+    <button class="btn-primary" onclick="generateClasse()" id="btn-gen-classe">
+      ✨ Générer les commentaires pour toute la classe
+    </button>
+  </div>
+
+  <div class="progress-section" id="progress-classe">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="progress-text" id="progress-text">Initialisation...</div>
+  </div>
+
+  <div class="results-section" id="results-classe">
+    <div class="results-actions">
+      <span class="results-title" id="results-classe-title">Commentaires générés</span>
+      <button class="btn-success" onclick="downloadWord()" id="btn-download">
+        📄 Télécharger Word (.docx)
+      </button>
+    </div>
+    <div id="results-classe-content"></div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 2: ÉLÈVE INDIVIDUEL
+═══════════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-individuel">
+
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Année d'études</label>
+      <select id="annee" onchange="updateMatieres()">
+        <option value="">— Sélectionner —</option>
+        <option value="1">1re année</option>
+        <option value="2">2e année</option>
+        <option value="3">3e année</option>
+        <option value="4">4e année</option>
+        <option value="5">5e année</option>
+        <option value="6">6e année</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Matière</label>
+      <select id="matiere" onchange="updateAttentes()">
+        <option value="">— Sélectionner l'année d'abord —</option>
+      </select>
+    </div>
+
+    <div class="form-group full">
+      <label>Attentes évaluées (sélectionner une ou plusieurs)</label>
+      <div class="attentes-list" id="attentes-list-individuel">
+        <p style="color:#999; font-style:italic; font-size:13px; padding:8px;">Sélectionnez la matière d'abord.</p>
+      </div>
+    </div>
+
+    <div class="form-group full">
+      <label>Cote au bulletin</label>
+      <div class="niveau-group" id="niveau-group">
+        <button class="niveau-btn" onclick="selectNiveau('A+')">A+</button>
+        <button class="niveau-btn" onclick="selectNiveau('A')">A</button>
+        <button class="niveau-btn" onclick="selectNiveau('A-')">A-</button>
+        <button class="niveau-btn" onclick="selectNiveau('B+')">B+</button>
+        <button class="niveau-btn" onclick="selectNiveau('B')">B</button>
+        <button class="niveau-btn" onclick="selectNiveau('B-')">B-</button>
+        <button class="niveau-btn" onclick="selectNiveau('C+')">C+</button>
+        <button class="niveau-btn" onclick="selectNiveau('C')">C</button>
+        <button class="niveau-btn" onclick="selectNiveau('C-')">C-</button>
+        <button class="niveau-btn" onclick="selectNiveau('D+')">D+</button>
+        <button class="niveau-btn" onclick="selectNiveau('D')">D</button>
+        <button class="niveau-btn" onclick="selectNiveau('D-')">D-</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Prénom de l'élève</label>
+      <input type="text" id="prenom" placeholder="ex. Marie, Thomas...">
+    </div>
+    <div class="form-group">
+      <label>Pronom</label>
+      <div class="pronom-group">
+        <button class="pronom-btn selected" id="btn-elle" onclick="selectPronom('elle')">Elle</button>
+        <button class="pronom-btn" id="btn-il" onclick="selectPronom('il')">Il</button>
+        <button class="pronom-btn" id="btn-iel" onclick="selectPronom('iel')">Iel</button>
+      </div>
+    </div>
+
+    <div class="form-group full">
+      <label>Observations particulières (optionnel)</label>
+      <textarea id="observations" rows="3" placeholder="ex. Fait des progrès en lecture, difficultés avec la communication écrite..."></textarea>
+    </div>
+  </div>
+
+  <button class="btn-primary" onclick="generateIndividuel()" id="btn-gen-ind">
+    ✨ Générer 3 versions
+  </button>
+
+  <div class="loading-bar" id="loading-ind">
+    <div class="loading-track"><div class="loading-fill"></div></div>
+    <div class="loading-text">Génération en cours...</div>
+  </div>
+
+  <div class="results-section" id="results-ind"></div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 3: HABILETÉS
+═══════════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-habiletes">
+
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Prénom de l'élève</label>
+      <input type="text" id="prenom-hab" placeholder="ex. Marie, Thomas...">
+    </div>
+    <div class="form-group">
+      <label>Pronom</label>
+      <div class="pronom-group">
+        <button class="pronom-btn selected" id="btn-elle-hab" onclick="selectPronomHab('elle')">Elle</button>
+        <button class="pronom-btn" id="btn-il-hab" onclick="selectPronomHab('il')">Il</button>
+        <button class="pronom-btn" id="btn-iel-hab" onclick="selectPronomHab('iel')">Iel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-bottom:14px;">Cotes des habiletés d'apprentissage</div>
+  <p style="font-size:12px; color:#777; margin-bottom:14px;">E = Excellent &nbsp;|&nbsp; T = Très bien &nbsp;|&nbsp; S = Satisfaisant &nbsp;|&nbsp; N = Amélioration nécessaire</p>
+
+  <div class="hab-grid">
+    <div class="hab-item"><label>📢 Utilisation du français oral</label><div class="hab-cote" id="hab-oral"><button class="cote-btn" onclick="selectCote('oral','E')">E</button><button class="cote-btn" onclick="selectCote('oral','T')">T</button><button class="cote-btn" onclick="selectCote('oral','S')">S</button><button class="cote-btn" onclick="selectCote('oral','N')">N</button></div></div>
+    <div class="hab-item"><label>✅ Fiabilité</label><div class="hab-cote" id="hab-fiabilite"><button class="cote-btn" onclick="selectCote('fiabilite','E')">E</button><button class="cote-btn" onclick="selectCote('fiabilite','T')">T</button><button class="cote-btn" onclick="selectCote('fiabilite','S')">S</button><button class="cote-btn" onclick="selectCote('fiabilite','N')">N</button></div></div>
+    <div class="hab-item"><label>🗂️ Sens de l'organisation</label><div class="hab-cote" id="hab-organisation"><button class="cote-btn" onclick="selectCote('organisation','E')">E</button><button class="cote-btn" onclick="selectCote('organisation','T')">T</button><button class="cote-btn" onclick="selectCote('organisation','S')">S</button><button class="cote-btn" onclick="selectCote('organisation','N')">N</button></div></div>
+    <div class="hab-item"><label>🎯 Autonomie</label><div class="hab-cote" id="hab-autonomie"><button class="cote-btn" onclick="selectCote('autonomie','E')">E</button><button class="cote-btn" onclick="selectCote('autonomie','T')">T</button><button class="cote-btn" onclick="selectCote('autonomie','S')">S</button><button class="cote-btn" onclick="selectCote('autonomie','N')">N</button></div></div>
+    <div class="hab-item"><label>🤝 Esprit de collaboration</label><div class="hab-cote" id="hab-collaboration"><button class="cote-btn" onclick="selectCote('collaboration','E')">E</button><button class="cote-btn" onclick="selectCote('collaboration','T')">T</button><button class="cote-btn" onclick="selectCote('collaboration','S')">S</button><button class="cote-btn" onclick="selectCote('collaboration','N')">N</button></div></div>
+    <div class="hab-item"><label>💡 Sens de l'initiative</label><div class="hab-cote" id="hab-initiative"><button class="cote-btn" onclick="selectCote('initiative','E')">E</button><button class="cote-btn" onclick="selectCote('initiative','T')">T</button><button class="cote-btn" onclick="selectCote('initiative','S')">S</button><button class="cote-btn" onclick="selectCote('initiative','N')">N</button></div></div>
+    <div class="hab-item" style="grid-column:1/-1;"><label>🔄 Autorégulation</label><div class="hab-cote" id="hab-autoregulation"><button class="cote-btn" onclick="selectCote('autoregulation','E')">E</button><button class="cote-btn" onclick="selectCote('autoregulation','T')">T</button><button class="cote-btn" onclick="selectCote('autoregulation','S')">S</button><button class="cote-btn" onclick="selectCote('autoregulation','N')">N</button></div></div>
+  </div>
+
+  <div class="form-group" style="margin-bottom:18px;">
+    <label>Observations particulières (optionnel)</label>
+    <textarea id="obs-hab" rows="3" placeholder="ex. Fait des efforts remarquables, difficultés à rester concentré..."></textarea>
+  </div>
+
+  <button class="btn-primary" onclick="generateHabiletes()" id="btn-gen-hab">✨ Générer le commentaire</button>
+
+  <div class="loading-bar" id="loading-hab">
+    <div class="loading-track"><div class="loading-fill"></div></div>
+    <div class="loading-text">Génération en cours...</div>
+  </div>
+
+  <div class="results-section" id="results-hab"></div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TAB 4: MODÈLE GOOGLE SHEETS
+═══════════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-modele">
+
+  <div class="info-box" style="margin-bottom:24px;">
+    <strong>📋 Comment configurer votre liste de classe dans Google Sheets</strong><br>
+    Copiez les en-têtes ci-dessous et collez-les dans la cellule <strong>A1</strong> de votre Google Sheets. Toutes les colonnes s'installeront automatiquement dans le bon ordre.
+  </div>
+
+  <div class="section-label" style="margin-bottom:16px;">Étapes</div>
+
+  <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:24px;">
+    <div style="display:flex; gap:12px; align-items:flex-start; font-size:14px; line-height:1.5;">
+      <div style="width:24px; height:24px; background:var(--bleu); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px;">1</div>
+      <span>Ouvrez un <strong>nouveau Google Sheets vide</strong></span>
+    </div>
+    <div style="display:flex; gap:12px; align-items:flex-start; font-size:14px; line-height:1.5;">
+      <div style="width:24px; height:24px; background:var(--bleu); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px;">2</div>
+      <span>Cliquez sur <strong>« Copier les en-têtes »</strong> ci-dessous</span>
+    </div>
+    <div style="display:flex; gap:12px; align-items:flex-start; font-size:14px; line-height:1.5;">
+      <div style="width:24px; height:24px; background:var(--bleu); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px;">3</div>
+      <span>Dans Google Sheets, cliquez sur la cellule <strong>A1</strong> et faites <code style="background:#e8e4dd; padding:1px 5px; border-radius:3px; font-size:11px; font-family:'Courier New',monospace;">Ctrl+V</code></span>
+    </div>
+    <div style="display:flex; gap:12px; align-items:flex-start; font-size:14px; line-height:1.5;">
+      <div style="width:24px; height:24px; background:var(--bleu); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px;">4</div>
+      <span>Remplissez vos données à partir de la ligne 2. Laissez les cellules vides pour les matières non enseignées — elles seront ignorées automatiquement</span>
+    </div>
+    <div style="display:flex; gap:12px; align-items:flex-start; font-size:14px; line-height:1.5;">
+      <div style="width:24px; height:24px; background:var(--bleu); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px;">5</div>
+      <span>Pour générer : sélectionnez <strong>toutes vos données (sans la ligne d'en-tête)</strong>, copiez, et collez dans l'onglet <strong>« Classe entière »</strong></span>
+    </div>
+  </div>
+
+  <button class="btn-primary" onclick="copySheetHeaders()" id="btn-copy-headers">
+    📋 Copier les en-têtes
+  </button>
+  <div id="headers-success" style="display:none; color:#2d6b4a; font-size:13px; font-weight:600; margin-top:10px;">
+    ✅ En-têtes copiées ! Collez maintenant dans la cellule A1 de votre Google Sheets.
+  </div>
+
+  <hr style="border:none; border-top:1.5px solid var(--gris-clair); margin:28px 0;">
+
+  <div class="section-label" style="margin-bottom:16px;">Aperçu des colonnes</div>
+
+  <div style="overflow-x:auto; margin-bottom:16px;">
+    <table style="border-collapse:collapse; white-space:nowrap; font-size:11px;">
+      <thead>
+        <tr>
+          <th style="background:#1a3a5c; color:white; padding:5px 10px; border:1px solid #2d6a9f;">A — Prénom</th>
+          <th style="background:#1a3a5c; color:white; padding:5px 10px; border:1px solid #2d6a9f;">B — Pronom</th>
+          <th style="background:#2d6b4a; color:white; padding:5px 10px; border:1px solid #1a5a38;">C — Cote Maths</th>
+          <th style="background:#2d6b4a; color:white; padding:5px 10px; border:1px solid #1a5a38;">D — Obs Maths</th>
+          <th style="background:#8b3a3a; color:white; padding:5px 10px; border:1px solid #6b2a2a;">E — Cote Français</th>
+          <th style="background:#8b3a3a; color:white; padding:5px 10px; border:1px solid #6b2a2a;">F — Obs Français</th>
+          <th style="background:#8b5e2d; color:white; padding:5px 10px; border:1px solid #6b4a1a;">G — Cote Ét. soc.</th>
+          <th style="background:#8b5e2d; color:white; padding:5px 10px; border:1px solid #6b4a1a;">H — Obs Ét. soc.</th>
+          <th style="background:#4a3a8b; color:white; padding:5px 10px; border:1px solid #3a2a7b;">I — Cote Sciences</th>
+          <th style="background:#4a3a8b; color:white; padding:5px 10px; border:1px solid #3a2a7b;">J — Obs Sciences</th>
+          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">K — Cote Arts vis.</th>
+          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">L — Obs Arts vis.</th>
+          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">M — Cote Musique</th>
+          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">N — Obs Musique</th>
+          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">O — Cote Danse</th>
+          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">P — Obs Danse</th>
+          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">Q — Cote Art dram.</th>
+          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">R — Obs Art dram.</th>
+          <th style="background:#1a6b6b; color:white; padding:5px 10px; border:1px solid #0a5a5a;">S — Cote Éd. phys.</th>
+          <th style="background:#1a6b6b; color:white; padding:5px 10px; border:1px solid #0a5a5a;">T — Obs Éd. phys.</th>
+          <th style="background:#6b1a4a; color:white; padding:5px 10px; border:1px solid #5a0a3a;">U — Cote Ens. rel.</th>
+          <th style="background:#6b1a4a; color:white; padding:5px 10px; border:1px solid #5a0a3a;">V — Obs Ens. rel.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">Marie Tremblay</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">elle</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">B+</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">Progrès en calcul</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">A</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">C+</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">B</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">Très créative</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">A-</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">B+</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
+        </tr>
+        <tr>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">Thomas Martin</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">il</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">C</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">Difficultés fractions</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">B-</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">B</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">C+</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">B</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">B+</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">A</td>
+          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:12px; color:#777; line-height:1.7; font-style:italic;">
+    💡 <strong style="font-style:normal;">Pronom :</strong> Écrire exactement <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">elle</code>, <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">il</code>, ou <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">iel</code><br>
+    💡 <strong style="font-style:normal;">Cotes acceptées :</strong> A+ &nbsp;A &nbsp;A- &nbsp;B+ &nbsp;B &nbsp;B- &nbsp;C+ &nbsp;C &nbsp;C- &nbsp;D+ &nbsp;D &nbsp;D-<br>
+    💡 <strong style="font-style:normal;">Cellule vide</strong> = matière ignorée pour cet élève<br>
+    💡 Les <strong style="font-style:normal;">observations</strong> sont optionnelles
+  </p>
+
+</div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════════
+// DATA
+// ════════════════════════════════════════════════════════════════
+const MATIERES = ['Mathématiques','Français','Études sociales','Sciences et technologie','Arts (arts visuels)','Arts (musique)','Arts (danse)','Arts (art dramatique)','Éducation physique et santé','Enseignement religieux'];
+
+const ATTENTES = {
+  'Mathématiques': {
+    '1': ['B1 — Sens du nombre : lire, représenter et composer les nombres naturels jusqu\'à 50','B2 — Opérations : additionner et soustraire jusqu\'à 20','C1 — Algèbre : identifier et décrire des régularités dans des suites','D1 — Données : recueillir et organiser des données simples','E1 — Géométrie : décrire et représenter des formes 2D et 3D','E2 — Mesure : mesurer avec des unités non standard','F1 — Littératie financière : identifier différentes façons de payer'],
+    '2': ['B1 — Sens du nombre : représenter et composer les nombres jusqu\'à 200','B2 — Opérations : additionner et soustraire jusqu\'à 100','B3 — Fractions : décrire les fractions comme parties d\'un tout','C1 — Algèbre : identifier des régularités croissantes','D1 — Données : recueillir et afficher dans des diagrammes','E1 — Géométrie : classifier et comparer des figures','E2 — Mesure : mesurer la longueur en cm et m','F1 — Littératie financière : valeur des pièces et billets'],
+    '3': ['B1 — Sens du nombre : représenter les nombres jusqu\'à 1000','B2 — Opérations : multiplier et diviser avec les faits de base','B3 — Fractions : comparer et ordonner des fractions simples','C1 — Algèbre : créer des régularités avec tables et graphiques','D1 — Données : analyser et formuler des conclusions','E1 — Géométrie : classifier les figures selon leurs propriétés','E2 — Mesure : calculer périmètre et aire'],
+    '4': ['B1 — Sens du nombre : lire et représenter les nombres jusqu\'à 10 000','B1 — Fractions : lire, représenter, comparer et ordonner des fractions','B1 — Décimaux : lire et représenter jusqu\'aux dixièmes','B2 — Opérations : multiplier et diviser des nombres à deux chiffres','C1 — Algèbre : identifier des régularités dans des tables de valeurs','C2 — Équations : représenter et résoudre des équations simples','D1 — Données : diagrammes à bandes et probabilités simples','E1 — Géométrie : propriétés des rectangles et transformations','E2 — Mesure : aire et périmètre de rectangles','F1 — Littératie financière : besoins, désirs et décisions financières'],
+    '5': ['B1 — Sens du nombre : nombres jusqu\'à 100 000 et décimaux aux centièmes','B1 — Fractions : comparer des fractions avec dénominateurs différents','B2 — Opérations : multiplier et diviser des nombres à plusieurs chiffres','B2 — Fractions : multiplier des fractions par des nombres naturels','C1 — Algèbre : tables de valeurs et régularités','C2 — Équations : résoudre avec une variable','D1 — Données : diagrammes variés et probabilités','E1 — Géométrie : propriétés des triangles et transformations','E2 — Mesure : volume de prismes rectangulaires','F1 — Littératie financière : facteurs influençant les décisions'],
+    '6': ['B1 — Sens du nombre : entiers, décimaux et pourcentages','B1 — Fractions : multiplier et diviser des fractions','B2 — Opérations : nombres entiers négatifs','B2 — Ratios et taux : rapports et taux équivalents','C1 — Algèbre : régularités croissantes et décroissantes','C2 — Équations : équations avec nombres entiers','D1 — Données : analyser et interpréter des diagrammes variés','D2 — Probabilité : théorique et expérimentale','E1 — Géométrie : propriétés des quadrilatères et transformations','E2 — Mesure : aire de triangles et parallélogrammes','F1 — Littératie financière : facteurs influençant l\'épargne']
+  },
+  'Français': {
+    '1': ['A — Communication orale : écouter et s\'exprimer dans diverses situations','B — Lecture : lire des textes variés avec des stratégies de compréhension','C — Écriture : écrire des textes simples en respectant les conventions de base','D — Médias : identifier et interpréter des messages médiatiques simples'],
+    '2': ['A — Communication orale : communiquer oralement avec clarté','B — Lecture : lire et comprendre des textes variés','C — Écriture : rédiger des textes clairs et organisés','D — Médias : analyser et créer des messages médiatiques simples'],
+    '3': ['A — Communication orale : s\'exprimer avec clarté et précision','B — Lecture : lire et interpréter des textes littéraires et informatifs','C — Écriture : planifier, rédiger et réviser des textes organisés','D — Médias : analyser l\'intention et les effets de messages médiatiques'],
+    '4': ['A — Communication orale : s\'exprimer avec efficacité dans des contextes variés','B — Lecture : lire et analyser des textes littéraires et courants','C — Écriture : produire des textes bien structurés','D — Médias : analyser et produire des messages médiatiques'],
+    '5': ['A — Communication orale : communiquer de façon efficace et nuancée','B — Lecture : lire, interpréter et analyser des textes complexes','C — Écriture : rédiger des textes bien développés avec un style clair','D — Médias : analyser de façon critique et produire des messages'],
+    '6': ['A — Communication orale : s\'exprimer avec précision et esprit critique','B — Lecture : lire et analyser de façon critique des textes variés','C — Écriture : rédiger des textes élaborés adaptés au contexte','D — Médias : analyser et créer des messages médiatiques complexes']
+  },
+  'Études sociales': {
+    '1': ['A — Recherche et communication : formuler des questions et communiquer des découvertes','B — Patrimoine et identité : décrire les caractéristiques de sa famille et de sa communauté','C — Personnes et environnements : décrire son environnement naturel et construit'],
+    '2': ['A — Recherche et communication : utiliser des habiletés de recherche','B — Patrimoine et identité : identifier des pratiques de diverses communautés','C — Personnes et environnements : décrire les interactions avec l\'environnement'],
+    '3': ['A — Recherche et communication : utiliser des sources variées','B — Patrimoine et identité : comparer des communautés canadiennes','C — Personnes et environnements : caractéristiques physiques et humaines des régions'],
+    '4': ['A — Recherche et communication : analyser des sources primaires et secondaires','B — Patrimoine et identité : premières sociétés humaines','C — Personnes et environnements : provinces et territoires du Canada'],
+    '5': ['A — Recherche et communication : analyser des informations pour tirer des conclusions','B — Patrimoine et identité : premières nations et sociétés coloniales','C — Personnes et environnements : régions du Canada'],
+    '6': ['A — Recherche et communication : évaluer des sources et des perspectives','B — Patrimoine et identité : développements historiques et leurs impacts','C — Personnes et environnements : enjeux environnementaux mondiaux']
+  },
+  'Sciences et technologie': {
+    '1': ['Vie et êtres vivants : observer les êtres vivants dans leur environnement','Matière et énergie : propriétés des objets et matériaux','Structures et mécanismes : construire des structures simples','Terre et espace : caractéristiques saisonnières'],
+    '2': ['Vie et êtres vivants : croissance et changements des animaux','Matière et énergie : propriétés des liquides et solides','Structures et mécanismes : les mouvements','Terre et espace : l\'air et l\'eau dans l\'environnement'],
+    '3': ['Vie et êtres vivants : croissance et changements des plantes','Matière et énergie : forces et mouvement','Structures et mécanismes : structures solides et stables','Terre et espace : géologie du sol'],
+    '4': ['Vie et êtres vivants : habitats et communautés','Matière et énergie : lumière et son','Structures et mécanismes : poulies et engrenages','Terre et espace : roches et minéraux'],
+    '5': ['Vie et êtres vivants : conservation de l\'énergie et des ressources','Matière et énergie : propriétés et changements de la matière','Structures et mécanismes : forces agissant sur les structures','Terre et espace : le système solaire'],
+    '6': ['Vie et êtres vivants : biodiversité','Matière et énergie : électricité et circuits électriques','Structures et mécanismes : les aéronefs','Terre et espace : changements atmosphériques']
+  },
+  'Arts (arts visuels)': { '1': ['Création et expression : créer des œuvres avec des éléments de base','Analyse et appréciation : décrire et interpréter des œuvres'], '2': ['Création et expression : explorer des techniques variées','Analyse et appréciation : analyser des œuvres de différentes cultures'], '3': ['Création et expression : créer des œuvres expressives avec divers médias','Analyse et appréciation : analyser et interpréter des œuvres'], '4': ['Création et expression : créer des œuvres intentionnelles et significatives','Analyse et appréciation : analyser avec un vocabulaire spécialisé'], '5': ['Création et expression : maîtriser les techniques et créer avec sophistication','Analyse et appréciation : analyser et évaluer de façon critique'], '6': ['Création et expression : créer des œuvres complexes avec intention artistique','Analyse et appréciation : analyser en contexte culturel'] },
+  'Arts (musique)': { '1': ['Création et expression : créer et interpréter de la musique simple','Analyse et appréciation : identifier des éléments musicaux'], '2': ['Création et expression : créer et interpréter avec des structures de base','Analyse et appréciation : analyser des éléments musicaux'], '3': ['Création et expression : créer et interpréter avec expression','Analyse et appréciation : analyser diverses formes musicales'], '4': ['Création et expression : créer et interpréter avec technique et expression','Analyse et appréciation : analyser avec un vocabulaire précis'], '5': ['Création et expression : créer et interpréter avec habileté et créativité','Analyse et appréciation : analyser et évaluer de façon critique'], '6': ['Création et expression : créer et interpréter des œuvres complexes','Analyse et appréciation : analyser en contexte culturel'] },
+  'Arts (danse)': { '1': ['Création et expression : créer des mouvements expressifs simples','Analyse et appréciation : identifier des éléments de la danse'], '2': ['Création et expression : créer des séquences de mouvements','Analyse et appréciation : analyser des éléments de la danse'], '3': ['Création et expression : créer des danses expressives','Analyse et appréciation : analyser diverses formes de danse'], '4': ['Création et expression : interpréter avec technique et expression','Analyse et appréciation : analyser avec un vocabulaire précis'], '5': ['Création et expression : créer et interpréter avec habileté','Analyse et appréciation : analyser et évaluer des œuvres'], '6': ['Création et expression : créer des danses complexes et significatives','Analyse et appréciation : analyser de façon critique'] },
+  'Arts (art dramatique)': { '1': ['Création et expression : créer et interpréter des personnages simples','Analyse et appréciation : identifier des éléments de base du théâtre'], '2': ['Création et expression : créer et interpréter des scènes','Analyse et appréciation : analyser des éléments dramatiques'], '3': ['Création et expression : créer des situations dramatiques expressives','Analyse et appréciation : analyser diverses formes théâtrales'], '4': ['Création et expression : créer et interpréter avec technique','Analyse et appréciation : analyser des œuvres dramatiques'], '5': ['Création et expression : créer et interpréter avec complexité','Analyse et appréciation : analyser et évaluer de façon critique'], '6': ['Création et expression : créer des œuvres dramatiques significatives','Analyse et appréciation : analyser de façon critique'] },
+  'Éducation physique et santé': { '1': ['Habiletés motrices : développer des habiletés motrices fondamentales','Activité physique : participer à des activités variées','Vie saine : identifier des habitudes de vie saine'], '2': ['Habiletés motrices : habiletés locomotrices et manipulatrices','Activité physique : participer régulièrement','Vie saine : facteurs contribuant à une vie saine'], '3': ['Habiletés motrices : appliquer dans des activités variées','Activité physique : bienfaits de l\'activité régulière','Vie saine : stratégies pour maintenir une bonne santé'], '4': ['Habiletés motrices : démontrer dans divers contextes','Activité physique : principes de conditionnement physique','Vie saine : facteurs influençant les choix de vie saine'], '5': ['Habiletés motrices : raffiner dans des activités complexes','Activité physique : planifier des programmes d\'activité','Vie saine : influences sur les décisions liées à la santé'], '6': ['Habiletés motrices : stratégies tactiques dans des activités','Activité physique : impact sur la santé globale','Vie saine : prendre des décisions éclairées'] },
+  'Enseignement religieux': { '1': ['Foi et vie : valeurs chrétiennes dans la vie quotidienne','Prière et liturgie : participer à des moments de prière','Vie en communauté : agir avec amour et respect'], '2': ['Foi et vie : valeurs évangéliques','Prière et liturgie : sacrements et prière','Vie en communauté : servir les autres'], '3': ['Foi et vie : relier les enseignements évangéliques au quotidien','Prière et liturgie : fêtes liturgiques','Vie en communauté : actions de service'], '4': ['Foi et vie : valeurs évangéliques et choix de vie','Prière et liturgie : sens des sacrements','Vie en communauté : justice sociale'], '5': ['Foi et vie : foi chrétienne et enjeux contemporains','Prière et liturgie : tradition liturgique','Vie en communauté : responsabilité sociale'], '6': ['Foi et vie : éthique et valeurs chrétiennes','Prière et liturgie : sens des pratiques liturgiques','Vie en communauté : service et justice'] }
+};
+
+// Column mapping for paste: [coteCol, obsCol] (0-indexed, after Prénom=0, Pronom=1)
+const MATIERE_COLS = [
+  { name: 'Mathématiques', cote: 2, obs: 3 },
+  { name: 'Français', cote: 4, obs: 5 },
+  { name: 'Études sociales', cote: 6, obs: 7 },
+  { name: 'Sciences et technologie', cote: 8, obs: 9 },
+  { name: 'Arts (arts visuels)', cote: 10, obs: 11 },
+  { name: 'Arts (musique)', cote: 12, obs: 13 },
+  { name: 'Arts (danse)', cote: 14, obs: 15 },
+  { name: 'Arts (art dramatique)', cote: 16, obs: 17 },
+  { name: 'Éducation physique et santé', cote: 18, obs: 19 },
+  { name: 'Enseignement religieux', cote: 20, obs: 21 }
+];
+
+// ════════════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════════════
+let selectedNiveau = '';
+let selectedPronom = 'elle';
+let selectedPronomHab = 'elle';
+let cotesHab = {};
+let classeAttentesSelected = {}; // { matiereNom: [attente1, attente2, ...] }
+let selectedAttentesInd = []; // individual tab
+let generatedResults = []; // { matiere, students: [{name, cote, comment}], attentes: [...] }
+
+// ════════════════════════════════════════════════════════════════
+// TAB SWITCHING
+// ════════════════════════════════════════════════════════════════
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  const tabMap = { classe: 0, individuel: 1, habiletes: 2, modele: 3 };
+  document.querySelectorAll('.tab')[tabMap[tab]].classList.add('active');
+  document.getElementById(`panel-${tab === 'individuel' ? 'individuel' : tab}`).classList.add('active');
+}
+
+const SHEET_HEADERS = [
+  'Prénom',
+  'Pronom (elle/il/iel)',
+  'Cote Mathématiques',
+  'Observations Mathématiques',
+  'Cote Français',
+  'Observations Français',
+  'Cote Études sociales',
+  'Observations Études sociales',
+  'Cote Sciences et technologie',
+  'Observations Sciences et technologie',
+  'Cote Arts (arts visuels)',
+  'Observations Arts (arts visuels)',
+  'Cote Arts (musique)',
+  'Observations Arts (musique)',
+  'Cote Arts (danse)',
+  'Observations Arts (danse)',
+  'Cote Arts (art dramatique)',
+  'Observations Arts (art dramatique)',
+  'Cote Éducation physique et santé',
+  'Observations Éducation physique et santé',
+  'Cote Enseignement religieux',
+  'Observations Enseignement religieux'
+].join('\t');
+
+function copySheetHeaders() {
+  navigator.clipboard.writeText(SHEET_HEADERS).then(() => {
+    const btn = document.getElementById('btn-copy-headers');
+    const msg = document.getElementById('headers-success');
+    btn.textContent = '✅ Copié !';
+    msg.style.display = 'block';
+    setTimeout(() => { btn.innerHTML = '📋 Copier les en-têtes'; }, 3000);
+  }).catch(() => {
+    const el = document.createElement('textarea');
+    el.value = SHEET_HEADERS;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    document.getElementById('headers-success').style.display = 'block';
+  });
+}
+
+// ════════════════════════════════════════════════════════════════
+// CLASSE ENTIÈRE — ATTENTES UI
+// ════════════════════════════════════════════════════════════════
+function updateClasseAttentes() {
+  const annee = document.getElementById('classe-annee').value;
+  const container = document.getElementById('classe-attentes-container');
+  classeAttentesSelected = {};
+  if (!annee) { container.innerHTML = '<p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d\'abord l\'année d\'études.</p>'; return; }
+
+  let html = '';
+  MATIERES.forEach(matiere => {
+    const attentes = ATTENTES[matiere]?.[annee] || [];
+    if (!attentes.length) return;
+    html += `
+      <div class="matiere-section">
+        <div class="matiere-header" onclick="toggleMatiere('${matiere.replace(/'/g,"\\'")}')">
+          <h3>${matiere}</h3>
+          <span class="toggle" id="toggle-${matiere.replace(/\s/g,'_').replace(/[()]/g,'')}">▶</span>
+        </div>
+        <div class="matiere-body" id="body-${matiere.replace(/\s/g,'_').replace(/[()]/g,'')}">
+          <p style="font-size:12px; color:#777; margin-bottom:10px;">Sélectionnez les attentes enseignées cette période :</p>
+          ${attentes.map((a, i) => `
+            <label class="attente-item" id="ai-${matiere.replace(/\s/g,'_').replace(/[()]/g,'')}-${i}">
+              <input type="checkbox" onchange="toggleAttente('${matiere.replace(/'/g,"\\'")}', ${i})" data-attente="${a.replace(/"/g,'&quot;')}">
+              <span>${a}</span>
+            </label>`).join('')}
+        </div>
+      </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function toggleMatiere(matiere) {
+  const key = matiere.replace(/\s/g,'_').replace(/[()]/g,'');
+  const body = document.getElementById(`body-${key}`);
+  const toggle = document.getElementById(`toggle-${key}`);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  toggle.textContent = isOpen ? '▶' : '▼';
+}
+
+function toggleAttente(matiere, idx) {
+  const key = matiere.replace(/\s/g,'_').replace(/[()]/g,'');
+  const annee = document.getElementById('classe-annee').value;
+  const attentes = ATTENTES[matiere]?.[annee] || [];
+  const attente = attentes[idx];
+  if (!classeAttentesSelected[matiere]) classeAttentesSelected[matiere] = [];
+  const pos = classeAttentesSelected[matiere].indexOf(attente);
+  if (pos === -1) classeAttentesSelected[matiere].push(attente);
+  else classeAttentesSelected[matiere].splice(pos, 1);
+}
+
+// ════════════════════════════════════════════════════════════════
+// INDIVIDUAL TAB — UI
+// ════════════════════════════════════════════════════════════════
+function updateMatieres() {
+  const annee = document.getElementById('annee').value;
+  const sel = document.getElementById('matiere');
+  sel.innerHTML = '<option value="">— Sélectionner —</option>';
+  if (annee) MATIERES.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; sel.appendChild(o); });
+  document.getElementById('attentes-list-individuel').innerHTML = '<p style="color:#999; font-style:italic; font-size:13px; padding:8px;">Sélectionnez la matière d\'abord.</p>';
+  selectedAttentesInd = [];
+}
+
+function updateAttentes() {
+  const annee = document.getElementById('annee').value;
+  const matiere = document.getElementById('matiere').value;
+  const list = document.getElementById('attentes-list-individuel');
+  selectedAttentesInd = [];
+  if (!annee || !matiere || !ATTENTES[matiere]?.[annee]) { list.innerHTML = '<p style="color:#999; font-style:italic; font-size:13px; padding:8px;">Aucune attente disponible.</p>'; return; }
+  list.innerHTML = ATTENTES[matiere][annee].map((a, i) => `
+    <label class="attente-item" id="ind-att-${i}">
+      <input type="checkbox" onchange="toggleAttenteInd(${i}, '${a.replace(/'/g,"\\'")}')">
+      <span>${a}</span>
+    </label>`).join('');
+}
+
+function toggleAttenteInd(idx, attente) {
+  const pos = selectedAttentesInd.indexOf(attente);
+  if (pos === -1) selectedAttentesInd.push(attente);
+  else selectedAttentesInd.splice(pos, 1);
+  document.getElementById(`ind-att-${idx}`).classList.toggle('selected', pos === -1);
+}
+
+function selectNiveau(n) {
+  selectedNiveau = n;
+  document.querySelectorAll('.niveau-btn').forEach(b => { b.className = 'niveau-btn'; if (b.textContent === n) b.classList.add(`sel-${n.charAt(0)}`); });
+}
+function selectPronom(p) { selectedPronom = p; ['elle','il','iel'].forEach(x => document.getElementById(`btn-${x}`).classList.toggle('selected', x === p)); }
+function selectPronomHab(p) { selectedPronomHab = p; ['elle','il','iel'].forEach(x => document.getElementById(`btn-${x}-hab`).classList.toggle('selected', x === p)); }
+function selectCote(hab, cote) {
+  cotesHab[hab] = cote;
+  document.getElementById(`hab-${hab}`).querySelectorAll('.cote-btn').forEach(b => { b.className = 'cote-btn'; if (b.textContent === cote) b.classList.add(`sel-${cote}`); });
+}
+
+// ════════════════════════════════════════════════════════════════
+// PROMPT HELPERS
+// ════════════════════════════════════════════════════════════════
+const niveauDesc = {
+  'A+':'excellent (niveau 4+, supérieur à la norme provinciale avec maîtrise exceptionnelle)',
+  'A':'excellent (niveau 4, supérieur à la norme provinciale)',
+  'A-':'très bien (niveau 4-, légèrement au-dessus de la norme provinciale)',
+  'B+':'bien (niveau 3+, correspond à la norme provinciale avec quelques forces supplémentaires)',
+  'B':'bien (niveau 3, correspond pleinement à la norme provinciale)',
+  'B-':'bien (niveau 3-, correspond généralement à la norme provinciale)',
+  'C+':'satisfaisant (niveau 2+, se rapproche de la norme avec des progrès notables)',
+  'C':'satisfaisant (niveau 2, se rapproche de la norme provinciale)',
+  'C-':'satisfaisant (niveau 2-, se rapproche avec quelques difficultés)',
+  'D+':'en développement (niveau 1+, inférieur à la norme, des progrès sont observés)',
+  'D':'en développement (niveau 1, inférieur à la norme provinciale)',
+  'D-':'en développement (niveau 1-, bien inférieur à la norme provinciale)'
+};
+
+const pronoms = {
+  'elle': { suj: 'elle', obj: 'la', poss: 'sa', poss2: 'ses', accord: 'e' },
+  'il':   { suj: 'il',  obj: 'le', poss: 'son', poss2: 'ses', accord: '' },
+  'iel':  { suj: 'iel', obj: 'leur', poss: 'son', poss2: 'ses', accord: '·e' }
+};
+
+function buildCommentPrompt(prenom, pronom, cote, attentes, matiere, annee, observations) {
+  const p = pronoms[pronom] || pronoms['elle'];
+  return `Tu es un expert en rédaction de commentaires de bulletin scolaire pour les écoles de langue française catholiques de l'Ontario.
+
+Génère UN commentaire de bulletin pour cet élève.
+
+ÉLÈVE : ${prenom} | Pronom : ${p.suj}/${p.obj}/${p.poss} | Accord : -${p.accord}
+ANNÉE : ${annee}e année | MATIÈRE : ${matiere}
+COTE : ${cote} — ${niveauDesc[cote] || 'rendement moyen'}
+ATTENTES ÉVALUÉES : ${attentes.join(' | ')}
+${observations ? `OBSERVATIONS : ${observations}` : ''}
+
+RÈGLES ABSOLUES :
+- 3 à 5 phrases, 80 à 120 mots
+- Structure : (1) point fort lié aux attentes, (2) aspect à développer, (3) prochaine étape concrète
+- Utiliser "${prenom}" au début et une fois maximum après
+- Pronoms corrects tout au long
+- Référence spécifique aux attentes listées
+- Ton bienveillant et professionnel
+- NE PAS mentionner les lettres de cote ni les niveaux chiffrés
+- Français impeccable avec tous les accents
+- Commencer directement par le prénom, sans titre ni en-tête
+
+Génère SEULEMENT le commentaire, rien d'autre.`;
+}
+
+// ════════════════════════════════════════════════════════════════
+// GENERATE — CLASSE ENTIÈRE
+// ════════════════════════════════════════════════════════════════
+async function generateClasse() {
+  const annee = document.getElementById('classe-annee').value;
+  const rawPaste = document.getElementById('class-paste').value.trim();
+
+  if (!annee) { alert('Veuillez sélectionner l\'année d\'études.'); return; }
+  if (!rawPaste) { alert('Veuillez coller votre liste de classe.'); return; }
+
+  // Parse students
+  const students = rawPaste.split('\n').map(line => line.split('\t')).filter(cols => cols[0]?.trim());
+
+  if (!students.length) { alert('Aucune donnée trouvée. Vérifiez le format de votre liste.'); return; }
+
+  // Determine which subjects have data
+  const activeMatieres = MATIERE_COLS.filter(mc =>
+    students.some(s => s[mc.cote]?.trim())
+  );
+
+  if (!activeMatieres.length) { alert('Aucune cote trouvée dans votre liste. Vérifiez les colonnes.'); return; }
+
+  // Check attentes selected
+  const matieresWithoutAttentes = activeMatieres.filter(mc => !classeAttentesSelected[mc.name]?.length);
+  if (matieresWithoutAttentes.length > 0) {
+    const names = matieresWithoutAttentes.map(m => m.name).join(', ');
+    if (!confirm(`Aucune attente sélectionnée pour : ${names}. Continuer quand même ?`)) return;
+  }
+
+  const btn = document.getElementById('btn-gen-classe');
+  btn.disabled = true;
+  btn.textContent = 'Génération en cours...';
+  const progressSection = document.getElementById('progress-classe');
+  progressSection.classList.add('visible');
+  document.getElementById('results-classe').classList.remove('visible');
+
+  // Count total comments to generate
+  let totalComments = 0;
+  activeMatieres.forEach(mc => {
+    students.forEach(s => { if (s[mc.cote]?.trim()) totalComments++; });
+  });
+
+  let doneComments = 0;
+  generatedResults = [];
+
+  for (const mc of activeMatieres) {
+    const matiereStudents = students.filter(s => s[mc.cote]?.trim());
+    if (!matiereStudents.length) continue;
+
+    const matiereResult = {
+      matiere: mc.name,
+      attentes: classeAttentesSelected[mc.name] || [],
+      students: []
+    };
+
+    for (const s of matiereStudents) {
+      const prenom = s[0]?.trim() || 'Élève';
+      const pronom = (s[1]?.trim().toLowerCase() || 'elle');
+      const cote = s[mc.cote]?.trim();
+      const obs = s[mc.obs]?.trim() || '';
+
+      updateProgress(doneComments, totalComments, `Génération : ${prenom} — ${mc.name}...`);
+
+      try {
+        const resp = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-6',
+            max_tokens: 400,
+            messages: [{ role: 'user', content: buildCommentPrompt(prenom, pronom, cote, matiereResult.attentes, mc.name, annee, obs) }]
+          })
+        });
+        const data = await resp.json();
+        const comment = data.content?.[0]?.text?.trim() || '[Erreur de génération]';
+        matiereResult.students.push({ name: prenom, pronom, cote, comment });
+      } catch(e) {
+        matiereResult.students.push({ name: prenom, pronom, cote, comment: '[Erreur réseau]' });
+      }
+
+      doneComments++;
+      await new Promise(r => setTimeout(r, 200)); // Small delay
+    }
+
+    generatedResults.push(matiereResult);
+  }
+
+  updateProgress(totalComments, totalComments, 'Génération terminée !');
+
+  displayClasseResults();
+
+  btn.disabled = false;
+  btn.textContent = '✨ Générer les commentaires pour toute la classe';
+}
+
+function updateProgress(done, total, text) {
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `${text} (${done}/${total})`;
+}
+
+function displayClasseResults() {
+  const container = document.getElementById('results-classe-content');
+  let html = '';
+  let totalStudents = 0;
+
+  generatedResults.forEach((mr, mIdx) => {
+    const attenteStr = mr.attentes.length ? mr.attentes.join(' · ') : 'Attentes non précisées';
+    html += `
+      <div class="subject-results">
+        <div class="subject-results-title">${mr.matiere}</div>
+        <div class="subject-attentes-note">Attentes : ${attenteStr}</div>
+        <table class="results-table">
+          <thead><tr>
+            <th style="width:150px;">Élève</th>
+            <th style="width:60px;">Cote</th>
+            <th>Commentaire</th>
+            <th style="width:90px;">Actions</th>
+          </tr></thead>
+          <tbody>`;
+
+    mr.students.forEach((st, sIdx) => {
+      totalStudents++;
+      const id = `c-${mIdx}-${sIdx}`;
+      const coteClass = st.cote ? `sel-${st.cote.charAt(0)}` : '';
+      html += `
+        <tr>
+          <td class="name-cell">${st.name}</td>
+          <td class="cote-cell"><span class="niveau-btn ${coteClass}" style="cursor:default;">${st.cote}</span></td>
+          <td class="comment-cell"><div id="${id}" contenteditable="false">${st.comment}</div></td>
+          <td class="edit-cell">
+            <button class="btn-mini" onclick="toggleEditCell('${id}')">✏️</button>
+            <button class="btn-mini" id="copy-${id}" onclick="copyCell('${id}')">📋</button>
+          </td>
+        </tr>`;
+    });
+
+    html += '</tbody></table></div>';
+  });
+
+  container.innerHTML = html;
+  const annee = document.getElementById('classe-annee').value;
+  document.getElementById('results-classe-title').textContent = `${totalStudents} commentaires générés — ${annee}e année`;
+  document.getElementById('results-classe').classList.add('visible');
+  document.getElementById('results-classe').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function toggleEditCell(id) {
+  const el = document.getElementById(id);
+  const isEditing = el.contentEditable === 'true';
+  el.contentEditable = isEditing ? 'false' : 'true';
+  if (!isEditing) el.focus();
+}
+
+function copyCell(id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(`copy-${id}`);
+    btn.textContent = '✅';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+
+// ════════════════════════════════════════════════════════════════
+// DOWNLOAD WORD
+// ════════════════════════════════════════════════════════════════
+async function downloadWord() {
+  if (!generatedResults.length) { alert('Aucun commentaire à télécharger.'); return; }
+
+  const btn = document.getElementById('btn-download');
+  btn.textContent = '⏳ Génération du document...';
+  btn.disabled = true;
+
+  // Collect current text from editable cells
+  const currentResults = generatedResults.map((mr, mIdx) => ({
+    ...mr,
+    students: mr.students.map((st, sIdx) => ({
+      ...st,
+      comment: document.getElementById(`c-${mIdx}-${sIdx}`)?.textContent || st.comment
+    }))
+  }));
+
+  const annee = document.getElementById('classe-annee').value;
+  const date = new Date().toLocaleDateString('fr-CA');
+
+  // Build the docx via a node script
+  const script = buildDocxScript(currentResults, annee, date);
+
+  // Write script to a blob and download
+  // Since we're in browser, we'll use a server-side approach via the API
+  // Instead, build a simple HTML version that Word can open
+  const html = buildWordHTML(currentResults, annee, date);
+  const blob = new Blob([html], { type: 'application/vnd.ms-word;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Bulletins_${annee}e_annee_${date}.doc`;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  btn.textContent = '📄 Télécharger Word (.docx)';
+  btn.disabled = false;
+}
+
+function buildWordHTML(results, annee, date) {
+  let html = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style>
+  body { font-family: Arial, sans-serif; font-size: 11pt; margin: 2cm; }
+  h1 { font-size: 16pt; color: #1a3a5c; border-bottom: 3pt solid #c9a84c; padding-bottom: 6pt; margin-bottom: 12pt; }
+  h2 { font-size: 13pt; color: #1a3a5c; background: #edf3fb; padding: 6pt 10pt; margin-top: 20pt; margin-bottom: 4pt; }
+  .attentes { font-size: 9pt; color: #666; font-style: italic; margin-bottom: 10pt; padding: 4pt 10pt; background: #f5f8fc; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20pt; }
+  th { background: #1a3a5c; color: white; font-size: 10pt; padding: 6pt 8pt; text-align: left; }
+  td { font-size: 10pt; padding: 6pt 8pt; border: 0.5pt solid #ccc; vertical-align: top; }
+  tr:nth-child(even) td { background: #fafaf8; }
+  .cote { font-weight: bold; font-size: 12pt; }
+  .footer { font-size: 8pt; color: #999; margin-top: 20pt; text-align: center; }
+</style>
+</head>
+<body>
+<h1>Bulletins — ${annee}e année — ${date}</h1>`;
+
+  results.forEach(mr => {
+    const attenteStr = mr.attentes.length ? mr.attentes.join(' · ') : 'Attentes non précisées';
+    html += `<h2>${mr.matiere}</h2>
+<div class="attentes">Attentes évaluées : ${attenteStr}</div>
+<table>
+<thead><tr><th style="width:15%">Élève</th><th style="width:7%">Cote</th><th>Commentaire</th></tr></thead>
+<tbody>`;
+    mr.students.forEach(st => {
+      html += `<tr>
+<td><strong>${st.name}</strong></td>
+<td class="cote">${st.cote}</td>
+<td>${st.comment}</td>
+</tr>`;
+    });
+    html += `</tbody></table>`;
+  });
+
+  html += `<div class="footer">Généré par MonProf.ai — ${date}</div></body></html>`;
+  return html;
+}
+
+function buildDocxScript(results, annee, date) {
+  return `// placeholder for server-side generation`;
+}
+
+// ════════════════════════════════════════════════════════════════
+// GENERATE — INDIVIDUEL
+// ════════════════════════════════════════════════════════════════
+async function generateIndividuel() {
+  const annee = document.getElementById('annee').value;
+  const matiere = document.getElementById('matiere').value;
+  const prenom = document.getElementById('prenom').value.trim() || '___';
+  const observations = document.getElementById('observations').value.trim();
+
+  if (!annee || !matiere || !selectedNiveau) { alert('Veuillez sélectionner l\'année, la matière et la cote.'); return; }
+  if (!selectedAttentesInd.length) { alert('Veuillez sélectionner au moins une attente.'); return; }
+
+  const btn = document.getElementById('btn-gen-ind');
+  btn.disabled = true; btn.textContent = 'Génération...';
+  document.getElementById('loading-ind').classList.add('visible');
+  document.getElementById('results-ind').classList.remove('visible');
+
+  const basePrompt = buildCommentPrompt(prenom, selectedPronom, selectedNiveau, selectedAttentesInd, matiere, annee, observations);
+  const threePrompt = basePrompt.replace('Génère UN commentaire', 'Génère TROIS commentaires distincts').replace('Génère SEULEMENT le commentaire, rien d\'autre.', 'Sépare les trois versions par exactement "---VERSION---". Pas de titre ni numérotation.');
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1000, messages: [{ role: 'user', content: threePrompt }] })
+    });
+    const data = await resp.json();
+    const text = data.content?.[0]?.text || '';
+    const versions = text.split('---VERSION---').map(v => v.trim()).filter(v => v.length > 20);
+    displayIndResults(versions, prenom, matiere, selectedNiveau);
+  } catch(e) {
+    document.getElementById('results-ind').innerHTML = `<div class="comment-card"><p style="color:red">Erreur : ${e.message}</p></div>`;
+    document.getElementById('results-ind').classList.add('visible');
+  }
+
+  btn.disabled = false; btn.textContent = '✨ Générer 3 versions';
+  document.getElementById('loading-ind').classList.remove('visible');
+}
+
+function displayIndResults(versions, prenom, matiere, niveau) {
+  const container = document.getElementById('results-ind');
+  const labels = ['Version 1', 'Version 2', 'Version 3'];
+  let html = '';
+  versions.forEach((text, i) => {
+    const id = `ind-${i}`;
+    html += `<div class="comment-card">
+      <div class="comment-label">${labels[i] || 'Commentaire'}</div>
+      <div class="comment-text" id="${id}" contenteditable="false">${text}</div>
+      <div class="comment-actions">
+        <button class="btn-secondary" onclick="toggleEditInd('${id}')">✏️ Modifier</button>
+        <button class="btn-primary" id="copy-ind-${id}" onclick="copyInd('${id}')" style="padding:7px 14px; font-size:12px;">📋 Copier</button>
+      </div>
+    </div>`;
+  });
+  container.innerHTML = html;
+  container.classList.add('visible');
+  container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function toggleEditInd(id) {
+  const el = document.getElementById(id);
+  const isEditing = el.contentEditable === 'true';
+  el.contentEditable = isEditing ? 'false' : 'true';
+  if (!isEditing) el.focus();
+}
+
+function copyInd(id) {
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
+    const btn = document.getElementById(`copy-ind-${id}`);
+    btn.textContent = '✅ Copié!';
+    setTimeout(() => { btn.textContent = '📋 Copier'; }, 2000);
+  });
+}
+
+// ════════════════════════════════════════════════════════════════
+// GENERATE — HABILETÉS
+// ════════════════════════════════════════════════════════════════
+async function generateHabiletes() {
+  const prenom = document.getElementById('prenom-hab').value.trim() || '___';
+  const obsHab = document.getElementById('obs-hab').value.trim();
+  const habLabels = { oral:'Utilisation du français oral', fiabilite:'Fiabilité', organisation:'Sens de l\'organisation', autonomie:'Autonomie', collaboration:'Esprit de collaboration', initiative:'Sens de l\'initiative', autoregulation:'Autorégulation' };
+  const cotesText = Object.entries(cotesHab).filter(([,v])=>v).map(([k,v])=>`${habLabels[k]} : ${v} (${v==='E'?'Excellent':v==='T'?'Très bien':v==='S'?'Satisfaisant':'Amélioration nécessaire'})`).join('\n');
+  if (!cotesText) { alert('Veuillez sélectionner au moins une cote.'); return; }
+
+  const btn = document.getElementById('btn-gen-hab');
+  btn.disabled = true; btn.textContent = 'Génération...';
+  document.getElementById('loading-hab').classList.add('visible');
+  document.getElementById('results-hab').classList.remove('visible');
+
+  const p = pronoms[selectedPronomHab] || pronoms['elle'];
+  const prompt = `Tu es un expert en rédaction de commentaires de bulletin scolaire pour les écoles de langue française catholiques de l'Ontario.
+
+Génère UN commentaire sur les habiletés d'apprentissage et habitudes de travail.
+
+ÉLÈVE : ${prenom} | Pronom : ${p.suj}/${p.obj}/${p.poss}
+COTES :
+${cotesText}
+${obsHab ? `OBSERVATIONS : ${obsHab}` : ''}
+
+RÈGLES :
+- 4 à 6 phrases, 100 à 150 mots
+- Mentionner les forces ET les aspects à améliorer naturellement dans le texte
+- Terminer par une prochaine étape encourageante et concrète
+- Utiliser "${prenom}" 2 à 3 fois
+- Pronoms corrects tout au long
+- Ton bienveillant et professionnel
+- Français impeccable
+
+Génère SEULEMENT le commentaire, sans titre ni en-tête.`;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 600, messages: [{ role: 'user', content: prompt }] })
+    });
+    const data = await resp.json();
+    const text = data.content?.[0]?.text?.trim() || '[Erreur]';
+    const container = document.getElementById('results-hab');
+    container.innerHTML = `<div class="comment-card">
+      <div class="comment-label">Commentaire habiletés d'apprentissage</div>
+      <div class="comment-text" id="hab-result" contenteditable="false">${text}</div>
+      <div class="comment-actions">
+        <button class="btn-secondary" onclick="toggleEditInd('hab-result')">✏️ Modifier</button>
+        <button class="btn-primary" onclick="copyInd('hab-result')" style="padding:7px 14px; font-size:12px;" id="copy-ind-hab-result">📋 Copier</button>
+      </div>
+    </div>`;
+    container.classList.add('visible');
+    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } catch(e) {
+    document.getElementById('results-hab').innerHTML = `<p style="color:red">Erreur : ${e.message}</p>`;
+    document.getElementById('results-hab').classList.add('visible');
+  }
+
+  btn.disabled = false; btn.textContent = '✨ Générer le commentaire';
+  document.getElementById('loading-hab').classList.remove('visible');
+}
+</script>
+</body>
+</html>
