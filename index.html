@@ -848,7 +848,7 @@ async function generateClasse() {
       updateProgress(doneComments, totalComments, `Génération : ${prenom} — ${mc.name}...`);
 
       try {
-        const resp = await fetch('https://api.anthropic.com/v1/messages', {
+        const resp = await fetch('https://web-production-f1270.up.railway.app/api/claude', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -1058,7 +1058,7 @@ async function generateIndividuel() {
   const threePrompt = basePrompt.replace('Génère UN commentaire', 'Génère TROIS commentaires distincts').replace('Génère SEULEMENT le commentaire, rien d\'autre.', 'Sépare les trois versions par exactement "---VERSION---". Pas de titre ni numérotation.');
 
   try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('https://web-production-f1270.up.railway.app/api/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1000, messages: [{ role: 'user', content: threePrompt }] })
@@ -1148,7 +1148,7 @@ RÈGLES :
 Génère SEULEMENT le commentaire, sans titre ni en-tête.`;
 
   try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('https://web-production-f1270.up.railway.app/api/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 600, messages: [{ role: 'user', content: prompt }] })
