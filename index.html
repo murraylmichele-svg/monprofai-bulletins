@@ -328,11 +328,12 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     TAB 3: HABILETÉS
+     TAB 3: HABILETÉS — PICK AND CHOOSE
 ═══════════════════════════════════════════════════════════ -->
 <div class="panel" id="panel-habiletes">
 
-  <div class="form-grid">
+  <!-- STEP 1: INFO -->
+  <div class="form-grid" style="margin-bottom:20px;">
     <div class="form-group">
       <label>Prénom de l'élève</label>
       <input type="text" id="prenom-hab" placeholder="ex. Marie, Thomas...">
@@ -345,34 +346,85 @@
         <button class="pronom-btn" id="btn-iel-hab" onclick="selectPronomHab('iel')">Iel</button>
       </div>
     </div>
+    <div class="form-group">
+      <label>Période de bulletin</label>
+      <select id="periode-hab">
+        <option value="progres">Bulletin de progrès (novembre)</option>
+        <option value="etape1" selected>1ère étape (février)</option>
+        <option value="etape2">2e étape (juin)</option>
+      </select>
+    </div>
   </div>
 
-  <div class="section-label" style="margin-bottom:14px;">Cotes des habiletés d'apprentissage</div>
+  <!-- STEP 2: COTES -->
+  <div class="section-label" style="margin-bottom:10px;">Étape 1 — Cotes</div>
   <p style="font-size:12px; color:#777; margin-bottom:14px;">E = Excellent &nbsp;|&nbsp; T = Très bien &nbsp;|&nbsp; S = Satisfaisant &nbsp;|&nbsp; N = Amélioration nécessaire</p>
 
-  <div class="hab-grid">
-    <div class="hab-item"><label>📢 Utilisation du français oral</label><div class="hab-cote" id="hab-oral"><button class="cote-btn" onclick="selectCote('oral','E')">E</button><button class="cote-btn" onclick="selectCote('oral','T')">T</button><button class="cote-btn" onclick="selectCote('oral','S')">S</button><button class="cote-btn" onclick="selectCote('oral','N')">N</button></div></div>
-    <div class="hab-item"><label>✅ Fiabilité</label><div class="hab-cote" id="hab-fiabilite"><button class="cote-btn" onclick="selectCote('fiabilite','E')">E</button><button class="cote-btn" onclick="selectCote('fiabilite','T')">T</button><button class="cote-btn" onclick="selectCote('fiabilite','S')">S</button><button class="cote-btn" onclick="selectCote('fiabilite','N')">N</button></div></div>
-    <div class="hab-item"><label>🗂️ Sens de l'organisation</label><div class="hab-cote" id="hab-organisation"><button class="cote-btn" onclick="selectCote('organisation','E')">E</button><button class="cote-btn" onclick="selectCote('organisation','T')">T</button><button class="cote-btn" onclick="selectCote('organisation','S')">S</button><button class="cote-btn" onclick="selectCote('organisation','N')">N</button></div></div>
-    <div class="hab-item"><label>🎯 Autonomie</label><div class="hab-cote" id="hab-autonomie"><button class="cote-btn" onclick="selectCote('autonomie','E')">E</button><button class="cote-btn" onclick="selectCote('autonomie','T')">T</button><button class="cote-btn" onclick="selectCote('autonomie','S')">S</button><button class="cote-btn" onclick="selectCote('autonomie','N')">N</button></div></div>
-    <div class="hab-item"><label>🤝 Esprit de collaboration</label><div class="hab-cote" id="hab-collaboration"><button class="cote-btn" onclick="selectCote('collaboration','E')">E</button><button class="cote-btn" onclick="selectCote('collaboration','T')">T</button><button class="cote-btn" onclick="selectCote('collaboration','S')">S</button><button class="cote-btn" onclick="selectCote('collaboration','N')">N</button></div></div>
-    <div class="hab-item"><label>💡 Sens de l'initiative</label><div class="hab-cote" id="hab-initiative"><button class="cote-btn" onclick="selectCote('initiative','E')">E</button><button class="cote-btn" onclick="selectCote('initiative','T')">T</button><button class="cote-btn" onclick="selectCote('initiative','S')">S</button><button class="cote-btn" onclick="selectCote('initiative','N')">N</button></div></div>
-    <div class="hab-item" style="grid-column:1/-1;"><label>🔄 Autorégulation</label><div class="hab-cote" id="hab-autoregulation"><button class="cote-btn" onclick="selectCote('autoregulation','E')">E</button><button class="cote-btn" onclick="selectCote('autoregulation','T')">T</button><button class="cote-btn" onclick="selectCote('autoregulation','S')">S</button><button class="cote-btn" onclick="selectCote('autoregulation','N')">N</button></div></div>
+  <div class="hab-grid" style="margin-bottom:24px;">
+    <div class="hab-item"><label>📢 Utilisation du français oral</label><div class="hab-cote" id="hab-oral"><button class="cote-btn" onclick="selectCoteNew('oral','E')">E</button><button class="cote-btn" onclick="selectCoteNew('oral','T')">T</button><button class="cote-btn" onclick="selectCoteNew('oral','S')">S</button><button class="cote-btn" onclick="selectCoteNew('oral','N')">N</button></div></div>
+    <div class="hab-item"><label>✅ Fiabilité</label><div class="hab-cote" id="hab-fiabilite"><button class="cote-btn" onclick="selectCoteNew('fiabilite','E')">E</button><button class="cote-btn" onclick="selectCoteNew('fiabilite','T')">T</button><button class="cote-btn" onclick="selectCoteNew('fiabilite','S')">S</button><button class="cote-btn" onclick="selectCoteNew('fiabilite','N')">N</button></div></div>
+    <div class="hab-item"><label>🗂️ Sens de l'organisation</label><div class="hab-cote" id="hab-organisation"><button class="cote-btn" onclick="selectCoteNew('organisation','E')">E</button><button class="cote-btn" onclick="selectCoteNew('organisation','T')">T</button><button class="cote-btn" onclick="selectCoteNew('organisation','S')">S</button><button class="cote-btn" onclick="selectCoteNew('organisation','N')">N</button></div></div>
+    <div class="hab-item"><label>🎯 Autonomie</label><div class="hab-cote" id="hab-autonomie"><button class="cote-btn" onclick="selectCoteNew('autonomie','E')">E</button><button class="cote-btn" onclick="selectCoteNew('autonomie','T')">T</button><button class="cote-btn" onclick="selectCoteNew('autonomie','S')">S</button><button class="cote-btn" onclick="selectCoteNew('autonomie','N')">N</button></div></div>
+    <div class="hab-item"><label>🤝 Esprit de collaboration</label><div class="hab-cote" id="hab-collaboration"><button class="cote-btn" onclick="selectCoteNew('collaboration','E')">E</button><button class="cote-btn" onclick="selectCoteNew('collaboration','T')">T</button><button class="cote-btn" onclick="selectCoteNew('collaboration','S')">S</button><button class="cote-btn" onclick="selectCoteNew('collaboration','N')">N</button></div></div>
+    <div class="hab-item"><label>💡 Sens de l'initiative</label><div class="hab-cote" id="hab-initiative"><button class="cote-btn" onclick="selectCoteNew('initiative','E')">E</button><button class="cote-btn" onclick="selectCoteNew('initiative','T')">T</button><button class="cote-btn" onclick="selectCoteNew('initiative','S')">S</button><button class="cote-btn" onclick="selectCoteNew('initiative','N')">N</button></div></div>
+    <div class="hab-item" style="grid-column:1/-1;"><label>🔄 Autorégulation</label><div class="hab-cote" id="hab-autoregulation"><button class="cote-btn" onclick="selectCoteNew('autoregulation','E')">E</button><button class="cote-btn" onclick="selectCoteNew('autoregulation','T')">T</button><button class="cote-btn" onclick="selectCoteNew('autoregulation','S')">S</button><button class="cote-btn" onclick="selectCoteNew('autoregulation','N')">N</button></div></div>
   </div>
 
-  <div class="form-group" style="margin-bottom:18px;">
-    <label>Observations particulières (optionnel)</label>
-    <textarea id="obs-hab" rows="3" placeholder="ex. Fait des efforts remarquables, difficultés à rester concentré..."></textarea>
+  <!-- STEP 3: FORCES -->
+  <div class="section-label" style="margin-bottom:10px;">Étape 2 — Forces (choisir 2 ou plus)</div>
+  <p style="font-size:12px; color:#777; margin-bottom:14px;">Cliquez sur une habileté pour voir les choix de phrases. Sélectionnez une phrase par habileté choisie.</p>
+  <div id="forces-container" style="margin-bottom:24px;">
+    <p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d'abord les cotes à l'étape 1.</p>
   </div>
 
-  <button class="btn-primary" onclick="generateHabiletes()" id="btn-gen-hab">✨ Générer le commentaire</button>
-
-  <div class="loading-bar" id="loading-hab">
-    <div class="loading-track"><div class="loading-fill"></div></div>
-    <div class="loading-text">Génération en cours...</div>
+  <!-- STEP 4: PROCHAINES ÉTAPES -->
+  <div class="section-label" style="margin-bottom:10px;">Étape 3 — Prochaine étape (choisir 1 ou 2)</div>
+  <p style="font-size:12px; color:#777; margin-bottom:14px;">Sélectionnez une phrase par habileté ciblée.</p>
+  <div id="prochaines-container" style="margin-bottom:24px;">
+    <p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d'abord les cotes à l'étape 1.</p>
   </div>
 
-  <div class="results-section" id="results-hab"></div>
+  <!-- IEP / EPAF -->
+  <div style="background:#f0f5fb; border:1.5px solid #c5d8ed; border-radius:10px; padding:16px; margin-bottom:20px;">
+    <div class="section-label" style="margin-bottom:12px;">Programmes particuliers</div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+
+      <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer; text-transform:none; letter-spacing:0; font-size:13px; font-weight:400;">
+        <input type="checkbox" id="pei-check" onchange="togglePEI()" style="margin-top:3px; accent-color:var(--bleu);">
+        <span><strong>PEI</strong> — L'élève bénéficie d'un Programme d'éducation individuel</span>
+      </label>
+
+      <div id="pei-habs" style="display:none; padding-left:24px; margin-top:4px;">
+        <p style="font-size:12px; color:#555; margin-bottom:8px;">Sélectionner les habiletés couvertes par le PEI :</p>
+        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="l'utilisation du français oral" style="accent-color:var(--bleu);"> Français oral</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="la fiabilité" style="accent-color:var(--bleu);"> Fiabilité</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="le sens de l'organisation" style="accent-color:var(--bleu);"> Organisation</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="l'autonomie" style="accent-color:var(--bleu);"> Autonomie</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="l'esprit de collaboration" style="accent-color:var(--bleu);"> Collaboration</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="le sens de l'initiative" style="accent-color:var(--bleu);"> Initiative</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="l'autorégulation" style="accent-color:var(--bleu);"> Autorégulation</label>
+        </div>
+      </div>
+
+      <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer; text-transform:none; letter-spacing:0; font-size:13px; font-weight:400;">
+        <input type="checkbox" id="epaf-check" style="margin-top:3px; accent-color:var(--bleu);">
+        <span><strong>EPAF</strong> — Programme d'actualisation du français</span>
+      </label>
+
+    </div>
+  </div>
+
+  <!-- ASSEMBLED COMMENT -->
+  <div class="section-label" style="margin-bottom:10px;">Commentaire assemblé</div>
+  <div id="hab-assembled-box" style="background:#fafaf8; border:1.5px solid var(--gris-clair); border-radius:10px; padding:16px; margin-bottom:16px; min-height:80px;">
+    <p style="color:#999; font-style:italic; font-size:13px;">Le commentaire s'assemblera ici au fur et à mesure de vos sélections.</p>
+  </div>
+  <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:8px;">
+    <span id="hab-char-count" style="font-size:12px; color:#777;">0 / 2560 caractères</span>
+    <button class="btn-secondary" onclick="toggleEditHab()">✏️ Modifier</button>
+    <button class="btn-primary" style="padding:9px 16px; font-size:13px;" onclick="copyHabComment()">📋 Copier</button>
+  </div>
 
 </div>
 
@@ -549,8 +601,8 @@ const ATTENTES = {
     '2': ['Vie et êtres vivants : croissance et changements des animaux','Matière et énergie : propriétés des liquides et solides','Structures et mécanismes : les mouvements','Terre et espace : l\'air et l\'eau dans l\'environnement'],
     '3': ['Vie et êtres vivants : croissance et changements des plantes','Matière et énergie : forces et mouvement','Structures et mécanismes : structures solides et stables','Terre et espace : géologie du sol'],
     '4': ['Vie et êtres vivants : habitats et communautés','Matière et énergie : lumière et son','Structures et mécanismes : poulies et engrenages','Terre et espace : roches et minéraux'],
-    '5': ['Vie et êtres vivants : conservation de l\'énergie et des ressources','Matière et énergie : propriétés et changements de la matière','Structures et mécanismes : forces agissant sur les structures','Terre et espace : le système solaire'],
-    '6': ['Vie et êtres vivants : biodiversité','Matière et énergie : électricité et circuits électriques','Structures et mécanismes : les aéronefs','Terre et espace : changements atmosphériques']
+    '5': ['Vie et êtres vivants : conservation de l\'énergie et des ressources','Matière et énergie : propriétés et changements de la matière','Structures et mécanismes : forces agissant sur les structures','Terre et espace : les caractéristiques de la Terre et de la Lune'],
+    '6': ['Vie et êtres vivants : biodiversité','Matière et énergie : électricité et circuits électriques','Structures et mécanismes : les aéronefs','Terre et espace : le système solaire']
   },
   'Arts (arts visuels)': { '1': ['Création et expression : créer des œuvres avec des éléments de base','Analyse et appréciation : décrire et interpréter des œuvres'], '2': ['Création et expression : explorer des techniques variées','Analyse et appréciation : analyser des œuvres de différentes cultures'], '3': ['Création et expression : créer des œuvres expressives avec divers médias','Analyse et appréciation : analyser et interpréter des œuvres'], '4': ['Création et expression : créer des œuvres intentionnelles et significatives','Analyse et appréciation : analyser avec un vocabulaire spécialisé'], '5': ['Création et expression : maîtriser les techniques et créer avec sophistication','Analyse et appréciation : analyser et évaluer de façon critique'], '6': ['Création et expression : créer des œuvres complexes avec intention artistique','Analyse et appréciation : analyser en contexte culturel'] },
   'Arts (musique)': { '1': ['Création et expression : créer et interpréter de la musique simple','Analyse et appréciation : identifier des éléments musicaux'], '2': ['Création et expression : créer et interpréter avec des structures de base','Analyse et appréciation : analyser des éléments musicaux'], '3': ['Création et expression : créer et interpréter avec expression','Analyse et appréciation : analyser diverses formes musicales'], '4': ['Création et expression : créer et interpréter avec technique et expression','Analyse et appréciation : analyser avec un vocabulaire précis'], '5': ['Création et expression : créer et interpréter avec habileté et créativité','Analyse et appréciation : analyser et évaluer de façon critique'], '6': ['Création et expression : créer et interpréter des œuvres complexes','Analyse et appréciation : analyser en contexte culturel'] },
@@ -1112,67 +1164,347 @@ function copyInd(id) {
 }
 
 // ════════════════════════════════════════════════════════════════
-// GENERATE — HABILETÉS
+// HABILETÉS — SENTENCE BANK
 // ════════════════════════════════════════════════════════════════
-async function generateHabiletes() {
-  const prenom = document.getElementById('prenom-hab').value.trim() || '___';
-  const obsHab = document.getElementById('obs-hab').value.trim();
-  const habLabels = { oral:'Utilisation du français oral', fiabilite:'Fiabilité', organisation:'Sens de l\'organisation', autonomie:'Autonomie', collaboration:'Esprit de collaboration', initiative:'Sens de l\'initiative', autoregulation:'Autorégulation' };
-  const cotesText = Object.entries(cotesHab).filter(([,v])=>v).map(([k,v])=>`${habLabels[k]} : ${v} (${v==='E'?'Excellent':v==='T'?'Très bien':v==='S'?'Satisfaisant':'Amélioration nécessaire'})`).join('\n');
-  if (!cotesText) { alert('Veuillez sélectionner au moins une cote.'); return; }
+const HAB_LABELS = {
+  oral: 'Utilisation du français oral',
+  fiabilite: 'Fiabilité',
+  organisation: "Sens de l'organisation",
+  autonomie: 'Autonomie',
+  collaboration: 'Esprit de collaboration',
+  initiative: "Sens de l'initiative",
+  autoregulation: 'Autorégulation'
+};
 
-  const btn = document.getElementById('btn-gen-hab');
-  btn.disabled = true; btn.textContent = 'Génération...';
-  document.getElementById('loading-hab').classList.add('visible');
-  document.getElementById('results-hab').classList.remove('visible');
+const HAB_FORCES = {
+  oral: [
+    '*N* cherche à s\'exprimer avec précision et à améliorer son vocabulaire en demandant la terminologie juste en français.',
+    '*N* s\'exprime toujours en français lors des discussions et des échanges en salle de classe.',
+    '*N* choisit de s\'exprimer souvent en français dans diverses situations de classe.',
+    '*N* s\'exprime en respectant les règles de la prise de parole et démontre l\'écoute active lors des activités d\'apprentissage.',
+    'Lors des tâches et des situations d\'apprentissage, *N* communique ses besoins et ses idées et prend la parole spontanément.',
+    '*N* s\'exprime en français lors de ses échanges avec ses amis en dehors de la salle de classe.'
+  ],
+  fiabilite: [
+    '*N* termine ses travaux selon la date d\'échéance convenue.',
+    '*N* démontre naturellement un comportement approprié selon l\'environnement et l\'activité.',
+    '*N* assume ses responsabilités et respecte ses engagements dans plusieurs contextes scolaires.',
+    '*N* prend part aux activités et aux responsabilités de la classe tout en démontrant son engagement continu.',
+    '*N* termine ses travaux dans les délais donnés en restant à la tâche pendant toute la période.',
+    '*N* fait preuve d\'intérêt et d\'enthousiasme face à l\'apprentissage et est fiable en faisant sa part du travail.'
+  ],
+  organisation: [
+    '*N* exploite les ressources, les outils technologiques et les stratégies de dépannage pour exécuter ses travaux.',
+    '*N* garde ses travaux propres et bien organisés en tout temps.',
+    '*N* détermine l\'ordre des priorités et cherche rapidement ses outils pour compléter les tâches.',
+    '*N* conçoit et met en œuvre un processus et un plan pour terminer son travail de façon efficace.',
+    '*N* gère son emploi du temps de façon à terminer les tâches et à atteindre ses objectifs.',
+    '*N* identifie et utilise les ressources appropriées pour accomplir ses travaux.'
+  ],
+  autonomie: [
+    '*N* arrive toujours en classe prête à apprendre et commence toujours son travail rapidement de façon autonome.',
+    '*N* respecte les routines et les consignes de façon autonome.',
+    '*N* utilise ses outils (critères, référentiels, matériel) et se questionne afin de faire preuve d\'autonomie.',
+    '*N* fait, de façon autonome, des plans, des suivis et des révisions afin de terminer les tâches.',
+    '*N* utilise efficacement le temps alloué en classe pour terminer ses tâches.',
+    '*N* demande de l\'aide au besoin et utilise les stratégies de dépannage avant de solliciter l\'adulte.'
+  ],
+  collaboration: [
+    '*N* maintient des relations positives et s\'intègre bien avec ses pairs lors des activités en petit groupe.',
+    '*N* se montre ouvert par rapport aux idées, aux opinions et aux valeurs des autres.',
+    '*N* partage des renseignements, des ressources et son expertise avec ses pairs afin de leur offrir de l\'appui.',
+    '*N* aime partager ses connaissances antérieures et ses idées dans les discussions de groupe.',
+    '*N* démontre toujours du respect envers ses pairs et les adultes par ses gestes et ses paroles.',
+    '*N* contribue activement aux activités de groupe et encourage ses pairs.'
+  ],
+  initiative: [
+    '*N* cherche et exploite de nouvelles idées et possibilités pour favoriser ses apprentissages.',
+    '*N* manifeste de l\'intérêt et de la curiosité dans un contexte d\'apprentissage.',
+    '*N* aborde les nouvelles tâches avec un esprit ouvert et une attitude positive.',
+    '*N* prend des risques et partage ses idées lors des discussions même lorsqu\'elle n\'est pas certaine.',
+    '*N* pose des questions pertinentes afin d\'approfondir sa compréhension.',
+    '*N* fait preuve d\'enthousiasme face à l\'apprentissage et cherche des nouvelles occasions d\'apprendre.'
+  ],
+  autoregulation: [
+    '*N* demande toujours de l\'aide et des éclaircissements au besoin.',
+    '*N* fait preuve de persévérance envers les travaux qui lui demandent plus d\'attention.',
+    '*N* se questionne à savoir ce qui est demandé et démontre de la précision et de la persévérance.',
+    '*N* évalue ses points forts et ses besoins afin de porter un regard critique sur ses travaux.',
+    '*N* compare son travail aux critères ou au modèle afin de repérer les ajustements à apporter.',
+    '*N* identifie les stratégies pour s\'améliorer et planifie ses prochaines étapes d\'apprentissage.'
+  ]
+};
 
-  const p = pronoms[selectedPronomHab] || pronoms['elle'];
-  const prompt = `Tu es un expert en rédaction de commentaires de bulletin scolaire pour les écoles de langue française catholiques de l'Ontario.
+const HAB_PROCHAINES = {
+  oral: [
+    '*N* devra s\'efforcer de s\'exprimer en français lorsqu\'elle communique ses idées et ses opinions dans divers contextes.',
+    'Lors des discussions, *N* devra chercher à s\'exprimer avec précision en demandant le terme ou l\'expression juste en français.',
+    '*N* sera encouragée à continuer à parler français à ses amis, en leur rappelant de lui parler français au besoin.',
+    '*N* sera amenée à continuer à améliorer son français en demandant le terme juste au besoin.',
+    '*N* devra s\'exprimer en respectant les règles de la prise de parole et démontrer l\'écoute active lors des présentations.',
+    '*N* sera encouragée à verbaliser sa pensée et à participer davantage aux discussions de groupe.'
+  ],
+  fiabilite: [
+    '*N* devra gérer son comportement selon l\'environnement et l\'activité.',
+    '*N* sera amené à rester à l\'écoute ou à la tâche afin de mieux comprendre les leçons et de compléter les travaux dans les délais donnés.',
+    '*N* sera encouragée à gérer ses propres responsabilités en restant à la tâche.',
+    '*N* sera amené à prendre de bonnes décisions en respectant les règles de vie de la classe.',
+    '*N* sera encouragée à rester à la tâche pendant toute la période afin de terminer ses travaux.',
+    '*N* devra porter attention aux leçons et aux consignes afin de mieux comprendre les attentes.'
+  ],
+  organisation: [
+    '*N* doit fournir des efforts au niveau de l\'organisation et de la gestion de temps.',
+    '*N* doit fournir des efforts au niveau de l\'organisation de son espace de travail en rangeant ses travaux à l\'endroit approprié.',
+    '*N* devra utiliser les ressources disponibles et les outils à sa disposition pour compléter ses travaux efficacement.',
+    '*N* sera encouragée à planifier son travail à l\'aide d\'une feuille de route afin de respecter les échéanciers.',
+    '*N* devra s\'assurer de réviser son travail afin de remettre un travail complet selon les critères établis.',
+    '*N* sera encouragée à gérer son temps de façon plus efficace afin de compléter ses travaux dans les délais donnés.'
+  ],
+  autonomie: [
+    '*N* devra apprendre à diriger ses apprentissages en établissant des objectifs personnels.',
+    '*N* sera amené à recueillir rapidement ses outils, à commencer son travail tout de suite et à rester concentré.',
+    '*N* sera encouragé à continuer à réviser son travail à l\'aide des critères afin d\'éviter l\'aide de l\'adulte pour corriger les petites erreurs.',
+    '*N* sera encouragée à prendre davantage des risques et à se faire confiance en évitant de poser des questions redondantes à l\'adulte.',
+    '*N* devra utiliser les référentiels et outils disponibles avant de demander de l\'aide à un adulte.',
+    '*N* sera encouragé à utiliser efficacement le temps alloué en classe pour terminer ses tâches de façon autonome.'
+  ],
+  collaboration: [
+    '*N* devra attendre son tour pour prendre la parole.',
+    '*N* devra établir de bons liens positifs avec ses pairs en étant consciente de leurs opinions et leurs idées.',
+    '*N* sera encouragé à établir de bonnes relations avec ses pairs en restant ouvert aux différences.',
+    '*N* continuera à prendre part aux jeux avec ses pairs et à s\'intégrer dans les conversations sociales.',
+    '*N* devra assumer la responsabilité de son comportement et collaborer avec les autres pour résoudre les différends.',
+    '*N* sera encouragée à partager davantage ses idées lors des discussions de groupe.'
+  ],
+  initiative: [
+    '*N* sera amenée à prendre davantage des risques et à se faire confiance en participant activement aux discussions.',
+    '*N* sera encouragé à partager ses idées lors des discussions, même lorsqu\'il n\'est pas certain.',
+    '*N* devra manifester davantage de curiosité et poser des questions afin d\'approfondir sa compréhension.',
+    '*N* sera encouragée à aborder les nouvelles tâches avec un esprit ouvert et une attitude positive.',
+    '*N* sera encouragé à chercher des nouvelles occasions d\'apprendre et à prendre des initiatives.',
+    '*N* devra s\'impliquer davantage dans les discussions en partageant ses observations et ses réflexions.'
+  ],
+  autoregulation: [
+    '*N* devra continuer à déterminer des possibilités et des stratégies qui lui permettront de répondre à ses besoins.',
+    '*N* devra continuer à évaluer ses points forts et ses besoins afin de porter un regard critique sur ses travaux.',
+    '*N* devra aborder de nouvelles tâches avec un esprit ouvert et une attitude positive.',
+    '*N* devra faire preuve de persévérance et s\'efforcer de relever des défis dans divers contextes.',
+    '*N* sera incité à demander rapidement des éclaircissements au besoin afin d\'éviter de se décourager.',
+    '*N* sera encouragée à gérer ses frustrations et à rester persévérante lorsqu\'elle rencontre des défis ou fait une erreur.'
+  ]
+};
 
-Génère UN commentaire sur les habiletés d'apprentissage et habitudes de travail.
+// ════════════════════════════════════════════════════════════════
+// HABILETÉS — STATE & LOGIC
+// ════════════════════════════════════════════════════════════════
+let cotesHabNew = {};
+let selectedForces = {};   // { habKey: sentenceText }
+let selectedProchaines = {}; // { habKey: sentenceText }
 
-ÉLÈVE : ${prenom} | Pronom : ${p.suj}/${p.obj}/${p.poss}
-COTES :
-${cotesText}
-${obsHab ? `OBSERVATIONS : ${obsHab}` : ''}
+function selectCoteNew(hab, cote) {
+  cotesHabNew[hab] = cote;
+  // Update button styles
+  document.getElementById(`hab-${hab}`).querySelectorAll('.cote-btn').forEach(b => {
+    b.className = 'cote-btn';
+    if (b.textContent === cote) b.classList.add(`sel-${cote}`);
+  });
+  // Rebuild force/prochaine sections
+  buildForcesSection();
+  buildProchainessSection();
+}
 
-RÈGLES :
-- 4 à 6 phrases, 100 à 150 mots
-- Mentionner les forces ET les aspects à améliorer naturellement dans le texte
-- Terminer par une prochaine étape encourageante et concrète
-- Utiliser "${prenom}" 2 à 3 fois
-- Pronoms corrects tout au long
-- Ton bienveillant et professionnel
-- Français impeccable
+function buildForcesSection() {
+  const container = document.getElementById('forces-container');
+  const habs = Object.keys(cotesHabNew).filter(k => cotesHabNew[k]);
+  if (!habs.length) { container.innerHTML = '<p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d\'abord les cotes à l\'étape 1.</p>'; return; }
 
-Génère SEULEMENT le commentaire, sans titre ni en-tête.`;
+  let html = '';
+  habs.forEach(hab => {
+    const label = HAB_LABELS[hab];
+    const sentences = HAB_FORCES[hab] || [];
+    const isOpen = selectedForces[hab] !== undefined;
+    html += `
+      <div style="border:1.5px solid var(--gris-clair); border-radius:8px; margin-bottom:10px; overflow:hidden;">
+        <div style="background:#f4f1ec; padding:10px 14px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;"
+             onclick="toggleForcesHab('${hab}')">
+          <span style="font-size:13px; font-weight:600; color:var(--bleu);">${label}</span>
+          <span id="force-toggle-${hab}" style="color:var(--bleu-clair); font-size:16px;">${isOpen ? '▼' : '▶'}</span>
+        </div>
+        <div id="force-body-${hab}" style="padding:12px; display:${isOpen ? 'block' : 'none'};">
+          ${sentences.map((s, i) => {
+            const sel = selectedForces[hab] === s;
+            return `<div onclick="selectForce('${hab}', ${i})"
+              style="padding:8px 12px; margin-bottom:6px; border-radius:6px; cursor:pointer; font-size:13px; line-height:1.5;
+              background:${sel ? '#edf3fb' : '#fafaf8'}; border:1.5px solid ${sel ? 'var(--bleu-clair)' : 'var(--gris-clair)'};"
+              id="force-${hab}-${i}">
+              ${s.replace(/\*N\*/g, '<strong>[Prénom]</strong>')}
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+  });
+  container.innerHTML = html;
+}
 
-  try {
-    const resp = await fetch('https://web-production-f1270.up.railway.app/api/claude', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 600, messages: [{ role: 'user', content: prompt }] })
-    });
-    const data = await resp.json();
-    const text = data.content?.[0]?.text?.trim() || '[Erreur]';
-    const container = document.getElementById('results-hab');
-    container.innerHTML = `<div class="comment-card">
-      <div class="comment-label">Commentaire habiletés d'apprentissage</div>
-      <div class="comment-text" id="hab-result" contenteditable="false">${text}</div>
-      <div class="comment-actions">
-        <button class="btn-secondary" onclick="toggleEditInd('hab-result')">✏️ Modifier</button>
-        <button class="btn-primary" onclick="copyInd('hab-result')" style="padding:7px 14px; font-size:12px;" id="copy-ind-hab-result">📋 Copier</button>
-      </div>
-    </div>`;
-    container.classList.add('visible');
-    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  } catch(e) {
-    document.getElementById('results-hab').innerHTML = `<p style="color:red">Erreur : ${e.message}</p>`;
-    document.getElementById('results-hab').classList.add('visible');
+function buildProchainessSection() {
+  const container = document.getElementById('prochaines-container');
+  const habs = Object.keys(cotesHabNew).filter(k => cotesHabNew[k]);
+  if (!habs.length) { container.innerHTML = '<p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d\'abord les cotes à l\'étape 1.</p>'; return; }
+
+  let html = '';
+  habs.forEach(hab => {
+    const label = HAB_LABELS[hab];
+    const sentences = HAB_PROCHAINES[hab] || [];
+    const isOpen = selectedProchaines[hab] !== undefined;
+    html += `
+      <div style="border:1.5px solid var(--gris-clair); border-radius:8px; margin-bottom:10px; overflow:hidden;">
+        <div style="background:#f4f1ec; padding:10px 14px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;"
+             onclick="toggleProchainHab('${hab}')">
+          <span style="font-size:13px; font-weight:600; color:var(--bleu);">${label}</span>
+          <span id="proch-toggle-${hab}" style="color:var(--bleu-clair); font-size:16px;">${isOpen ? '▼' : '▶'}</span>
+        </div>
+        <div id="proch-body-${hab}" style="padding:12px; display:${isOpen ? 'block' : 'none'};">
+          ${sentences.map((s, i) => {
+            const sel = selectedProchaines[hab] === s;
+            return `<div onclick="selectProchaine('${hab}', ${i})"
+              style="padding:8px 12px; margin-bottom:6px; border-radius:6px; cursor:pointer; font-size:13px; line-height:1.5;
+              background:${sel ? '#fff8e8' : '#fafaf8'}; border:1.5px solid ${sel ? 'var(--or)' : 'var(--gris-clair)'};"
+              id="proch-${hab}-${i}">
+              ${s.replace(/\*N\*/g, '<strong>[Prénom]</strong>')}
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function toggleForcesHab(hab) {
+  const body = document.getElementById(`force-body-${hab}`);
+  const toggle = document.getElementById(`force-toggle-${hab}`);
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  toggle.textContent = isOpen ? '▶' : '▼';
+}
+
+function toggleProchainHab(hab) {
+  const body = document.getElementById(`proch-body-${hab}`);
+  const toggle = document.getElementById(`proch-toggle-${hab}`);
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  toggle.textContent = isOpen ? '▶' : '▼';
+}
+
+function selectForce(hab, idx) {
+  const sentence = HAB_FORCES[hab][idx];
+  selectedForces[hab] = sentence;
+  // Update UI
+  HAB_FORCES[hab].forEach((s, i) => {
+    const el = document.getElementById(`force-${hab}-${i}`);
+    if (el) {
+      el.style.background = i === idx ? '#edf3fb' : '#fafaf8';
+      el.style.border = `1.5px solid ${i === idx ? 'var(--bleu-clair)' : 'var(--gris-clair)'}`;
+    }
+  });
+  assembleComment();
+}
+
+function selectProchaine(hab, idx) {
+  const sentence = HAB_PROCHAINES[hab][idx];
+  selectedProchaines[hab] = sentence;
+  // Update UI
+  HAB_PROCHAINES[hab].forEach((s, i) => {
+    const el = document.getElementById(`proch-${hab}-${i}`);
+    if (el) {
+      el.style.background = i === idx ? '#fff8e8' : '#fafaf8';
+      el.style.border = `1.5px solid ${i === idx ? 'var(--or)' : 'var(--gris-clair)'}`;
+    }
+  });
+  assembleComment();
+}
+
+function togglePEI() {
+  const checked = document.getElementById('pei-check').checked;
+  document.getElementById('pei-habs').style.display = checked ? 'block' : 'none';
+  assembleComment();
+}
+
+function assembleComment() {
+  const prenom = document.getElementById('prenom-hab').value.trim() || '[Prénom]';
+  const periode = document.getElementById('periode-hab').value;
+
+  // Build sentences replacing *N* with prénom
+  const forceSentences = Object.values(selectedForces)
+    .map(s => s.replace(/\*N\*/g, prenom));
+  const prochaineSentences = Object.values(selectedProchaines)
+    .map(s => s.replace(/\*N\*/g, prenom));
+
+  let comment = '';
+
+  if (forceSentences.length) {
+    comment += forceSentences.join(' ') + ' ';
+  }
+  if (prochaineSentences.length) {
+    comment += prochaineSentences.join(' ');
   }
 
-  btn.disabled = false; btn.textContent = '✨ Générer le commentaire';
-  document.getElementById('loading-hab').classList.remove('visible');
+  // Add PEI sentence if checked
+  if (document.getElementById('pei-check').checked) {
+    const checkedHabs = [...document.querySelectorAll('.pei-hab-cb:checked')].map(cb => cb.value);
+    if (checkedHabs.length) {
+      const habList = checkedHabs.length === 1
+        ? checkedHabs[0]
+        : checkedHabs.slice(0, -1).join(', ') + ' et ' + checkedHabs[checkedHabs.length - 1];
+
+      const peiSentence = periode === 'progres'
+        ? `${prenom} bénéficie d'attentes différentes reliées à ${habList} telles qu'énoncées au PEI. Un commentaire plus exhaustif face à ces habiletés et habitudes sera consigné au PEI pour le bulletin de la première étape.`
+        : `${prenom} bénéficie d'attentes différentes reliées à ${habList} comme énoncées au PEI. Un commentaire plus exhaustif face à ces habiletés et habitudes est consigné au bulletin alternatif.`;
+
+      comment += (comment ? ' ' : '') + peiSentence;
+    }
+  }
+
+  comment = comment.trim();
+
+  const box = document.getElementById('hab-assembled-box');
+  const counter = document.getElementById('hab-char-count');
+  const charCount = comment.length;
+
+  if (comment) {
+    box.innerHTML = `<div id="hab-assembled-text" contenteditable="false" style="font-size:14px; line-height:1.75;">${comment}</div>`;
+  } else {
+    box.innerHTML = '<p style="color:#999; font-style:italic; font-size:13px;">Le commentaire s\'assemblera ici au fur et à mesure de vos sélections.</p>';
+  }
+
+  counter.textContent = `${charCount} / 2560 caractères`;
+  counter.style.color = charCount > 2560 ? 'var(--rouge-doux)' : '#777';
+  counter.style.fontWeight = charCount > 2560 ? '700' : '400';
+}
+
+function toggleEditHab() {
+  const el = document.getElementById('hab-assembled-text');
+  if (!el) return;
+  const isEditing = el.contentEditable === 'true';
+  el.contentEditable = isEditing ? 'false' : 'true';
+  if (!isEditing) {
+    el.focus();
+    el.addEventListener('input', () => {
+      const c = el.textContent.length;
+      const counter = document.getElementById('hab-char-count');
+      counter.textContent = `${c} / 2560 caractères`;
+      counter.style.color = c > 2560 ? 'var(--rouge-doux)' : '#777';
+    });
+  }
+}
+
+function copyHabComment() {
+  const el = document.getElementById('hab-assembled-text');
+  if (!el) { alert('Aucun commentaire à copier.'); return; }
+  navigator.clipboard.writeText(el.textContent).then(() => {
+    const btn = event.target;
+    btn.textContent = '✅ Copié!';
+    setTimeout(() => { btn.textContent = '📋 Copier'; }, 2000);
+  });
 }
 </script>
 </body>
