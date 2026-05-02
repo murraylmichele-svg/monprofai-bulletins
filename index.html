@@ -31,7 +31,7 @@
   .header-text p { font-size: 12px; opacity: 0.65; margin-top: 2px; font-weight: 300; letter-spacing: 0.04em; }
   .header-stripe { height: 3px; background: linear-gradient(90deg, var(--or), var(--or-clair), var(--or)); }
 
-  .tabs { max-width: 1100px; margin: 0 auto; padding: 24px 40px 0; display: flex; gap: 4px; }
+  .tabs { max-width: 1100px; margin: 0 auto; padding: 24px 40px 0; display: flex; gap: 4px; flex-wrap: wrap; }
   .tab { padding: 10px 20px; border: none; background: var(--gris-clair); color: var(--gris-texte); font-family: 'Source Sans 3', sans-serif; font-size: 13px; font-weight: 500; border-radius: 8px 8px 0 0; cursor: pointer; transition: all 0.2s; }
   .tab.active { background: var(--blanc); color: var(--bleu); font-weight: 600; box-shadow: 0 -2px 0 var(--or) inset; }
   .tab:hover:not(.active) { background: #ddd9d2; }
@@ -56,6 +56,8 @@
   .niveau-btn.sel-B { background: #e8f0f8; border-color: var(--bleu-clair); color: var(--bleu-clair); font-weight: 700; }
   .niveau-btn.sel-C { background: #fef6e4; border-color: var(--orange-doux); color: var(--orange-doux); font-weight: 700; }
   .niveau-btn.sel-D { background: #fceaea; border-color: var(--rouge-doux); color: var(--rouge-doux); font-weight: 700; }
+  .niveau-btn.sel-T { background: #e8f4e8; border-color: var(--vert-doux); color: var(--vert-doux); font-weight: 700; }
+  .niveau-btn.sel-B2 { background: #e8f0f8; border-color: var(--bleu-clair); color: var(--bleu-clair); font-weight: 700; }
 
   .pronom-group { display: flex; gap: 6px; }
   .pronom-btn { flex: 1; padding: 7px; border: 1.5px solid var(--gris-clair); border-radius: 7px; background: white; font-family: 'Source Sans 3', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; text-align: center; }
@@ -85,7 +87,6 @@
   .paste-area { font-family: 'Courier New', monospace; font-size: 12px; min-height: 160px; line-height: 1.6; }
   .paste-instructions { background: #f0f5fb; border: 1.5px solid #c5d8ed; border-radius: 8px; padding: 14px 16px; margin-bottom: 14px; font-size: 13px; line-height: 1.6; }
   .paste-instructions strong { color: var(--bleu); }
-  .paste-instructions code { background: #e0ecf8; padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: 'Courier New', monospace; }
 
   /* MATIERE SECTIONS */
   .matiere-section { border: 1.5px solid var(--gris-clair); border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
@@ -152,14 +153,26 @@
   .cote-btn.sel-S { background: var(--orange-doux); border-color: var(--orange-doux); color: white; }
   .cote-btn.sel-N { background: var(--rouge-doux); border-color: var(--rouge-doux); color: white; }
 
+  /* TYPE BULLETIN TOGGLE */
+  .bulletin-type-group { display: flex; gap: 0; margin-bottom: 20px; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--bleu); }
+  .bulletin-type-btn { flex: 1; padding: 10px 16px; border: none; background: white; color: var(--bleu); font-family: 'Source Sans 3', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: center; }
+  .bulletin-type-btn.active { background: var(--bleu); color: white; }
+  .bulletin-type-btn:not(:last-child) { border-right: 1.5px solid var(--bleu); }
+
+  /* CHAR COUNTER */
+  .char-counter { font-size: 11px; color: #888; margin-top: 4px; }
+  .char-counter.warning { color: var(--orange-doux); font-weight: 600; }
+  .char-counter.over { color: var(--rouge-doux); font-weight: 700; }
+
   @media (max-width: 700px) {
     .header-inner, .tabs, .main { padding-left: 16px; padding-right: 16px; }
-    .form-grid, .hab-grid { grid-column: 1fr; }
+    .form-grid, .hab-grid { grid-template-columns: 1fr; }
     .panel { padding: 16px; }
   }
 
   .info-box { background: #edf3fb; border: 1.5px solid #c5d8ed; border-radius: 8px; padding: 12px 16px; font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
   .tag { display: inline-block; background: var(--bleu); color: white; border-radius: 12px; padding: 2px 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; margin-left: 6px; vertical-align: middle; }
+  .tag-or { background: var(--or); color: var(--bleu); }
 </style>
 </head>
 <body>
@@ -176,7 +189,7 @@
 </header>
 
 <div class="tabs">
-  <button class="tab active" onclick="switchTab('classe')">👥 Classe entière <span class="tag">NOUVEAU</span></button>
+  <button class="tab active" onclick="switchTab('classe')">👥 Classe entière <span class="tag">IA</span></button>
   <button class="tab" onclick="switchTab('individuel')">👤 Élève individuel</button>
   <button class="tab" onclick="switchTab('habiletes')">⭐ Habiletés</button>
   <button class="tab" onclick="switchTab('modele')">📋 Modèle Google Sheets</button>
@@ -189,19 +202,32 @@
 ═══════════════════════════════════════════════════════════ -->
 <div class="panel active" id="panel-classe">
 
+  <!-- BULLETIN TYPE SELECTOR -->
+  <div style="margin-bottom:20px;">
+    <div class="section-label" style="margin-bottom:12px;">Type de bulletin</div>
+    <div class="bulletin-type-group" style="max-width:500px;">
+      <button class="bulletin-type-btn active" id="btn-type-progres" onclick="setBulletinType('progres')">
+        📋 Bulletin de progrès<br><span style="font-size:10px; font-weight:400; opacity:0.8;">Cotes : T · B · D</span>
+      </button>
+      <button class="bulletin-type-btn" id="btn-type-scolaire" onclick="setBulletinType('scolaire')">
+        📄 Bulletin scolaire<br><span style="font-size:10px; font-weight:400; opacity:0.8;">Cotes : A / B / C / D (+ / -)</span>
+      </button>
+    </div>
+  </div>
+
   <div class="paste-instructions">
     <strong>📋 Comment utiliser le mode Classe entière :</strong><br>
     1. Ouvrez votre liste de classe dans Google Sheets (utilisez l'onglet <em>Modèle Google Sheets</em> si vous n'avez pas encore votre liste)<br>
     2. Sélectionnez toutes vos données <strong>sans la ligne d'en-tête</strong> et copiez (<code style="background:#dce8f5; padding:1px 5px; border-radius:3px; font-size:11px;">Ctrl+C</code>)<br>
-    3. Collez dans la zone ci-dessous (<code style="background:#dce8f5; padding:1px 5px; border-radius:3px; font-size:11px;">Ctrl+V</code>) — les matières sans cote seront ignorées automatiquement
+    3. Collez dans la zone ci-dessous — les matières sans cote seront ignorées automatiquement
   </div>
 
   <div class="form-group full" style="margin-bottom:18px;">
-    <label>Liste de classe</label>
+    <label>Liste de classe (coller depuis Google Sheets)</label>
     <textarea class="paste-area" id="class-paste" rows="10" placeholder="Collez votre liste de classe ici..."></textarea>
   </div>
 
-  <div class="form-group" style="margin-bottom: 20px;">
+  <div class="form-group" style="margin-bottom: 20px; max-width:300px;">
     <label>Année d'études</label>
     <select id="classe-annee" onchange="updateClasseAttentes()">
       <option value="">— Sélectionner —</option>
@@ -215,10 +241,9 @@
   </div>
 
   <div class="section-label">Attentes évaluées par matière</div>
-  <div class="info-box">Sélectionnez les attentes enseignées cette période. Seules les matières avec des cotes dans votre liste seront incluses dans le document Word.</div>
+  <div class="info-box">Sélectionnez les attentes enseignées cette période. Seules les matières avec des cotes dans votre liste seront incluses dans le document.</div>
 
   <div id="classe-attentes-container">
-    <!-- Populated dynamically -->
     <p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d'abord l'année d'études.</p>
   </div>
 
@@ -237,7 +262,7 @@
     <div class="results-actions">
       <span class="results-title" id="results-classe-title">Commentaires générés</span>
       <button class="btn-success" onclick="downloadWord()" id="btn-download">
-        📄 Télécharger Word (.docx)
+        📄 Télécharger Word (.doc)
       </button>
     </div>
     <div id="results-classe-content"></div>
@@ -249,6 +274,19 @@
      TAB 2: ÉLÈVE INDIVIDUEL
 ═══════════════════════════════════════════════════════════ -->
 <div class="panel" id="panel-individuel">
+
+  <!-- BULLETIN TYPE -->
+  <div style="margin-bottom:20px;">
+    <div class="section-label" style="margin-bottom:12px;">Type de bulletin</div>
+    <div class="bulletin-type-group" style="max-width:500px;">
+      <button class="bulletin-type-btn active" id="btn-ind-type-progres" onclick="setIndBulletinType('progres')">
+        📋 Bulletin de progrès<br><span style="font-size:10px; font-weight:400; opacity:0.8;">Cotes : T · B · D</span>
+      </button>
+      <button class="bulletin-type-btn" id="btn-ind-type-scolaire" onclick="setIndBulletinType('scolaire')">
+        📄 Bulletin scolaire<br><span style="font-size:10px; font-weight:400; opacity:0.8;">Cotes : A / B / C / D (+ / -)</span>
+      </button>
+    </div>
+  </div>
 
   <div class="form-grid">
     <div class="form-group">
@@ -279,19 +317,8 @@
 
     <div class="form-group full">
       <label>Cote au bulletin</label>
-      <div class="niveau-group" id="niveau-group">
-        <button class="niveau-btn" onclick="selectNiveau('A+')">A+</button>
-        <button class="niveau-btn" onclick="selectNiveau('A')">A</button>
-        <button class="niveau-btn" onclick="selectNiveau('A-')">A-</button>
-        <button class="niveau-btn" onclick="selectNiveau('B+')">B+</button>
-        <button class="niveau-btn" onclick="selectNiveau('B')">B</button>
-        <button class="niveau-btn" onclick="selectNiveau('B-')">B-</button>
-        <button class="niveau-btn" onclick="selectNiveau('C+')">C+</button>
-        <button class="niveau-btn" onclick="selectNiveau('C')">C</button>
-        <button class="niveau-btn" onclick="selectNiveau('C-')">C-</button>
-        <button class="niveau-btn" onclick="selectNiveau('D+')">D+</button>
-        <button class="niveau-btn" onclick="selectNiveau('D')">D</button>
-        <button class="niveau-btn" onclick="selectNiveau('D-')">D-</button>
+      <div class="niveau-group" id="niveau-group-ind">
+        <!-- Populated by setIndBulletinType -->
       </div>
     </div>
 
@@ -332,11 +359,10 @@
 ═══════════════════════════════════════════════════════════ -->
 <div class="panel" id="panel-habiletes">
 
-  <!-- STEP 1: INFO -->
   <div class="form-grid" style="margin-bottom:20px;">
     <div class="form-group">
       <label>Prénom de l'élève</label>
-      <input type="text" id="prenom-hab" placeholder="ex. Marie, Thomas...">
+      <input type="text" id="prenom-hab" placeholder="ex. Marie, Thomas..." oninput="assembleComment()">
     </div>
     <div class="form-group">
       <label>Pronom</label>
@@ -348,7 +374,7 @@
     </div>
     <div class="form-group">
       <label>Période de bulletin</label>
-      <select id="periode-hab">
+      <select id="periode-hab" onchange="assembleComment()">
         <option value="progres">Bulletin de progrès (novembre)</option>
         <option value="etape1" selected>1ère étape (février)</option>
         <option value="etape2">2e étape (juin)</option>
@@ -356,7 +382,6 @@
     </div>
   </div>
 
-  <!-- STEP 2: COTES -->
   <div class="section-label" style="margin-bottom:10px;">Étape 1 — Cotes</div>
   <p style="font-size:12px; color:#777; margin-bottom:14px;">E = Excellent &nbsp;|&nbsp; T = Très bien &nbsp;|&nbsp; S = Satisfaisant &nbsp;|&nbsp; N = Amélioration nécessaire</p>
 
@@ -370,49 +395,43 @@
     <div class="hab-item" style="grid-column:1/-1;"><label>🔄 Autorégulation</label><div class="hab-cote" id="hab-autoregulation"><button class="cote-btn" onclick="selectCoteNew('autoregulation','E')">E</button><button class="cote-btn" onclick="selectCoteNew('autoregulation','T')">T</button><button class="cote-btn" onclick="selectCoteNew('autoregulation','S')">S</button><button class="cote-btn" onclick="selectCoteNew('autoregulation','N')">N</button></div></div>
   </div>
 
-  <!-- STEP 3: FORCES -->
   <div class="section-label" style="margin-bottom:10px;">Étape 2 — Forces (choisir 2 ou plus)</div>
   <p style="font-size:12px; color:#777; margin-bottom:14px;">Cliquez sur une habileté pour voir les choix de phrases. Sélectionnez une phrase par habileté choisie.</p>
   <div id="forces-container" style="margin-bottom:24px;">
     <p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d'abord les cotes à l'étape 1.</p>
   </div>
 
-  <!-- STEP 4: PROCHAINES ÉTAPES -->
   <div class="section-label" style="margin-bottom:10px;">Étape 3 — Prochaine étape (choisir 1 ou 2)</div>
   <p style="font-size:12px; color:#777; margin-bottom:14px;">Sélectionnez une phrase par habileté ciblée.</p>
   <div id="prochaines-container" style="margin-bottom:24px;">
     <p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d'abord les cotes à l'étape 1.</p>
   </div>
 
-  <!-- IEP / EPAF -->
+  <!-- PEI -->
   <div style="background:#f0f5fb; border:1.5px solid #c5d8ed; border-radius:10px; padding:16px; margin-bottom:20px;">
     <div class="section-label" style="margin-bottom:12px;">Programmes particuliers</div>
     <div style="display:flex; flex-direction:column; gap:10px;">
-
       <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer; text-transform:none; letter-spacing:0; font-size:13px; font-weight:400;">
         <input type="checkbox" id="pei-check" onchange="togglePEI()" style="margin-top:3px; accent-color:var(--bleu);">
         <span><strong>PEI</strong> — L'élève bénéficie d'un Programme d'éducation individuel</span>
       </label>
-
       <div id="pei-habs" style="display:none; padding-left:24px; margin-top:4px;">
         <p style="font-size:12px; color:#555; margin-bottom:8px;">Sélectionner les habiletés couvertes par le PEI :</p>
         <div style="display:flex; flex-wrap:wrap; gap:6px;">
-          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="l'utilisation du français oral" style="accent-color:var(--bleu);"> Français oral</label>
-          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="la fiabilité" style="accent-color:var(--bleu);"> Fiabilité</label>
-          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="le sens de l'organisation" style="accent-color:var(--bleu);"> Organisation</label>
-          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="l'autonomie" style="accent-color:var(--bleu);"> Autonomie</label>
-          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="l'esprit de collaboration" style="accent-color:var(--bleu);"> Collaboration</label>
-          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="le sens de l'initiative" style="accent-color:var(--bleu);"> Initiative</label>
-          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="l'autorégulation" style="accent-color:var(--bleu);"> Autorégulation</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="l'utilisation du français oral" onchange="assembleComment()" style="accent-color:var(--bleu);"> Français oral</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="la fiabilité" onchange="assembleComment()" style="accent-color:var(--bleu);"> Fiabilité</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="le sens de l'organisation" onchange="assembleComment()" style="accent-color:var(--bleu);"> Organisation</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="l'autonomie" onchange="assembleComment()" style="accent-color:var(--bleu);"> Autonomie</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="l'esprit de collaboration" onchange="assembleComment()" style="accent-color:var(--bleu);"> Collaboration</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="le sens de l'initiative" onchange="assembleComment()" style="accent-color:var(--bleu);"> Initiative</label>
+          <label style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:400; text-transform:none; letter-spacing:0; cursor:pointer;"><input type="checkbox" class="pei-hab-cb" value="l'autorégulation" onchange="assembleComment()" style="accent-color:var(--bleu);"> Autorégulation</label>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ASSEMBLED COMMENT -->
   <div class="section-label" style="margin-bottom:10px;">Commentaire assemblé</div>
-  <div id="hab-assembled-box" style="background:#fafaf8; border:1.5px solid var(--gris-clair); border-radius:10px; padding:16px; margin-bottom:16px; min-height:80px;">
+  <div id="hab-assembled-box" style="background:#fafaf8; border:1.5px solid var(--gris-clair); border-radius:10px; padding:16px; margin-bottom:8px; min-height:80px;">
     <p style="color:#999; font-style:italic; font-size:13px;">Le commentaire s'assemblera ici au fur et à mesure de vos sélections.</p>
   </div>
   <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:8px;">
@@ -430,11 +449,10 @@
 
   <div class="info-box" style="margin-bottom:24px;">
     <strong>📋 Comment configurer votre liste de classe dans Google Sheets</strong><br>
-    Copiez les en-têtes ci-dessous et collez-les dans la cellule <strong>A1</strong> de votre Google Sheets. Toutes les colonnes s'installeront automatiquement dans le bon ordre.
+    Copiez les en-têtes ci-dessous et collez-les dans la cellule <strong>A1</strong> de votre Google Sheets.
   </div>
 
   <div class="section-label" style="margin-bottom:16px;">Étapes</div>
-
   <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:24px;">
     <div style="display:flex; gap:12px; align-items:flex-start; font-size:14px; line-height:1.5;">
       <div style="width:24px; height:24px; background:var(--bleu); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px;">1</div>
@@ -458,104 +476,28 @@
     </div>
   </div>
 
-  <button class="btn-primary" onclick="copySheetHeaders()" id="btn-copy-headers">
-    📋 Copier les en-têtes
-  </button>
-  <div id="headers-success" style="display:none; color:#2d6b4a; font-size:13px; font-weight:600; margin-top:10px;">
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
+    <button class="btn-primary" onclick="copySheetHeaders('progres')" id="btn-copy-progres">
+      📋 En-têtes — Bulletin de progrès (T/B/D)
+    </button>
+    <button class="btn-secondary" onclick="copySheetHeaders('scolaire')" id="btn-copy-scolaire">
+      📋 En-têtes — Bulletin scolaire (A/B/C/D)
+    </button>
+  </div>
+  <div id="headers-success" style="display:none; color:#2d6b4a; font-size:13px; font-weight:600; margin-bottom:16px;">
     ✅ En-têtes copiées ! Collez maintenant dans la cellule A1 de votre Google Sheets.
   </div>
 
-  <hr style="border:none; border-top:1.5px solid var(--gris-clair); margin:28px 0;">
+  <hr style="border:none; border-top:1.5px solid var(--gris-clair); margin:24px 0;">
 
-  <div class="section-label" style="margin-bottom:16px;">Aperçu des colonnes</div>
-
-  <div style="overflow-x:auto; margin-bottom:16px;">
-    <table style="border-collapse:collapse; white-space:nowrap; font-size:11px;">
-      <thead>
-        <tr>
-          <th style="background:#1a3a5c; color:white; padding:5px 10px; border:1px solid #2d6a9f;">A — Prénom</th>
-          <th style="background:#1a3a5c; color:white; padding:5px 10px; border:1px solid #2d6a9f;">B — Pronom</th>
-          <th style="background:#2d6b4a; color:white; padding:5px 10px; border:1px solid #1a5a38;">C — Cote Maths</th>
-          <th style="background:#2d6b4a; color:white; padding:5px 10px; border:1px solid #1a5a38;">D — Obs Maths</th>
-          <th style="background:#8b3a3a; color:white; padding:5px 10px; border:1px solid #6b2a2a;">E — Cote Français</th>
-          <th style="background:#8b3a3a; color:white; padding:5px 10px; border:1px solid #6b2a2a;">F — Obs Français</th>
-          <th style="background:#8b5e2d; color:white; padding:5px 10px; border:1px solid #6b4a1a;">G — Cote Ét. soc.</th>
-          <th style="background:#8b5e2d; color:white; padding:5px 10px; border:1px solid #6b4a1a;">H — Obs Ét. soc.</th>
-          <th style="background:#4a3a8b; color:white; padding:5px 10px; border:1px solid #3a2a7b;">I — Cote Sciences</th>
-          <th style="background:#4a3a8b; color:white; padding:5px 10px; border:1px solid #3a2a7b;">J — Obs Sciences</th>
-          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">K — Cote Arts vis.</th>
-          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">L — Obs Arts vis.</th>
-          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">M — Cote Musique</th>
-          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">N — Obs Musique</th>
-          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">O — Cote Danse</th>
-          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">P — Obs Danse</th>
-          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">Q — Cote Art dram.</th>
-          <th style="background:#2d5a8b; color:white; padding:5px 10px; border:1px solid #1a4a7b;">R — Obs Art dram.</th>
-          <th style="background:#1a6b6b; color:white; padding:5px 10px; border:1px solid #0a5a5a;">S — Cote Éd. phys.</th>
-          <th style="background:#1a6b6b; color:white; padding:5px 10px; border:1px solid #0a5a5a;">T — Obs Éd. phys.</th>
-          <th style="background:#6b1a4a; color:white; padding:5px 10px; border:1px solid #5a0a3a;">U — Cote Ens. rel.</th>
-          <th style="background:#6b1a4a; color:white; padding:5px 10px; border:1px solid #5a0a3a;">V — Obs Ens. rel.</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">Marie Tremblay</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">elle</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">B+</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">Progrès en calcul</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">A</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">C+</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">B</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">Très créative</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">A-</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;">B+</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555;"></td>
-        </tr>
-        <tr>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">Thomas Martin</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">il</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">C</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">Difficultés fractions</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">B-</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">B</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">C+</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">B</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">B+</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;">A</td>
-          <td style="padding:4px 10px; border:1px solid #ddd; font-size:11px; color:#555; background:#fafaf8;"></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="section-label" style="margin-bottom:12px;">Notes importantes</div>
+  <div style="font-size:13px; line-height:1.9; color:var(--gris-texte);">
+    <div>💡 <strong>Pronom :</strong> Écrire exactement <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">elle</code>, <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">il</code>, ou <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">iel</code></div>
+    <div>💡 <strong>Bulletin de progrès :</strong> Cotes acceptées : <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">T</code> &nbsp;<code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">B</code> &nbsp;<code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">D</code></div>
+    <div>💡 <strong>Bulletin scolaire :</strong> Cotes acceptées : <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">A+</code> <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">A</code> <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">A-</code> <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">B+</code> <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">B</code> <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">B-</code> etc.</div>
+    <div>💡 <strong>Cellule vide</strong> = matière ignorée pour cet élève</div>
+    <div>💡 Les <strong>observations</strong> sont optionnelles mais améliorent la qualité des commentaires</div>
   </div>
-
-  <p style="font-size:12px; color:#777; line-height:1.7; font-style:italic;">
-    💡 <strong style="font-style:normal;">Pronom :</strong> Écrire exactement <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">elle</code>, <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">il</code>, ou <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">iel</code><br>
-    💡 <strong style="font-style:normal;">Cotes acceptées :</strong> A+ &nbsp;A &nbsp;A- &nbsp;B+ &nbsp;B &nbsp;B- &nbsp;C+ &nbsp;C &nbsp;C- &nbsp;D+ &nbsp;D &nbsp;D-<br>
-    💡 <strong style="font-style:normal;">Cellule vide</strong> = matière ignorée pour cet élève<br>
-    💡 Les <strong style="font-style:normal;">observations</strong> sont optionnelles
-  </p>
 
 </div>
 </div>
@@ -564,16 +506,34 @@
 // ════════════════════════════════════════════════════════════════
 // DATA
 // ════════════════════════════════════════════════════════════════
-const MATIERES = ['Mathématiques','Français','Études sociales','Sciences et technologie','Arts (arts visuels)','Arts (musique)','Arts (danse)','Arts (art dramatique)','Éducation physique et santé','Enseignement religieux'];
+const MATIERES = [
+  'Mathématiques','Français','Études sociales','Sciences et technologie',
+  'Arts (arts visuels)','Arts (musique)','Arts (danse)','Arts (art dramatique)',
+  'Éducation physique et santé','Enseignement religieux'
+];
+
+// ── SCIENCES 2022 CURRICULUM ────────────────────────────────────
+// Grade 1: B=Êtres vivants/caractéristiques, C=Énergie dans nos vies,
+//          D=Matériaux/objets/structures, E=Cycle des jours et saisons
+// Grade 2: B=Animaux/croissance, C=Liquides et solides,
+//          D=Machines simples/mouvement, E=Air et eau dans l'environnement
+// Grade 3: B=Plantes/croissance, C=Forces et mouvement,
+//          D=Structures solides et stables, E=Sol dans l'environnement
+// Grade 4: B=Habitats et communautés, C=Lumière et son,
+//          D=Machines et mécanismes, E=Roches/minéraux/processus géologiques
+// Grade 5: B=Santé/systèmes corps humain, C=Propriétés/changements matière,
+//          D=Forces agissant sur les structures, E=Conservation énergie et ressources
+// Grade 6: B=Biodiversité, C=Phénomènes/énergie/dispositifs électriques,
+//          D=Le vol, E=L'espace
 
 const ATTENTES = {
   'Mathématiques': {
-    '1': ['B1 — Sens du nombre : lire, représenter et composer les nombres naturels jusqu\'à 50','B2 — Opérations : additionner et soustraire jusqu\'à 20','C1 — Algèbre : identifier et décrire des régularités dans des suites','D1 — Données : recueillir et organiser des données simples','E1 — Géométrie : décrire et représenter des formes 2D et 3D','E2 — Mesure : mesurer avec des unités non standard','F1 — Littératie financière : identifier différentes façons de payer'],
-    '2': ['B1 — Sens du nombre : représenter et composer les nombres jusqu\'à 200','B2 — Opérations : additionner et soustraire jusqu\'à 100','B3 — Fractions : décrire les fractions comme parties d\'un tout','C1 — Algèbre : identifier des régularités croissantes','D1 — Données : recueillir et afficher dans des diagrammes','E1 — Géométrie : classifier et comparer des figures','E2 — Mesure : mesurer la longueur en cm et m','F1 — Littératie financière : valeur des pièces et billets'],
-    '3': ['B1 — Sens du nombre : représenter les nombres jusqu\'à 1000','B2 — Opérations : multiplier et diviser avec les faits de base','B3 — Fractions : comparer et ordonner des fractions simples','C1 — Algèbre : créer des régularités avec tables et graphiques','D1 — Données : analyser et formuler des conclusions','E1 — Géométrie : classifier les figures selon leurs propriétés','E2 — Mesure : calculer périmètre et aire'],
-    '4': ['B1 — Sens du nombre : lire et représenter les nombres jusqu\'à 10 000','B1 — Fractions : lire, représenter, comparer et ordonner des fractions','B1 — Décimaux : lire et représenter jusqu\'aux dixièmes','B2 — Opérations : multiplier et diviser des nombres à deux chiffres','C1 — Algèbre : identifier des régularités dans des tables de valeurs','C2 — Équations : représenter et résoudre des équations simples','D1 — Données : diagrammes à bandes et probabilités simples','E1 — Géométrie : propriétés des rectangles et transformations','E2 — Mesure : aire et périmètre de rectangles','F1 — Littératie financière : besoins, désirs et décisions financières'],
-    '5': ['B1 — Sens du nombre : nombres jusqu\'à 100 000 et décimaux aux centièmes','B1 — Fractions : comparer des fractions avec dénominateurs différents','B2 — Opérations : multiplier et diviser des nombres à plusieurs chiffres','B2 — Fractions : multiplier des fractions par des nombres naturels','C1 — Algèbre : tables de valeurs et régularités','C2 — Équations : résoudre avec une variable','D1 — Données : diagrammes variés et probabilités','E1 — Géométrie : propriétés des triangles et transformations','E2 — Mesure : volume de prismes rectangulaires','F1 — Littératie financière : facteurs influençant les décisions'],
-    '6': ['B1 — Sens du nombre : entiers, décimaux et pourcentages','B1 — Fractions : multiplier et diviser des fractions','B2 — Opérations : nombres entiers négatifs','B2 — Ratios et taux : rapports et taux équivalents','C1 — Algèbre : régularités croissantes et décroissantes','C2 — Équations : équations avec nombres entiers','D1 — Données : analyser et interpréter des diagrammes variés','D2 — Probabilité : théorique et expérimentale','E1 — Géométrie : propriétés des quadrilatères et transformations','E2 — Mesure : aire de triangles et parallélogrammes','F1 — Littératie financière : facteurs influençant l\'épargne']
+    '1': ['B1 — Sens du nombre : lire, représenter et composer les nombres naturels jusqu\'à 50','B2 — Opérations : additionner et soustraire jusqu\'à 20','C1 — Algèbre : identifier et décrire des régularités dans des suites','D1 — Données : recueillir et organiser des données simples','E1 — Sens de l\'espace : décrire et représenter des formes 2D et 3D','E2 — Mesure : mesurer avec des unités non standard','F1 — Littératie financière : identifier différentes façons de payer'],
+    '2': ['B1 — Sens du nombre : représenter et composer les nombres jusqu\'à 200','B2 — Opérations : additionner et soustraire jusqu\'à 100','B3 — Fractions : décrire les fractions comme parties d\'un tout','C1 — Algèbre : identifier des régularités croissantes','D1 — Données : recueillir et afficher dans des diagrammes','E1 — Sens de l\'espace : classifier et comparer des figures','E2 — Mesure : mesurer la longueur en cm et m','F1 — Littératie financière : valeur des pièces et billets'],
+    '3': ['B1 — Sens du nombre : représenter les nombres jusqu\'à 1000','B2 — Opérations : multiplier et diviser avec les faits de base','B3 — Fractions : comparer et ordonner des fractions simples','C1 — Algèbre : créer des régularités avec tables et graphiques','D1 — Données : analyser et formuler des conclusions','E1 — Sens de l\'espace : classifier les figures selon leurs propriétés','E2 — Mesure : calculer périmètre et aire'],
+    '4': ['B1 — Sens du nombre : nombres jusqu\'à 10 000, fractions, décimaux aux dixièmes','B2 — Opérations : multiplier et diviser des nombres à deux chiffres','C1 — Algèbre : identifier des régularités dans des tables de valeurs','C2 — Équations : représenter et résoudre des équations simples','D1 — Données : diagrammes à bandes et probabilités simples','E1 — Sens de l\'espace : propriétés des rectangles et transformations','E2 — Mesure : aire et périmètre de rectangles','F1 — Littératie financière : besoins, désirs et décisions financières'],
+    '5': ['B1 — Sens du nombre : nombres jusqu\'à 100 000, décimaux aux centièmes, fractions','B2 — Opérations : multiplier et diviser des nombres à plusieurs chiffres','C1 — Algèbre : tables de valeurs et régularités','C2 — Équations : résoudre avec une variable','D1 — Données : diagrammes variés et probabilités','E1 — Sens de l\'espace : propriétés des triangles et transformations','E2 — Mesure : volume de prismes rectangulaires','F1 — Littératie financière : facteurs influençant les décisions'],
+    '6': ['B1 — Sens du nombre : entiers, décimaux, pourcentages, fractions, ratios','B2 — Opérations : nombres entiers négatifs, taux équivalents','C1 — Algèbre : régularités croissantes et décroissantes','C2 — Équations : équations avec nombres entiers','D1 — Données : analyser et interpréter des diagrammes variés','D2 — Probabilité : théorique et expérimentale','E1 — Sens de l\'espace : propriétés des quadrilatères et transformations','E2 — Mesure : aire de triangles et parallélogrammes','F1 — Littératie financière : facteurs influençant l\'épargne']
   },
   'Français': {
     '1': ['A — Communication orale : écouter et s\'exprimer dans diverses situations','B — Lecture : lire des textes variés avec des stratégies de compréhension','C — Écriture : écrire des textes simples en respectant les conventions de base','D — Médias : identifier et interpréter des messages médiatiques simples'],
@@ -592,22 +552,94 @@ const ATTENTES = {
     '6': ['A — Recherche et communication : évaluer des sources et des perspectives','B — Patrimoine et identité : développements historiques et leurs impacts','C — Personnes et environnements : enjeux environnementaux mondiaux']
   },
   'Sciences et technologie': {
-    '1': ['Vie et êtres vivants : observer les êtres vivants dans leur environnement','Matière et énergie : propriétés des objets et matériaux','Structures et mécanismes : construire des structures simples','Terre et espace : caractéristiques saisonnières'],
-    '2': ['Vie et êtres vivants : croissance et changements des animaux','Matière et énergie : propriétés des liquides et solides','Structures et mécanismes : les mouvements','Terre et espace : l\'air et l\'eau dans l\'environnement'],
-    '3': ['Vie et êtres vivants : croissance et changements des plantes','Matière et énergie : forces et mouvement','Structures et mécanismes : structures solides et stables','Terre et espace : géologie du sol'],
-    '4': ['Vie et êtres vivants : habitats et communautés','Matière et énergie : lumière et son','Structures et mécanismes : poulies et engrenages','Terre et espace : roches et minéraux'],
-    '5': ['Vie et êtres vivants : conservation de l\'énergie et des ressources','Matière et énergie : propriétés et changements de la matière','Structures et mécanismes : forces agissant sur les structures','Terre et espace : les caractéristiques de la Terre et de la Lune'],
-    '6': ['Vie et êtres vivants : biodiversité','Matière et énergie : électricité et circuits électriques','Structures et mécanismes : les aéronefs','Terre et espace : le système solaire']
+    '1': [
+      'B — Systèmes vivants : les êtres vivants, leurs caractéristiques et leurs besoins',
+      'C — Matière et énergie : l\'énergie dans nos vies',
+      'D — Structures et mécanismes : les matériaux, les objets et les structures au quotidien',
+      'E — Systèmes de la Terre et de l\'espace : le cycle des jours et des saisons'
+    ],
+    '2': [
+      'B — Systèmes vivants : les animaux — croissance et changements',
+      'C — Matière et énergie : les propriétés des liquides et des solides',
+      'D — Structures et mécanismes : les machines simples et le mouvement',
+      'E — Systèmes de la Terre et de l\'espace : l\'air et l\'eau dans l\'environnement'
+    ],
+    '3': [
+      'B — Systèmes vivants : les plantes — croissance et changements',
+      'C — Matière et énergie : les forces et le mouvement',
+      'D — Structures et mécanismes : les structures solides et stables',
+      'E — Systèmes de la Terre et de l\'espace : le sol dans l\'environnement'
+    ],
+    '4': [
+      'B — Systèmes vivants : les habitats et les communautés',
+      'C — Matière et énergie : la lumière et le son',
+      'D — Structures et mécanismes : les machines et leurs mécanismes',
+      'E — Systèmes de la Terre et de l\'espace : les roches, les minéraux et les processus géologiques'
+    ],
+    '5': [
+      'B — Systèmes vivants : la santé et les systèmes du corps humain',
+      'C — Matière et énergie : les propriétés et les changements de la matière',
+      'D — Structures et mécanismes : les forces agissant sur les structures',
+      'E — Systèmes de la Terre et de l\'espace : conservation de l\'énergie et des ressources'
+    ],
+    '6': [
+      'B — Systèmes vivants : la biodiversité',
+      'C — Matière et énergie : les phénomènes, l\'énergie et les dispositifs électriques',
+      'D — Structures et mécanismes : le vol',
+      'E — Systèmes de la Terre et de l\'espace : l\'espace'
+    ]
   },
-  'Arts (arts visuels)': { '1': ['Création et expression : créer des œuvres avec des éléments de base','Analyse et appréciation : décrire et interpréter des œuvres'], '2': ['Création et expression : explorer des techniques variées','Analyse et appréciation : analyser des œuvres de différentes cultures'], '3': ['Création et expression : créer des œuvres expressives avec divers médias','Analyse et appréciation : analyser et interpréter des œuvres'], '4': ['Création et expression : créer des œuvres intentionnelles et significatives','Analyse et appréciation : analyser avec un vocabulaire spécialisé'], '5': ['Création et expression : maîtriser les techniques et créer avec sophistication','Analyse et appréciation : analyser et évaluer de façon critique'], '6': ['Création et expression : créer des œuvres complexes avec intention artistique','Analyse et appréciation : analyser en contexte culturel'] },
-  'Arts (musique)': { '1': ['Création et expression : créer et interpréter de la musique simple','Analyse et appréciation : identifier des éléments musicaux'], '2': ['Création et expression : créer et interpréter avec des structures de base','Analyse et appréciation : analyser des éléments musicaux'], '3': ['Création et expression : créer et interpréter avec expression','Analyse et appréciation : analyser diverses formes musicales'], '4': ['Création et expression : créer et interpréter avec technique et expression','Analyse et appréciation : analyser avec un vocabulaire précis'], '5': ['Création et expression : créer et interpréter avec habileté et créativité','Analyse et appréciation : analyser et évaluer de façon critique'], '6': ['Création et expression : créer et interpréter des œuvres complexes','Analyse et appréciation : analyser en contexte culturel'] },
-  'Arts (danse)': { '1': ['Création et expression : créer des mouvements expressifs simples','Analyse et appréciation : identifier des éléments de la danse'], '2': ['Création et expression : créer des séquences de mouvements','Analyse et appréciation : analyser des éléments de la danse'], '3': ['Création et expression : créer des danses expressives','Analyse et appréciation : analyser diverses formes de danse'], '4': ['Création et expression : interpréter avec technique et expression','Analyse et appréciation : analyser avec un vocabulaire précis'], '5': ['Création et expression : créer et interpréter avec habileté','Analyse et appréciation : analyser et évaluer des œuvres'], '6': ['Création et expression : créer des danses complexes et significatives','Analyse et appréciation : analyser de façon critique'] },
-  'Arts (art dramatique)': { '1': ['Création et expression : créer et interpréter des personnages simples','Analyse et appréciation : identifier des éléments de base du théâtre'], '2': ['Création et expression : créer et interpréter des scènes','Analyse et appréciation : analyser des éléments dramatiques'], '3': ['Création et expression : créer des situations dramatiques expressives','Analyse et appréciation : analyser diverses formes théâtrales'], '4': ['Création et expression : créer et interpréter avec technique','Analyse et appréciation : analyser des œuvres dramatiques'], '5': ['Création et expression : créer et interpréter avec complexité','Analyse et appréciation : analyser et évaluer de façon critique'], '6': ['Création et expression : créer des œuvres dramatiques significatives','Analyse et appréciation : analyser de façon critique'] },
-  'Éducation physique et santé': { '1': ['Habiletés motrices : développer des habiletés motrices fondamentales','Activité physique : participer à des activités variées','Vie saine : identifier des habitudes de vie saine'], '2': ['Habiletés motrices : habiletés locomotrices et manipulatrices','Activité physique : participer régulièrement','Vie saine : facteurs contribuant à une vie saine'], '3': ['Habiletés motrices : appliquer dans des activités variées','Activité physique : bienfaits de l\'activité régulière','Vie saine : stratégies pour maintenir une bonne santé'], '4': ['Habiletés motrices : démontrer dans divers contextes','Activité physique : principes de conditionnement physique','Vie saine : facteurs influençant les choix de vie saine'], '5': ['Habiletés motrices : raffiner dans des activités complexes','Activité physique : planifier des programmes d\'activité','Vie saine : influences sur les décisions liées à la santé'], '6': ['Habiletés motrices : stratégies tactiques dans des activités','Activité physique : impact sur la santé globale','Vie saine : prendre des décisions éclairées'] },
-  'Enseignement religieux': { '1': ['Foi et vie : valeurs chrétiennes dans la vie quotidienne','Prière et liturgie : participer à des moments de prière','Vie en communauté : agir avec amour et respect'], '2': ['Foi et vie : valeurs évangéliques','Prière et liturgie : sacrements et prière','Vie en communauté : servir les autres'], '3': ['Foi et vie : relier les enseignements évangéliques au quotidien','Prière et liturgie : fêtes liturgiques','Vie en communauté : actions de service'], '4': ['Foi et vie : valeurs évangéliques et choix de vie','Prière et liturgie : sens des sacrements','Vie en communauté : justice sociale'], '5': ['Foi et vie : foi chrétienne et enjeux contemporains','Prière et liturgie : tradition liturgique','Vie en communauté : responsabilité sociale'], '6': ['Foi et vie : éthique et valeurs chrétiennes','Prière et liturgie : sens des pratiques liturgiques','Vie en communauté : service et justice'] }
+  'Arts (arts visuels)': {
+    '1': ['Création et expression : créer des œuvres avec des éléments de base','Analyse et appréciation : décrire et interpréter des œuvres'],
+    '2': ['Création et expression : explorer des techniques variées','Analyse et appréciation : analyser des œuvres de différentes cultures'],
+    '3': ['Création et expression : créer des œuvres expressives avec divers médias','Analyse et appréciation : analyser et interpréter des œuvres'],
+    '4': ['Création et expression : créer des œuvres intentionnelles et significatives','Analyse et appréciation : analyser avec un vocabulaire spécialisé'],
+    '5': ['Création et expression : maîtriser les techniques et créer avec sophistication','Analyse et appréciation : analyser et évaluer de façon critique'],
+    '6': ['Création et expression : créer des œuvres complexes avec intention artistique','Analyse et appréciation : analyser en contexte culturel']
+  },
+  'Arts (musique)': {
+    '1': ['Création et expression : créer et interpréter de la musique simple','Analyse et appréciation : identifier des éléments musicaux'],
+    '2': ['Création et expression : créer et interpréter avec des structures de base','Analyse et appréciation : analyser des éléments musicaux'],
+    '3': ['Création et expression : créer et interpréter avec expression','Analyse et appréciation : analyser diverses formes musicales'],
+    '4': ['Création et expression : créer et interpréter avec technique et expression','Analyse et appréciation : analyser avec un vocabulaire précis'],
+    '5': ['Création et expression : créer et interpréter avec habileté et créativité','Analyse et appréciation : analyser et évaluer de façon critique'],
+    '6': ['Création et expression : créer et interpréter des œuvres complexes','Analyse et appréciation : analyser en contexte culturel']
+  },
+  'Arts (danse)': {
+    '1': ['Création et expression : créer des mouvements expressifs simples','Analyse et appréciation : identifier des éléments de la danse'],
+    '2': ['Création et expression : créer des séquences de mouvements','Analyse et appréciation : analyser des éléments de la danse'],
+    '3': ['Création et expression : créer des danses expressives','Analyse et appréciation : analyser diverses formes de danse'],
+    '4': ['Création et expression : interpréter avec technique et expression','Analyse et appréciation : analyser avec un vocabulaire précis'],
+    '5': ['Création et expression : créer et interpréter avec habileté','Analyse et appréciation : analyser et évaluer des œuvres'],
+    '6': ['Création et expression : créer des danses complexes et significatives','Analyse et appréciation : analyser de façon critique']
+  },
+  'Arts (art dramatique)': {
+    '1': ['Création et expression : créer et interpréter des personnages simples','Analyse et appréciation : identifier des éléments de base du théâtre'],
+    '2': ['Création et expression : créer et interpréter des scènes','Analyse et appréciation : analyser des éléments dramatiques'],
+    '3': ['Création et expression : créer des situations dramatiques expressives','Analyse et appréciation : analyser diverses formes théâtrales'],
+    '4': ['Création et expression : créer et interpréter avec technique','Analyse et appréciation : analyser des œuvres dramatiques'],
+    '5': ['Création et expression : créer et interpréter avec complexité','Analyse et appréciation : analyser et évaluer de façon critique'],
+    '6': ['Création et expression : créer des œuvres dramatiques significatives','Analyse et appréciation : analyser de façon critique']
+  },
+  'Éducation physique et santé': {
+    '1': ['Habiletés motrices : développer des habiletés motrices fondamentales','Activité physique : participer à des activités variées','Vie saine : identifier des habitudes de vie saine'],
+    '2': ['Habiletés motrices : habiletés locomotrices et manipulatrices','Activité physique : participer régulièrement','Vie saine : facteurs contribuant à une vie saine'],
+    '3': ['Habiletés motrices : appliquer dans des activités variées','Activité physique : bienfaits de l\'activité régulière','Vie saine : stratégies pour maintenir une bonne santé'],
+    '4': ['Habiletés motrices : démontrer dans divers contextes','Activité physique : principes de conditionnement physique','Vie saine : facteurs influençant les choix de vie saine'],
+    '5': ['Habiletés motrices : raffiner dans des activités complexes','Activité physique : planifier des programmes d\'activité','Vie saine : influences sur les décisions liées à la santé'],
+    '6': ['Habiletés motrices : stratégies tactiques dans des activités','Activité physique : impact sur la santé globale','Vie saine : prendre des décisions éclairées']
+  },
+  'Enseignement religieux': {
+    '1': ['Foi et vie : valeurs chrétiennes dans la vie quotidienne','Prière et liturgie : participer à des moments de prière','Vie en communauté : agir avec amour et respect'],
+    '2': ['Foi et vie : valeurs évangéliques','Prière et liturgie : sacrements et prière','Vie en communauté : servir les autres'],
+    '3': ['Foi et vie : relier les enseignements évangéliques au quotidien','Prière et liturgie : fêtes liturgiques','Vie en communauté : actions de service'],
+    '4': ['Foi et vie : valeurs évangéliques et choix de vie','Prière et liturgie : sens des sacrements','Vie en communauté : justice sociale'],
+    '5': ['Foi et vie : foi chrétienne et enjeux contemporains','Prière et liturgie : tradition liturgique','Vie en communauté : responsabilité sociale'],
+    '6': ['Foi et vie : éthique et valeurs chrétiennes','Prière et liturgie : sens des pratiques liturgiques','Vie en communauté : service et justice']
+  }
 };
 
-// Column mapping for paste: [coteCol, obsCol] (0-indexed, after Prénom=0, Pronom=1)
+// Column mapping [coteCol, obsCol] (0-indexed: Prénom=0, Pronom=1, then pairs)
 const MATIERE_COLS = [
   { name: 'Mathématiques', cote: 2, obs: 3 },
   { name: 'Français', cote: 4, obs: 5 },
@@ -621,16 +653,77 @@ const MATIERE_COLS = [
   { name: 'Enseignement religieux', cote: 20, obs: 21 }
 ];
 
+const SHEET_HEADERS_BASE = [
+  'Prénom','Pronom (elle/il/iel)',
+  'Cote Mathématiques','Observations Mathématiques',
+  'Cote Français','Observations Français',
+  'Cote Études sociales','Observations Études sociales',
+  'Cote Sciences et technologie','Observations Sciences et technologie',
+  'Cote Arts (arts visuels)','Observations Arts (arts visuels)',
+  'Cote Arts (musique)','Observations Arts (musique)',
+  'Cote Arts (danse)','Observations Arts (danse)',
+  'Cote Arts (art dramatique)','Observations Arts (art dramatique)',
+  'Cote Éducation physique et santé','Observations Éducation physique et santé',
+  'Cote Enseignement religieux','Observations Enseignement religieux'
+];
+
 // ════════════════════════════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════════════════════════════
+let bulletinType = 'progres';      // 'progres' | 'scolaire'
+let indBulletinType = 'progres';
 let selectedNiveau = '';
 let selectedPronom = 'elle';
 let selectedPronomHab = 'elle';
-let cotesHab = {};
-let classeAttentesSelected = {}; // { matiereNom: [attente1, attente2, ...] }
-let selectedAttentesInd = []; // individual tab
-let generatedResults = []; // { matiere, students: [{name, cote, comment}], attentes: [...] }
+let classeAttentesSelected = {};
+let selectedAttentesInd = [];
+let generatedResults = [];
+let cotesHabNew = {};
+let selectedForces = {};
+let selectedProchaines = {};
+
+// ════════════════════════════════════════════════════════════════
+// BULLETIN TYPE
+// ════════════════════════════════════════════════════════════════
+function setBulletinType(type) {
+  bulletinType = type;
+  document.getElementById('btn-type-progres').classList.toggle('active', type === 'progres');
+  document.getElementById('btn-type-scolaire').classList.toggle('active', type === 'scolaire');
+  selectedNiveau = '';
+}
+
+function setIndBulletinType(type) {
+  indBulletinType = type;
+  document.getElementById('btn-ind-type-progres').classList.toggle('active', type === 'progres');
+  document.getElementById('btn-ind-type-scolaire').classList.toggle('active', type === 'scolaire');
+  selectedNiveau = '';
+  renderNiveauButtons();
+}
+
+function renderNiveauButtons() {
+  const container = document.getElementById('niveau-group-ind');
+  if (!container) return;
+  if (indBulletinType === 'progres') {
+    container.innerHTML = `
+      <button class="niveau-btn" onclick="selectNiveau('T')">T — Très bien</button>
+      <button class="niveau-btn" onclick="selectNiveau('B2')">B — Bien</button>
+      <button class="niveau-btn" onclick="selectNiveau('D')">D — En développement</button>`;
+  } else {
+    container.innerHTML = `
+      <button class="niveau-btn" onclick="selectNiveau('A+')">A+</button>
+      <button class="niveau-btn" onclick="selectNiveau('A')">A</button>
+      <button class="niveau-btn" onclick="selectNiveau('A-')">A-</button>
+      <button class="niveau-btn" onclick="selectNiveau('B+')">B+</button>
+      <button class="niveau-btn" onclick="selectNiveau('B')">B</button>
+      <button class="niveau-btn" onclick="selectNiveau('B-')">B-</button>
+      <button class="niveau-btn" onclick="selectNiveau('C+')">C+</button>
+      <button class="niveau-btn" onclick="selectNiveau('C')">C</button>
+      <button class="niveau-btn" onclick="selectNiveau('C-')">C-</button>
+      <button class="niveau-btn" onclick="selectNiveau('D+')">D+</button>
+      <button class="niveau-btn" onclick="selectNiveau('D')">D</button>
+      <button class="niveau-btn" onclick="selectNiveau('D-')">D-</button>`;
+  }
+}
 
 // ════════════════════════════════════════════════════════════════
 // TAB SWITCHING
@@ -640,48 +733,24 @@ function switchTab(tab) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   const tabMap = { classe: 0, individuel: 1, habiletes: 2, modele: 3 };
   document.querySelectorAll('.tab')[tabMap[tab]].classList.add('active');
-  document.getElementById(`panel-${tab === 'individuel' ? 'individuel' : tab}`).classList.add('active');
+  document.getElementById(`panel-${tab}`).classList.add('active');
+  if (tab === 'individuel') renderNiveauButtons();
 }
 
-const SHEET_HEADERS = [
-  'Prénom',
-  'Pronom (elle/il/iel)',
-  'Cote Mathématiques',
-  'Observations Mathématiques',
-  'Cote Français',
-  'Observations Français',
-  'Cote Études sociales',
-  'Observations Études sociales',
-  'Cote Sciences et technologie',
-  'Observations Sciences et technologie',
-  'Cote Arts (arts visuels)',
-  'Observations Arts (arts visuels)',
-  'Cote Arts (musique)',
-  'Observations Arts (musique)',
-  'Cote Arts (danse)',
-  'Observations Arts (danse)',
-  'Cote Arts (art dramatique)',
-  'Observations Arts (art dramatique)',
-  'Cote Éducation physique et santé',
-  'Observations Éducation physique et santé',
-  'Cote Enseignement religieux',
-  'Observations Enseignement religieux'
-].join('\t');
-
-function copySheetHeaders() {
-  navigator.clipboard.writeText(SHEET_HEADERS).then(() => {
-    const btn = document.getElementById('btn-copy-headers');
+// ════════════════════════════════════════════════════════════════
+// SHEET HEADERS
+// ════════════════════════════════════════════════════════════════
+function copySheetHeaders(type) {
+  const coteLabel = type === 'progres' ? ' (T/B/D)' : ' (A/B/C/D)';
+  const headers = SHEET_HEADERS_BASE.map(h => h.startsWith('Cote ') ? h + coteLabel : h);
+  navigator.clipboard.writeText(headers.join('\t')).then(() => {
     const msg = document.getElementById('headers-success');
-    btn.textContent = '✅ Copié !';
     msg.style.display = 'block';
-    setTimeout(() => { btn.innerHTML = '📋 Copier les en-têtes'; }, 3000);
+    setTimeout(() => { msg.style.display = 'none'; }, 4000);
   }).catch(() => {
     const el = document.createElement('textarea');
-    el.value = SHEET_HEADERS;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
+    el.value = headers.join('\t');
+    document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el);
     document.getElementById('headers-success').style.display = 'block';
   });
 }
@@ -699,16 +768,17 @@ function updateClasseAttentes() {
   MATIERES.forEach(matiere => {
     const attentes = ATTENTES[matiere]?.[annee] || [];
     if (!attentes.length) return;
+    const key = matiere.replace(/[\s()']/g,'_');
     html += `
       <div class="matiere-section">
         <div class="matiere-header" onclick="toggleMatiere('${matiere.replace(/'/g,"\\'")}')">
           <h3>${matiere}</h3>
-          <span class="toggle" id="toggle-${matiere.replace(/\s/g,'_').replace(/[()]/g,'')}">▶</span>
+          <span class="toggle" id="toggle-${key}">▶</span>
         </div>
-        <div class="matiere-body" id="body-${matiere.replace(/\s/g,'_').replace(/[()]/g,'')}">
+        <div class="matiere-body" id="body-${key}">
           <p style="font-size:12px; color:#777; margin-bottom:10px;">Sélectionnez les attentes enseignées cette période :</p>
           ${attentes.map((a, i) => `
-            <label class="attente-item" id="ai-${matiere.replace(/\s/g,'_').replace(/[()]/g,'')}-${i}">
+            <label class="attente-item" id="ai-${key}-${i}">
               <input type="checkbox" onchange="toggleAttente('${matiere.replace(/'/g,"\\'")}', ${i})" data-attente="${a.replace(/"/g,'&quot;')}">
               <span>${a}</span>
             </label>`).join('')}
@@ -719,7 +789,7 @@ function updateClasseAttentes() {
 }
 
 function toggleMatiere(matiere) {
-  const key = matiere.replace(/\s/g,'_').replace(/[()]/g,'');
+  const key = matiere.replace(/[\s()']/g,'_');
   const body = document.getElementById(`body-${key}`);
   const toggle = document.getElementById(`toggle-${key}`);
   const isOpen = body.classList.contains('open');
@@ -728,7 +798,6 @@ function toggleMatiere(matiere) {
 }
 
 function toggleAttente(matiere, idx) {
-  const key = matiere.replace(/\s/g,'_').replace(/[()]/g,'');
   const annee = document.getElementById('classe-annee').value;
   const attentes = ATTENTES[matiere]?.[annee] || [];
   const attente = attentes[idx];
@@ -772,19 +841,19 @@ function toggleAttenteInd(idx, attente) {
 
 function selectNiveau(n) {
   selectedNiveau = n;
-  document.querySelectorAll('.niveau-btn').forEach(b => { b.className = 'niveau-btn'; if (b.textContent === n) b.classList.add(`sel-${n.charAt(0)}`); });
+  document.querySelectorAll('#niveau-group-ind .niveau-btn').forEach(b => {
+    b.className = 'niveau-btn';
+    const btnText = b.textContent.split(' ')[0];
+    if (btnText === n) b.classList.add(`sel-${n === 'B2' ? 'B2' : n.charAt(0)}`);
+  });
 }
 function selectPronom(p) { selectedPronom = p; ['elle','il','iel'].forEach(x => document.getElementById(`btn-${x}`).classList.toggle('selected', x === p)); }
-function selectPronomHab(p) { selectedPronomHab = p; ['elle','il','iel'].forEach(x => document.getElementById(`btn-${x}-hab`).classList.toggle('selected', x === p)); }
-function selectCote(hab, cote) {
-  cotesHab[hab] = cote;
-  document.getElementById(`hab-${hab}`).querySelectorAll('.cote-btn').forEach(b => { b.className = 'cote-btn'; if (b.textContent === cote) b.classList.add(`sel-${cote}`); });
-}
+function selectPronomHab(p) { selectedPronomHab = p; ['elle','il','iel'].forEach(x => document.getElementById(`btn-${x}-hab`).classList.toggle('selected', x === p)); assembleComment(); }
 
 // ════════════════════════════════════════════════════════════════
 // PROMPT HELPERS
 // ════════════════════════════════════════════════════════════════
-const niveauDesc = {
+const niveauDescScolaire = {
   'A+':'excellent (niveau 4+, supérieur à la norme provinciale avec maîtrise exceptionnelle)',
   'A':'excellent (niveau 4, supérieur à la norme provinciale)',
   'A-':'très bien (niveau 4-, légèrement au-dessus de la norme provinciale)',
@@ -798,22 +867,35 @@ const niveauDesc = {
   'D':'en développement (niveau 1, inférieur à la norme provinciale)',
   'D-':'en développement (niveau 1-, bien inférieur à la norme provinciale)'
 };
-
-const pronoms = {
-  'elle': { suj: 'elle', obj: 'la', poss: 'sa', poss2: 'ses', accord: 'e' },
-  'il':   { suj: 'il',  obj: 'le', poss: 'son', poss2: 'ses', accord: '' },
-  'iel':  { suj: 'iel', obj: 'leur', poss: 'son', poss2: 'ses', accord: '·e' }
+const niveauDescProgres = {
+  'T':'Très bien — l\'élève progresse bien vers les attentes',
+  'B2':'Bien — l\'élève progresse de façon satisfaisante vers les attentes',
+  'D':'En développement — l\'élève a besoin de soutien pour progresser vers les attentes'
 };
 
-function buildCommentPrompt(prenom, pronom, cote, attentes, matiere, annee, observations) {
+function getNiveauDesc(cote, type) {
+  if (type === 'progres') return niveauDescProgres[cote] || niveauDescProgres['B2'];
+  return niveauDescScolaire[cote] || niveauDescScolaire['B'];
+}
+
+const pronoms = {
+  'elle': { suj: 'elle', obj: 'la', poss: 'sa', accord: 'e' },
+  'il':   { suj: 'il',  obj: 'le', poss: 'son', accord: '' },
+  'iel':  { suj: 'iel', obj: 'leur', poss: 'son', accord: '·e' }
+};
+
+function buildCommentPrompt(prenom, pronom, cote, attentes, matiere, annee, observations, type) {
   const p = pronoms[pronom] || pronoms['elle'];
+  const typeLabel = type === 'progres' ? 'Bulletin de progrès' : 'Bulletin scolaire';
+  const coteDisplay = type === 'progres' ? `${cote} (${getNiveauDesc(cote, type)})` : `${cote} — ${getNiveauDesc(cote, type)}`;
   return `Tu es un expert en rédaction de commentaires de bulletin scolaire pour les écoles de langue française catholiques de l'Ontario.
 
 Génère UN commentaire de bulletin pour cet élève.
 
+TYPE : ${typeLabel}
 ÉLÈVE : ${prenom} | Pronom : ${p.suj}/${p.obj}/${p.poss} | Accord : -${p.accord}
 ANNÉE : ${annee}e année | MATIÈRE : ${matiere}
-COTE : ${cote} — ${niveauDesc[cote] || 'rendement moyen'}
+COTE : ${coteDisplay}
 ATTENTES ÉVALUÉES : ${attentes.join(' | ')}
 ${observations ? `OBSERVATIONS : ${observations}` : ''}
 
@@ -841,19 +923,12 @@ async function generateClasse() {
   if (!annee) { alert('Veuillez sélectionner l\'année d\'études.'); return; }
   if (!rawPaste) { alert('Veuillez coller votre liste de classe.'); return; }
 
-  // Parse students
   const students = rawPaste.split('\n').map(line => line.split('\t')).filter(cols => cols[0]?.trim());
-
   if (!students.length) { alert('Aucune donnée trouvée. Vérifiez le format de votre liste.'); return; }
 
-  // Determine which subjects have data
-  const activeMatieres = MATIERE_COLS.filter(mc =>
-    students.some(s => s[mc.cote]?.trim())
-  );
-
+  const activeMatieres = MATIERE_COLS.filter(mc => students.some(s => s[mc.cote]?.trim()));
   if (!activeMatieres.length) { alert('Aucune cote trouvée dans votre liste. Vérifiez les colonnes.'); return; }
 
-  // Check attentes selected
   const matieresWithoutAttentes = activeMatieres.filter(mc => !classeAttentesSelected[mc.name]?.length);
   if (matieresWithoutAttentes.length > 0) {
     const names = matieresWithoutAttentes.map(m => m.name).join(', ');
@@ -861,17 +936,13 @@ async function generateClasse() {
   }
 
   const btn = document.getElementById('btn-gen-classe');
-  btn.disabled = true;
-  btn.textContent = 'Génération en cours...';
+  btn.disabled = true; btn.textContent = 'Génération en cours...';
   const progressSection = document.getElementById('progress-classe');
   progressSection.classList.add('visible');
   document.getElementById('results-classe').classList.remove('visible');
 
-  // Count total comments to generate
   let totalComments = 0;
-  activeMatieres.forEach(mc => {
-    students.forEach(s => { if (s[mc.cote]?.trim()) totalComments++; });
-  });
+  activeMatieres.forEach(mc => { students.forEach(s => { if (s[mc.cote]?.trim()) totalComments++; }); });
 
   let doneComments = 0;
   generatedResults = [];
@@ -880,11 +951,7 @@ async function generateClasse() {
     const matiereStudents = students.filter(s => s[mc.cote]?.trim());
     if (!matiereStudents.length) continue;
 
-    const matiereResult = {
-      matiere: mc.name,
-      attentes: classeAttentesSelected[mc.name] || [],
-      students: []
-    };
+    const matiereResult = { matiere: mc.name, attentes: classeAttentesSelected[mc.name] || [], students: [] };
 
     for (const s of matiereStudents) {
       const prenom = s[0]?.trim() || 'Élève';
@@ -901,7 +968,7 @@ async function generateClasse() {
           body: JSON.stringify({
             model: 'claude-sonnet-4-6',
             max_tokens: 400,
-            messages: [{ role: 'user', content: buildCommentPrompt(prenom, pronom, cote, matiereResult.attentes, mc.name, annee, obs) }]
+            messages: [{ role: 'user', content: buildCommentPrompt(prenom, pronom, cote, matiereResult.attentes, mc.name, annee, obs, bulletinType) }]
           })
         });
         const data = await resp.json();
@@ -912,16 +979,13 @@ async function generateClasse() {
       }
 
       doneComments++;
-      await new Promise(r => setTimeout(r, 200)); // Small delay
+      await new Promise(r => setTimeout(r, 200));
     }
-
     generatedResults.push(matiereResult);
   }
 
   updateProgress(totalComments, totalComments, 'Génération terminée !');
-
-  displayClasseResults();
-
+  displayClasseResults(annee);
   btn.disabled = false;
   btn.textContent = '✨ Générer les commentaires pour toute la classe';
 }
@@ -932,8 +996,9 @@ function updateProgress(done, total, text) {
   document.getElementById('progress-text').textContent = `${text} (${done}/${total})`;
 }
 
-function displayClasseResults() {
+function displayClasseResults(annee) {
   const container = document.getElementById('results-classe-content');
+  const typeLabel = bulletinType === 'progres' ? 'Bulletin de progrès' : 'Bulletin scolaire';
   let html = '';
   let totalStudents = 0;
 
@@ -941,7 +1006,7 @@ function displayClasseResults() {
     const attenteStr = mr.attentes.length ? mr.attentes.join(' · ') : 'Attentes non précisées';
     html += `
       <div class="subject-results">
-        <div class="subject-results-title">${mr.matiere}</div>
+        <div class="subject-results-title">${mr.matiere} <span style="font-size:11px; font-weight:400; color:#fff; background:var(--or); border-radius:8px; padding:1px 8px; margin-left:6px;">${typeLabel}</span></div>
         <div class="subject-attentes-note">Attentes : ${attenteStr}</div>
         <table class="results-table">
           <thead><tr>
@@ -955,11 +1020,11 @@ function displayClasseResults() {
     mr.students.forEach((st, sIdx) => {
       totalStudents++;
       const id = `c-${mIdx}-${sIdx}`;
-      const coteClass = st.cote ? `sel-${st.cote.charAt(0)}` : '';
+      const coteClass = `sel-${st.cote.charAt(0)}`;
       html += `
         <tr>
           <td class="name-cell">${st.name}</td>
-          <td class="cote-cell"><span class="niveau-btn ${coteClass}" style="cursor:default;">${st.cote}</span></td>
+          <td class="cote-cell"><span class="niveau-btn ${coteClass}" style="cursor:default; padding:4px 10px;">${st.cote}</span></td>
           <td class="comment-cell"><div id="${id}" contenteditable="false">${st.comment}</div></td>
           <td class="edit-cell">
             <button class="btn-mini" onclick="toggleEditCell('${id}')">✏️</button>
@@ -967,12 +1032,10 @@ function displayClasseResults() {
           </td>
         </tr>`;
     });
-
     html += '</tbody></table></div>';
   });
 
   container.innerHTML = html;
-  const annee = document.getElementById('classe-annee').value;
   document.getElementById('results-classe-title').textContent = `${totalStudents} commentaires générés — ${annee}e année`;
   document.getElementById('results-classe').classList.add('visible');
   document.getElementById('results-classe').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -986,11 +1049,9 @@ function toggleEditCell(id) {
 }
 
 function copyCell(id) {
-  const text = document.getElementById(id).textContent;
-  navigator.clipboard.writeText(text).then(() => {
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
     const btn = document.getElementById(`copy-${id}`);
-    btn.textContent = '✅';
-    btn.classList.add('copied');
+    btn.textContent = '✅'; btn.classList.add('copied');
     setTimeout(() => { btn.textContent = '📋'; btn.classList.remove('copied'); }, 1500);
   });
 }
@@ -1000,12 +1061,9 @@ function copyCell(id) {
 // ════════════════════════════════════════════════════════════════
 async function downloadWord() {
   if (!generatedResults.length) { alert('Aucun commentaire à télécharger.'); return; }
-
   const btn = document.getElementById('btn-download');
-  btn.textContent = '⏳ Génération du document...';
-  btn.disabled = true;
+  btn.textContent = '⏳ Préparation...'; btn.disabled = true;
 
-  // Collect current text from editable cells
   const currentResults = generatedResults.map((mr, mIdx) => ({
     ...mr,
     students: mr.students.map((st, sIdx) => ({
@@ -1016,72 +1074,52 @@ async function downloadWord() {
 
   const annee = document.getElementById('classe-annee').value;
   const date = new Date().toLocaleDateString('fr-CA');
+  const typeLabel = bulletinType === 'progres' ? 'Bulletin de progrès' : 'Bulletin scolaire';
 
-  // Build the docx via a node script
-  const script = buildDocxScript(currentResults, annee, date);
-
-  // Write script to a blob and download
-  // Since we're in browser, we'll use a server-side approach via the API
-  // Instead, build a simple HTML version that Word can open
-  const html = buildWordHTML(currentResults, annee, date);
+  const html = buildWordHTML(currentResults, annee, date, typeLabel);
   const blob = new Blob([html], { type: 'application/vnd.ms-word;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `Bulletins_${annee}e_annee_${date}.doc`;
+  a.download = `${typeLabel.replace(/ /g,'_')}_${annee}e_annee_${date}.doc`;
   a.click();
   URL.revokeObjectURL(url);
 
-  btn.textContent = '📄 Télécharger Word (.docx)';
-  btn.disabled = false;
+  btn.textContent = '📄 Télécharger Word (.doc)'; btn.disabled = false;
 }
 
-function buildWordHTML(results, annee, date) {
+function buildWordHTML(results, annee, date, typeLabel) {
   let html = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
-xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <style>
-  body { font-family: Arial, sans-serif; font-size: 11pt; margin: 2cm; }
-  h1 { font-size: 16pt; color: #1a3a5c; border-bottom: 3pt solid #c9a84c; padding-bottom: 6pt; margin-bottom: 12pt; }
-  h2 { font-size: 13pt; color: #1a3a5c; background: #edf3fb; padding: 6pt 10pt; margin-top: 20pt; margin-bottom: 4pt; }
-  .attentes { font-size: 9pt; color: #666; font-style: italic; margin-bottom: 10pt; padding: 4pt 10pt; background: #f5f8fc; }
-  table { width: 100%; border-collapse: collapse; margin-bottom: 20pt; }
-  th { background: #1a3a5c; color: white; font-size: 10pt; padding: 6pt 8pt; text-align: left; }
-  td { font-size: 10pt; padding: 6pt 8pt; border: 0.5pt solid #ccc; vertical-align: top; }
+  body { font-family: Calibri, sans-serif; font-size: 11pt; margin: 2cm; line-height: 1.5; }
+  h1 { font-size: 14pt; color: #1a3a5c; border-bottom: 2pt solid #c9a84c; padding-bottom: 4pt; margin-bottom: 12pt; }
+  h2 { font-size: 12pt; color: #1a3a5c; background: #edf3fb; padding: 5pt 8pt; margin-top: 16pt; margin-bottom: 3pt; }
+  .attentes { font-size: 9pt; color: #555; font-style: italic; margin-bottom: 8pt; padding: 3pt 8pt; background: #f5f8fc; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 16pt; }
+  th { background: #1a3a5c; color: white; font-size: 10pt; padding: 5pt 7pt; text-align: left; }
+  td { font-size: 10pt; padding: 5pt 7pt; border: 0.5pt solid #ccc; vertical-align: top; line-height: 1.5; }
   tr:nth-child(even) td { background: #fafaf8; }
-  .cote { font-weight: bold; font-size: 12pt; }
-  .footer { font-size: 8pt; color: #999; margin-top: 20pt; text-align: center; }
-</style>
-</head>
-<body>
-<h1>Bulletins — ${annee}e année — ${date}</h1>`;
+  .cote { font-weight: bold; font-size: 11pt; }
+  .footer { font-size: 8pt; color: #aaa; margin-top: 16pt; text-align: center; }
+</style></head><body>
+<h1>${typeLabel} — ${annee}e année — ${date}</h1>`;
 
   results.forEach(mr => {
     const attenteStr = mr.attentes.length ? mr.attentes.join(' · ') : 'Attentes non précisées';
     html += `<h2>${mr.matiere}</h2>
 <div class="attentes">Attentes évaluées : ${attenteStr}</div>
-<table>
-<thead><tr><th style="width:15%">Élève</th><th style="width:7%">Cote</th><th>Commentaire</th></tr></thead>
-<tbody>`;
+<table><thead><tr><th style="width:15%">Élève</th><th style="width:7%">Cote</th><th>Commentaire</th></tr></thead><tbody>`;
     mr.students.forEach(st => {
-      html += `<tr>
-<td><strong>${st.name}</strong></td>
-<td class="cote">${st.cote}</td>
-<td>${st.comment}</td>
-</tr>`;
+      html += `<tr><td><strong>${st.name}</strong></td><td class="cote">${st.cote}</td><td>${st.comment}</td></tr>`;
     });
     html += `</tbody></table>`;
   });
 
   html += `<div class="footer">Généré par MonProf.ai — ${date}</div></body></html>`;
   return html;
-}
-
-function buildDocxScript(results, annee, date) {
-  return `// placeholder for server-side generation`;
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -1101,19 +1139,22 @@ async function generateIndividuel() {
   document.getElementById('loading-ind').classList.add('visible');
   document.getElementById('results-ind').classList.remove('visible');
 
-  const basePrompt = buildCommentPrompt(prenom, selectedPronom, selectedNiveau, selectedAttentesInd, matiere, annee, observations);
-  const threePrompt = basePrompt.replace('Génère UN commentaire', 'Génère TROIS commentaires distincts').replace('Génère SEULEMENT le commentaire, rien d\'autre.', 'Sépare les trois versions par exactement "---VERSION---". Pas de titre ni numérotation.');
+  const coteForPrompt = selectedNiveau === 'B2' ? 'B' : selectedNiveau;
+  const basePrompt = buildCommentPrompt(prenom, selectedPronom, coteForPrompt, selectedAttentesInd, matiere, annee, observations, indBulletinType);
+  const threePrompt = basePrompt
+    .replace('Génère UN commentaire', 'Génère TROIS commentaires distincts')
+    .replace('Génère SEULEMENT le commentaire, rien d\'autre.', 'Sépare les trois versions par exactement "---VERSION---". Pas de titre ni numérotation.');
 
   try {
     const resp = await fetch('https://web-production-f1270.up.railway.app/api/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1000, messages: [{ role: 'user', content: threePrompt }] })
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1200, messages: [{ role: 'user', content: threePrompt }] })
     });
     const data = await resp.json();
     const text = data.content?.[0]?.text || '';
     const versions = text.split('---VERSION---').map(v => v.trim()).filter(v => v.length > 20);
-    displayIndResults(versions, prenom, matiere, selectedNiveau);
+    displayIndResults(versions);
   } catch(e) {
     document.getElementById('results-ind').innerHTML = `<div class="comment-card"><p style="color:red">Erreur : ${e.message}</p></div>`;
     document.getElementById('results-ind').classList.add('visible');
@@ -1123,15 +1164,19 @@ async function generateIndividuel() {
   document.getElementById('loading-ind').classList.remove('visible');
 }
 
-function displayIndResults(versions, prenom, matiere, niveau) {
+function displayIndResults(versions) {
   const container = document.getElementById('results-ind');
   const labels = ['Version 1', 'Version 2', 'Version 3'];
+  const charLimit = indBulletinType === 'progres' ? 2560 : 2560;
   let html = '';
   versions.forEach((text, i) => {
     const id = `ind-${i}`;
+    const chars = text.length;
+    const overLimit = chars > charLimit;
     html += `<div class="comment-card">
       <div class="comment-label">${labels[i] || 'Commentaire'}</div>
       <div class="comment-text" id="${id}" contenteditable="false">${text}</div>
+      <div class="char-counter ${overLimit ? 'over' : ''}" id="counter-${id}">${chars} / ${charLimit} caractères</div>
       <div class="comment-actions">
         <button class="btn-secondary" onclick="toggleEditInd('${id}')">✏️ Modifier</button>
         <button class="btn-primary" id="copy-ind-${id}" onclick="copyInd('${id}')" style="padding:7px 14px; font-size:12px;">📋 Copier</button>
@@ -1147,7 +1192,17 @@ function toggleEditInd(id) {
   const el = document.getElementById(id);
   const isEditing = el.contentEditable === 'true';
   el.contentEditable = isEditing ? 'false' : 'true';
-  if (!isEditing) el.focus();
+  if (!isEditing) {
+    el.focus();
+    el.addEventListener('input', () => {
+      const c = el.textContent.length;
+      const counter = document.getElementById(`counter-${id}`);
+      if (counter) {
+        counter.textContent = `${c} / 2560 caractères`;
+        counter.className = `char-counter ${c > 2560 ? 'over' : c > 2300 ? 'warning' : ''}`;
+      }
+    });
+  }
 }
 
 function copyInd(id) {
@@ -1292,18 +1347,12 @@ const HAB_PROCHAINES = {
 // ════════════════════════════════════════════════════════════════
 // HABILETÉS — STATE & LOGIC
 // ════════════════════════════════════════════════════════════════
-let cotesHabNew = {};
-let selectedForces = {};   // { habKey: sentenceText }
-let selectedProchaines = {}; // { habKey: sentenceText }
-
 function selectCoteNew(hab, cote) {
   cotesHabNew[hab] = cote;
-  // Update button styles
   document.getElementById(`hab-${hab}`).querySelectorAll('.cote-btn').forEach(b => {
     b.className = 'cote-btn';
     if (b.textContent === cote) b.classList.add(`sel-${cote}`);
   });
-  // Rebuild force/prochaine sections
   buildForcesSection();
   buildProchainessSection();
 }
@@ -1312,31 +1361,25 @@ function buildForcesSection() {
   const container = document.getElementById('forces-container');
   const habs = Object.keys(cotesHabNew).filter(k => cotesHabNew[k]);
   if (!habs.length) { container.innerHTML = '<p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d\'abord les cotes à l\'étape 1.</p>'; return; }
-
   let html = '';
   habs.forEach(hab => {
     const label = HAB_LABELS[hab];
     const sentences = HAB_FORCES[hab] || [];
     const isOpen = selectedForces[hab] !== undefined;
-    html += `
-      <div style="border:1.5px solid var(--gris-clair); border-radius:8px; margin-bottom:10px; overflow:hidden;">
-        <div style="background:#f4f1ec; padding:10px 14px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;"
-             onclick="toggleForcesHab('${hab}')">
-          <span style="font-size:13px; font-weight:600; color:var(--bleu);">${label}</span>
-          <span id="force-toggle-${hab}" style="color:var(--bleu-clair); font-size:16px;">${isOpen ? '▼' : '▶'}</span>
-        </div>
-        <div id="force-body-${hab}" style="padding:12px; display:${isOpen ? 'block' : 'none'};">
-          ${sentences.map((s, i) => {
-            const sel = selectedForces[hab] === s;
-            return `<div onclick="selectForce('${hab}', ${i})"
-              style="padding:8px 12px; margin-bottom:6px; border-radius:6px; cursor:pointer; font-size:13px; line-height:1.5;
-              background:${sel ? '#edf3fb' : '#fafaf8'}; border:1.5px solid ${sel ? 'var(--bleu-clair)' : 'var(--gris-clair)'};"
-              id="force-${hab}-${i}">
-              ${s.replace(/\*N\*/g, '<strong>[Prénom]</strong>')}
-            </div>`;
-          }).join('')}
-        </div>
-      </div>`;
+    html += `<div style="border:1.5px solid var(--gris-clair); border-radius:8px; margin-bottom:10px; overflow:hidden;">
+      <div style="background:#f4f1ec; padding:10px 14px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;" onclick="toggleForcesHab('${hab}')">
+        <span style="font-size:13px; font-weight:600; color:var(--bleu);">${label}</span>
+        <span id="force-toggle-${hab}" style="color:var(--bleu-clair); font-size:16px;">${isOpen ? '▼' : '▶'}</span>
+      </div>
+      <div id="force-body-${hab}" style="padding:12px; display:${isOpen ? 'block' : 'none'};">
+        ${sentences.map((s, i) => {
+          const sel = selectedForces[hab] === s;
+          return `<div onclick="selectForce('${hab}', ${i})" style="padding:8px 12px; margin-bottom:6px; border-radius:6px; cursor:pointer; font-size:13px; line-height:1.5; background:${sel ? '#edf3fb' : '#fafaf8'}; border:1.5px solid ${sel ? 'var(--bleu-clair)' : 'var(--gris-clair)'};" id="force-${hab}-${i}">
+            ${s.replace(/\*N\*/g, '<strong>[Prénom]</strong>')}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
   });
   container.innerHTML = html;
 }
@@ -1345,31 +1388,25 @@ function buildProchainessSection() {
   const container = document.getElementById('prochaines-container');
   const habs = Object.keys(cotesHabNew).filter(k => cotesHabNew[k]);
   if (!habs.length) { container.innerHTML = '<p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d\'abord les cotes à l\'étape 1.</p>'; return; }
-
   let html = '';
   habs.forEach(hab => {
     const label = HAB_LABELS[hab];
     const sentences = HAB_PROCHAINES[hab] || [];
     const isOpen = selectedProchaines[hab] !== undefined;
-    html += `
-      <div style="border:1.5px solid var(--gris-clair); border-radius:8px; margin-bottom:10px; overflow:hidden;">
-        <div style="background:#f4f1ec; padding:10px 14px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;"
-             onclick="toggleProchainHab('${hab}')">
-          <span style="font-size:13px; font-weight:600; color:var(--bleu);">${label}</span>
-          <span id="proch-toggle-${hab}" style="color:var(--bleu-clair); font-size:16px;">${isOpen ? '▼' : '▶'}</span>
-        </div>
-        <div id="proch-body-${hab}" style="padding:12px; display:${isOpen ? 'block' : 'none'};">
-          ${sentences.map((s, i) => {
-            const sel = selectedProchaines[hab] === s;
-            return `<div onclick="selectProchaine('${hab}', ${i})"
-              style="padding:8px 12px; margin-bottom:6px; border-radius:6px; cursor:pointer; font-size:13px; line-height:1.5;
-              background:${sel ? '#fff8e8' : '#fafaf8'}; border:1.5px solid ${sel ? 'var(--or)' : 'var(--gris-clair)'};"
-              id="proch-${hab}-${i}">
-              ${s.replace(/\*N\*/g, '<strong>[Prénom]</strong>')}
-            </div>`;
-          }).join('')}
-        </div>
-      </div>`;
+    html += `<div style="border:1.5px solid var(--gris-clair); border-radius:8px; margin-bottom:10px; overflow:hidden;">
+      <div style="background:#f4f1ec; padding:10px 14px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;" onclick="toggleProchainHab('${hab}')">
+        <span style="font-size:13px; font-weight:600; color:var(--bleu);">${label}</span>
+        <span id="proch-toggle-${hab}" style="color:var(--bleu-clair); font-size:16px;">${isOpen ? '▼' : '▶'}</span>
+      </div>
+      <div id="proch-body-${hab}" style="padding:12px; display:${isOpen ? 'block' : 'none'};">
+        ${sentences.map((s, i) => {
+          const sel = selectedProchaines[hab] === s;
+          return `<div onclick="selectProchaine('${hab}', ${i})" style="padding:8px 12px; margin-bottom:6px; border-radius:6px; cursor:pointer; font-size:13px; line-height:1.5; background:${sel ? '#fff8e8' : '#fafaf8'}; border:1.5px solid ${sel ? 'var(--or)' : 'var(--gris-clair)'};" id="proch-${hab}-${i}">
+            ${s.replace(/\*N\*/g, '<strong>[Prénom]</strong>')}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
   });
   container.innerHTML = html;
 }
@@ -1391,36 +1428,25 @@ function toggleProchainHab(hab) {
 }
 
 function selectForce(hab, idx) {
-  const sentence = HAB_FORCES[hab][idx];
-  selectedForces[hab] = sentence;
-  // Update UI
+  selectedForces[hab] = HAB_FORCES[hab][idx];
   HAB_FORCES[hab].forEach((s, i) => {
     const el = document.getElementById(`force-${hab}-${i}`);
-    if (el) {
-      el.style.background = i === idx ? '#edf3fb' : '#fafaf8';
-      el.style.border = `1.5px solid ${i === idx ? 'var(--bleu-clair)' : 'var(--gris-clair)'}`;
-    }
+    if (el) { el.style.background = i === idx ? '#edf3fb' : '#fafaf8'; el.style.border = `1.5px solid ${i === idx ? 'var(--bleu-clair)' : 'var(--gris-clair)'}`; }
   });
   assembleComment();
 }
 
 function selectProchaine(hab, idx) {
-  const sentence = HAB_PROCHAINES[hab][idx];
-  selectedProchaines[hab] = sentence;
-  // Update UI
+  selectedProchaines[hab] = HAB_PROCHAINES[hab][idx];
   HAB_PROCHAINES[hab].forEach((s, i) => {
     const el = document.getElementById(`proch-${hab}-${i}`);
-    if (el) {
-      el.style.background = i === idx ? '#fff8e8' : '#fafaf8';
-      el.style.border = `1.5px solid ${i === idx ? 'var(--or)' : 'var(--gris-clair)'}`;
-    }
+    if (el) { el.style.background = i === idx ? '#fff8e8' : '#fafaf8'; el.style.border = `1.5px solid ${i === idx ? 'var(--or)' : 'var(--gris-clair)'}`; }
   });
   assembleComment();
 }
 
 function togglePEI() {
-  const checked = document.getElementById('pei-check').checked;
-  document.getElementById('pei-habs').style.display = checked ? 'block' : 'none';
+  document.getElementById('pei-habs').style.display = document.getElementById('pei-check').checked ? 'block' : 'none';
   assembleComment();
 }
 
@@ -1428,39 +1454,27 @@ function assembleComment() {
   const prenom = document.getElementById('prenom-hab').value.trim() || '[Prénom]';
   const periode = document.getElementById('periode-hab').value;
 
-  // Build sentences replacing *N* with prénom
-  const forceSentences = Object.values(selectedForces)
-    .map(s => s.replace(/\*N\*/g, prenom));
-  const prochaineSentences = Object.values(selectedProchaines)
-    .map(s => s.replace(/\*N\*/g, prenom));
+  const forceSentences = Object.values(selectedForces).map(s => s.replace(/\*N\*/g, prenom));
+  const prochaineSentences = Object.values(selectedProchaines).map(s => s.replace(/\*N\*/g, prenom));
 
   let comment = '';
+  if (forceSentences.length) comment += forceSentences.join(' ') + ' ';
+  if (prochaineSentences.length) comment += prochaineSentences.join(' ');
 
-  if (forceSentences.length) {
-    comment += forceSentences.join(' ') + ' ';
-  }
-  if (prochaineSentences.length) {
-    comment += prochaineSentences.join(' ');
-  }
-
-  // Add PEI sentence if checked
   if (document.getElementById('pei-check').checked) {
     const checkedHabs = [...document.querySelectorAll('.pei-hab-cb:checked')].map(cb => cb.value);
     if (checkedHabs.length) {
       const habList = checkedHabs.length === 1
         ? checkedHabs[0]
         : checkedHabs.slice(0, -1).join(', ') + ' et ' + checkedHabs[checkedHabs.length - 1];
-
       const peiSentence = periode === 'progres'
         ? `${prenom} bénéficie d'attentes différentes reliées à ${habList} telles qu'énoncées au PEI. Un commentaire plus exhaustif face à ces habiletés et habitudes sera consigné au PEI pour le bulletin de la première étape.`
         : `${prenom} bénéficie d'attentes différentes reliées à ${habList} comme énoncées au PEI. Un commentaire plus exhaustif face à ces habiletés et habitudes est consigné au bulletin alternatif.`;
-
       comment += (comment ? ' ' : '') + peiSentence;
     }
   }
 
   comment = comment.trim();
-
   const box = document.getElementById('hab-assembled-box');
   const counter = document.getElementById('hab-char-count');
   const charCount = comment.length;
@@ -1472,8 +1486,8 @@ function assembleComment() {
   }
 
   counter.textContent = `${charCount} / 2560 caractères`;
-  counter.style.color = charCount > 2560 ? 'var(--rouge-doux)' : '#777';
-  counter.style.fontWeight = charCount > 2560 ? '700' : '400';
+  counter.style.color = charCount > 2560 ? 'var(--rouge-doux)' : charCount > 2300 ? 'var(--orange-doux)' : '#777';
+  counter.style.fontWeight = charCount > 2300 ? '700' : '400';
 }
 
 function toggleEditHab() {
@@ -1487,7 +1501,8 @@ function toggleEditHab() {
       const c = el.textContent.length;
       const counter = document.getElementById('hab-char-count');
       counter.textContent = `${c} / 2560 caractères`;
-      counter.style.color = c > 2560 ? 'var(--rouge-doux)' : '#777';
+      counter.style.color = c > 2560 ? 'var(--rouge-doux)' : c > 2300 ? 'var(--orange-doux)' : '#777';
+      counter.style.fontWeight = c > 2300 ? '700' : '400';
     });
   }
 }
@@ -1501,6 +1516,13 @@ function copyHabComment() {
     setTimeout(() => { btn.textContent = '📋 Copier'; }, 2000);
   });
 }
+
+// ════════════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  renderNiveauButtons();
+});
 </script>
 </body>
 </html>
