@@ -361,7 +361,11 @@
 
   <div class="form-grid" style="margin-bottom:20px;">
     <div class="form-group">
-      <label>Prénom de l'élève</label>
+      <label>Nom de famille</label>
+      <input type="text" id="nom-hab" placeholder="ex. Tremblay, Martin..." oninput="assembleComment()">
+    </div>
+    <div class="form-group">
+      <label>Prénom</label>
       <input type="text" id="prenom-hab" placeholder="ex. Marie, Thomas..." oninput="assembleComment()">
     </div>
     <div class="form-group">
@@ -434,10 +438,22 @@
   <div id="hab-assembled-box" style="background:#fafaf8; border:1.5px solid var(--gris-clair); border-radius:10px; padding:16px; margin-bottom:8px; min-height:80px;">
     <p style="color:#999; font-style:italic; font-size:13px;">Le commentaire s'assemblera ici au fur et à mesure de vos sélections.</p>
   </div>
-  <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:8px;">
+  <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:20px;">
     <span id="hab-char-count" style="font-size:12px; color:#777;">0 / 2560 caractères</span>
     <button class="btn-secondary" onclick="toggleEditHab()">✏️ Modifier</button>
-    <button class="btn-primary" style="padding:9px 16px; font-size:13px;" onclick="copyHabComment()">📋 Copier</button>
+    <button class="btn-primary" style="padding:9px 16px; font-size:13px;" onclick="saveHabComment()">💾 Sauvegarder cet élève</button>
+  </div>
+
+  <!-- ROSTER -->
+  <div id="hab-roster-section" style="display:none; margin-top:4px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; flex-wrap:wrap; gap:10px;">
+      <div class="section-label" style="margin-bottom:0;">Élèves sauvegardés</div>
+      <button class="btn-success" onclick="downloadCombinedWord()" id="btn-download-combined">
+        📄 Télécharger tout (Word)
+      </button>
+    </div>
+    <div id="hab-roster" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;"></div>
+    <p style="font-size:11px; color:#999; font-style:italic;">Cliquez sur un nom pour modifier son commentaire.</p>
   </div>
 
 </div>
@@ -492,11 +508,13 @@
 
   <div class="section-label" style="margin-bottom:12px;">Notes importantes</div>
   <div style="font-size:13px; line-height:1.9; color:var(--gris-texte);">
+    <div>💡 <strong>Colonnes A-B-C :</strong> Nom de famille · Prénom · Pronom — dans cet ordre</div>
     <div>💡 <strong>Pronom :</strong> Écrire exactement <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">elle</code>, <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">il</code>, ou <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">iel</code></div>
     <div>💡 <strong>Bulletin de progrès :</strong> Cotes acceptées : <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">T</code> &nbsp;<code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">B</code> &nbsp;<code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">D</code></div>
     <div>💡 <strong>Bulletin scolaire :</strong> Cotes acceptées : <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">A+</code> <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">A</code> <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">A-</code> <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">B+</code> <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">B</code> <code style="background:#e8e4dd; padding:1px 4px; border-radius:3px; font-size:11px;">B-</code> etc.</div>
     <div>💡 <strong>Cellule vide</strong> = matière ignorée pour cet élève</div>
     <div>💡 Les <strong>observations</strong> sont optionnelles mais améliorent la qualité des commentaires</div>
+    <div>💡 Les tableaux dans le fichier Word sont <strong>triés alphabétiquement par nom de famille</strong></div>
   </div>
 
 </div>
@@ -639,22 +657,22 @@ const ATTENTES = {
   }
 };
 
-// Column mapping [coteCol, obsCol] (0-indexed: Prénom=0, Pronom=1, then pairs)
+// Column mapping [coteCol, obsCol] (0-indexed: Nom=0, Prénom=1, Pronom=2, then pairs)
 const MATIERE_COLS = [
-  { name: 'Mathématiques', cote: 2, obs: 3 },
-  { name: 'Français', cote: 4, obs: 5 },
-  { name: 'Études sociales', cote: 6, obs: 7 },
-  { name: 'Sciences et technologie', cote: 8, obs: 9 },
-  { name: 'Arts (arts visuels)', cote: 10, obs: 11 },
-  { name: 'Arts (musique)', cote: 12, obs: 13 },
-  { name: 'Arts (danse)', cote: 14, obs: 15 },
-  { name: 'Arts (art dramatique)', cote: 16, obs: 17 },
-  { name: 'Éducation physique et santé', cote: 18, obs: 19 },
-  { name: 'Enseignement religieux', cote: 20, obs: 21 }
+  { name: 'Mathématiques', cote: 3, obs: 4 },
+  { name: 'Français', cote: 5, obs: 6 },
+  { name: 'Études sociales', cote: 7, obs: 8 },
+  { name: 'Sciences et technologie', cote: 9, obs: 10 },
+  { name: 'Arts (arts visuels)', cote: 11, obs: 12 },
+  { name: 'Arts (musique)', cote: 13, obs: 14 },
+  { name: 'Arts (danse)', cote: 15, obs: 16 },
+  { name: 'Arts (art dramatique)', cote: 17, obs: 18 },
+  { name: 'Éducation physique et santé', cote: 19, obs: 20 },
+  { name: 'Enseignement religieux', cote: 21, obs: 22 }
 ];
 
 const SHEET_HEADERS_BASE = [
-  'Prénom','Pronom (elle/il/iel)',
+  'Nom de famille','Prénom','Pronom (elle/il/iel)',
   'Cote Mathématiques','Observations Mathématiques',
   'Cote Français','Observations Français',
   'Cote Études sociales','Observations Études sociales',
@@ -954,12 +972,13 @@ async function generateClasse() {
     const matiereResult = { matiere: mc.name, attentes: classeAttentesSelected[mc.name] || [], students: [] };
 
     for (const s of matiereStudents) {
-      const prenom = s[0]?.trim() || 'Élève';
-      const pronom = (s[1]?.trim().toLowerCase() || 'elle');
+      const nom = s[0]?.trim() || '';
+      const prenom = s[1]?.trim() || 'Élève';
+      const pronom = (s[2]?.trim().toLowerCase() || 'elle');
       const cote = s[mc.cote]?.trim();
       const obs = s[mc.obs]?.trim() || '';
 
-      updateProgress(doneComments, totalComments, `Génération : ${prenom} — ${mc.name}...`);
+      updateProgress(doneComments, totalComments, `Génération : ${prenom} ${nom} — ${mc.name}...`);
 
       try {
         const resp = await fetch('https://web-production-f1270.up.railway.app/api/claude', {
@@ -973,9 +992,9 @@ async function generateClasse() {
         });
         const data = await resp.json();
         const comment = data.content?.[0]?.text?.trim() || '[Erreur de génération]';
-        matiereResult.students.push({ name: prenom, pronom, cote, comment });
+        matiereResult.students.push({ nom, prenom, pronom, cote, comment });
       } catch(e) {
-        matiereResult.students.push({ name: prenom, pronom, cote, comment: '[Erreur réseau]' });
+        matiereResult.students.push({ nom, prenom, pronom, cote, comment: '[Erreur réseau]' });
       }
 
       doneComments++;
@@ -1017,13 +1036,15 @@ function displayClasseResults(annee) {
           </tr></thead>
           <tbody>`;
 
+    mr.students.sort((a,b) => (a.nom+a.prenom).localeCompare(b.nom+b.prenom, 'fr'));
     mr.students.forEach((st, sIdx) => {
       totalStudents++;
       const id = `c-${mIdx}-${sIdx}`;
       const coteClass = `sel-${st.cote.charAt(0)}`;
+      const fullName = st.nom ? `${st.nom}, ${st.prenom}` : st.prenom;
       html += `
         <tr>
-          <td class="name-cell">${st.name}</td>
+          <td class="name-cell">${fullName}</td>
           <td class="cote-cell"><span class="niveau-btn ${coteClass}" style="cursor:default; padding:4px 10px;">${st.cote}</span></td>
           <td class="comment-cell"><div id="${id}" contenteditable="false">${st.comment}</div></td>
           <td class="edit-cell">
@@ -1075,20 +1096,43 @@ async function downloadWord() {
   const annee = document.getElementById('classe-annee').value;
   const date = new Date().toLocaleDateString('fr-CA');
   const typeLabel = bulletinType === 'progres' ? 'Bulletin de progrès' : 'Bulletin scolaire';
-
-  const html = buildWordHTML(currentResults, annee, date, typeLabel);
+  const html = buildWordHTML(currentResults, annee, date, typeLabel, hhSavedData);
   const blob = new Blob([html], { type: 'application/vnd.ms-word;charset=utf-8' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
+  const a = document.createElement('a'); a.href = url;
   a.download = `${typeLabel.replace(/ /g,'_')}_${annee}e_annee_${date}.doc`;
-  a.click();
-  URL.revokeObjectURL(url);
-
+  a.click(); URL.revokeObjectURL(url);
   btn.textContent = '📄 Télécharger Word (.doc)'; btn.disabled = false;
 }
 
-function buildWordHTML(results, annee, date, typeLabel) {
+async function downloadCombinedWord() {
+  if (!generatedResults.length && !hhSavedData.length) {
+    alert('Aucun commentaire à télécharger. Générez d\'abord les commentaires dans l\'onglet Classe entière.'); return;
+  }
+  const btn = document.getElementById('btn-download-combined');
+  btn.textContent = '⏳ Préparation...'; btn.disabled = true;
+
+  const currentResults = generatedResults.map((mr, mIdx) => ({
+    ...mr,
+    students: mr.students.map((st, sIdx) => ({
+      ...st,
+      comment: document.getElementById(`c-${mIdx}-${sIdx}`)?.textContent || st.comment
+    }))
+  }));
+
+  const annee = document.getElementById('classe-annee').value || '?';
+  const date = new Date().toLocaleDateString('fr-CA');
+  const typeLabel = bulletinType === 'progres' ? 'Bulletin de progrès' : 'Bulletin scolaire';
+  const html = buildWordHTML(currentResults, annee, date, typeLabel, hhSavedData);
+  const blob = new Blob([html], { type: 'application/vnd.ms-word;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url;
+  a.download = `Bulletins_complets_${annee}e_annee_${date}.doc`;
+  a.click(); URL.revokeObjectURL(url);
+  btn.textContent = '📄 Télécharger tout (Word)'; btn.disabled = false;
+}
+
+function buildWordHTML(results, annee, date, typeLabel, hhData) {
   let html = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
@@ -1099,21 +1143,56 @@ function buildWordHTML(results, annee, date, typeLabel) {
   h2 { font-size: 12pt; color: #1a3a5c; background: #edf3fb; padding: 5pt 8pt; margin-top: 16pt; margin-bottom: 3pt; }
   .attentes { font-size: 9pt; color: #555; font-style: italic; margin-bottom: 8pt; padding: 3pt 8pt; background: #f5f8fc; }
   table { width: 100%; border-collapse: collapse; margin-bottom: 16pt; }
-  th { background: #1a3a5c; color: white; font-size: 10pt; padding: 5pt 7pt; text-align: left; }
-  td { font-size: 10pt; padding: 5pt 7pt; border: 0.5pt solid #ccc; vertical-align: top; line-height: 1.5; }
+  th { background: #1a3a5c; color: white; font-size: 9pt; padding: 5pt 6pt; text-align: left; }
+  td { font-size: 10pt; padding: 5pt 6pt; border: 0.5pt solid #ccc; vertical-align: top; line-height: 1.5; }
   tr:nth-child(even) td { background: #fafaf8; }
-  .cote { font-weight: bold; font-size: 11pt; }
+  .cote { font-weight: bold; font-size: 11pt; text-align: center; }
   .footer { font-size: 8pt; color: #aaa; margin-top: 16pt; text-align: center; }
 </style></head><body>
 <h1>${typeLabel} — ${annee}e année — ${date}</h1>`;
 
+  // ── HH TABLE (if data present) ───────────────────────────────
+  if (hhData && hhData.length > 0) {
+    const sorted = [...hhData].sort((a,b) => (a.nom+a.prenom).localeCompare(b.nom+b.prenom,'fr'));
+    html += `<h2>Habiletés et habitudes de travail (HH)</h2>
+<table><thead><tr>
+  <th style="width:14%">Élève</th>
+  <th style="width:4%">Oral</th>
+  <th style="width:4%">Fiab.</th>
+  <th style="width:4%">Org.</th>
+  <th style="width:4%">Auto.</th>
+  <th style="width:4%">Collab.</th>
+  <th style="width:4%">Init.</th>
+  <th style="width:4%">Autorég.</th>
+  <th>Commentaire</th>
+</tr></thead><tbody>`;
+    sorted.forEach(st => {
+      const fullName = st.nom ? `<strong>${st.nom}</strong>, ${st.prenom}` : `<strong>${st.prenom}</strong>`;
+      html += `<tr>
+<td>${fullName}</td>
+<td class="cote">${st.cotes.oral||''}</td>
+<td class="cote">${st.cotes.fiabilite||''}</td>
+<td class="cote">${st.cotes.organisation||''}</td>
+<td class="cote">${st.cotes.autonomie||''}</td>
+<td class="cote">${st.cotes.collaboration||''}</td>
+<td class="cote">${st.cotes.initiative||''}</td>
+<td class="cote">${st.cotes.autoregulation||''}</td>
+<td>${st.comment}</td>
+</tr>`;
+    });
+    html += `</tbody></table>`;
+  }
+
+  // ── ACADEMIC TABLES ──────────────────────────────────────────
   results.forEach(mr => {
+    const sorted = [...mr.students].sort((a,b) => (a.nom+a.prenom).localeCompare(b.nom+b.prenom,'fr'));
     const attenteStr = mr.attentes.length ? mr.attentes.join(' · ') : 'Attentes non précisées';
     html += `<h2>${mr.matiere}</h2>
 <div class="attentes">Attentes évaluées : ${attenteStr}</div>
-<table><thead><tr><th style="width:15%">Élève</th><th style="width:7%">Cote</th><th>Commentaire</th></tr></thead><tbody>`;
-    mr.students.forEach(st => {
-      html += `<tr><td><strong>${st.name}</strong></td><td class="cote">${st.cote}</td><td>${st.comment}</td></tr>`;
+<table><thead><tr><th style="width:16%">Élève</th><th style="width:6%">Cote</th><th>Commentaire</th></tr></thead><tbody>`;
+    sorted.forEach(st => {
+      const fullName = st.nom ? `<strong>${st.nom}</strong>, ${st.prenom}` : `<strong>${st.prenom}</strong>`;
+      html += `<tr><td>${fullName}</td><td class="cote">${st.cote}</td><td>${st.comment}</td></tr>`;
     });
     html += `</tbody></table>`;
   });
@@ -1515,6 +1594,114 @@ function copyHabComment() {
     btn.textContent = '✅ Copié!';
     setTimeout(() => { btn.textContent = '📋 Copier'; }, 2000);
   });
+}
+
+// ════════════════════════════════════════════════════════════════
+// HH — SAVE & ROSTER
+// ════════════════════════════════════════════════════════════════
+let hhSavedData = []; // Array of { nom, prenom, cotes: {oral,fiabilite,...}, comment }
+
+function saveHabComment() {
+  const nom = document.getElementById('nom-hab').value.trim();
+  const prenom = document.getElementById('prenom-hab').value.trim();
+  if (!prenom && !nom) { alert('Veuillez entrer au moins le prénom de l\'élève.'); return; }
+
+  const el = document.getElementById('hab-assembled-text');
+  if (!el) { alert('Aucun commentaire à sauvegarder. Sélectionnez d\'abord des phrases.'); return; }
+  const comment = el.textContent.trim();
+  if (!comment) { alert('Le commentaire est vide.'); return; }
+
+  const cotes = {};
+  Object.keys(cotesHabNew).forEach(k => { cotes[k] = cotesHabNew[k] || ''; });
+
+  // Check if already exists (same nom+prenom) → update
+  const key = (nom+prenom).toLowerCase();
+  const existingIdx = hhSavedData.findIndex(d => (d.nom+d.prenom).toLowerCase() === key);
+  if (existingIdx >= 0) {
+    hhSavedData[existingIdx] = { nom, prenom, cotes, comment };
+  } else {
+    hhSavedData.push({ nom, prenom, cotes, comment });
+  }
+
+  renderRoster();
+  resetHabForm();
+
+  // Feedback
+  const saveBtn = document.querySelector('[onclick="saveHabComment()"]');
+  const orig = saveBtn.textContent;
+  saveBtn.textContent = `✅ ${prenom || nom} sauvegardé${prenom && nom ? ' !' : ' !'}`;
+  setTimeout(() => { saveBtn.textContent = orig; }, 2000);
+}
+
+function renderRoster() {
+  const section = document.getElementById('hab-roster-section');
+  const roster = document.getElementById('hab-roster');
+  section.style.display = hhSavedData.length ? 'block' : 'none';
+
+  const sorted = [...hhSavedData].sort((a,b) => (a.nom+a.prenom).localeCompare(b.nom+b.prenom,'fr'));
+  roster.innerHTML = sorted.map((st, i) => {
+    const label = st.nom ? `${st.nom}, ${st.prenom}` : st.prenom;
+    const origIdx = hhSavedData.indexOf(st);
+    return `<div style="display:flex; align-items:center; gap:5px; background:#edf3fb; border:1.5px solid #c5d8ed; border-radius:20px; padding:5px 12px; font-size:12px; font-weight:600; color:var(--bleu);">
+      <span style="color:var(--vert-doux);">✅</span>
+      <span style="cursor:pointer;" onclick="loadHabEntry(${origIdx})">${label}</span>
+      <span style="cursor:pointer; color:#aaa; margin-left:4px; font-weight:400;" onclick="deleteHabEntry(${origIdx})" title="Supprimer">✕</span>
+    </div>`;
+  }).join('');
+}
+
+function loadHabEntry(idx) {
+  const st = hhSavedData[idx];
+  if (!st) return;
+  document.getElementById('nom-hab').value = st.nom;
+  document.getElementById('prenom-hab').value = st.prenom;
+
+  // Restore cotes
+  Object.keys(st.cotes).forEach(hab => {
+    if (st.cotes[hab]) {
+      cotesHabNew[hab] = st.cotes[hab];
+      const btns = document.getElementById(`hab-${hab}`)?.querySelectorAll('.cote-btn');
+      btns?.forEach(b => { b.className = 'cote-btn'; if (b.textContent === st.cotes[hab]) b.classList.add(`sel-${st.cotes[hab]}`); });
+    }
+  });
+  buildForcesSection();
+  buildProchainessSection();
+
+  // Show comment
+  const box = document.getElementById('hab-assembled-box');
+  box.innerHTML = `<div id="hab-assembled-text" contenteditable="false" style="font-size:14px; line-height:1.75;">${st.comment}</div>`;
+  const c = st.comment.length;
+  const counter = document.getElementById('hab-char-count');
+  counter.textContent = `${c} / 2560 caractères`;
+  counter.style.color = c > 2560 ? 'var(--rouge-doux)' : '#777';
+}
+
+function deleteHabEntry(idx) {
+  const st = hhSavedData[idx];
+  if (!st) return;
+  const label = st.nom ? `${st.nom}, ${st.prenom}` : st.prenom;
+  if (confirm(`Supprimer ${label} ?`)) {
+    hhSavedData.splice(idx, 1);
+    renderRoster();
+  }
+}
+
+function resetHabForm() {
+  document.getElementById('nom-hab').value = '';
+  document.getElementById('prenom-hab').value = '';
+  cotesHabNew = {};
+  selectedForces = {};
+  selectedProchaines = {};
+  // Reset cote buttons
+  document.querySelectorAll('.cote-btn').forEach(b => b.className = 'cote-btn');
+  document.getElementById('forces-container').innerHTML = '<p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d\'abord les cotes à l\'étape 1.</p>';
+  document.getElementById('prochaines-container').innerHTML = '<p style="color:#999; font-style:italic; font-size:13px;">Sélectionnez d\'abord les cotes à l\'étape 1.</p>';
+  document.getElementById('pei-check').checked = false;
+  document.getElementById('pei-habs').style.display = 'none';
+  document.querySelectorAll('.pei-hab-cb').forEach(cb => cb.checked = false);
+  document.getElementById('hab-assembled-box').innerHTML = '<p style="color:#999; font-style:italic; font-size:13px;">Le commentaire s\'assemblera ici au fur et à mesure de vos sélections.</p>';
+  document.getElementById('hab-char-count').textContent = '0 / 2560 caractères';
+  document.getElementById('hab-char-count').style.color = '#777';
 }
 
 // ════════════════════════════════════════════════════════════════
