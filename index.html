@@ -554,12 +554,524 @@ const ATTENTES = {
     '6': ['B1 — Sens du nombre : entiers, décimaux, pourcentages, fractions, ratios','B2 — Opérations : nombres entiers négatifs, taux équivalents','C1 — Algèbre : régularités croissantes et décroissantes','C2 — Équations : équations avec nombres entiers','D1 — Données : analyser et interpréter des diagrammes variés','D2 — Probabilité : théorique et expérimentale','E1 — Sens de l\'espace : propriétés des quadrilatères et transformations','E2 — Mesure : aire de triangles et parallélogrammes','F1 — Littératie financière : facteurs influençant l\'épargne']
   },
   'Français': {
-    '1': ['A — Communication orale : écouter et s\'exprimer dans diverses situations','B — Lecture : lire des textes variés avec des stratégies de compréhension','C — Écriture : écrire des textes simples en respectant les conventions de base','D — Médias : identifier et interpréter des messages médiatiques simples'],
-    '2': ['A — Communication orale : communiquer oralement avec clarté','B — Lecture : lire et comprendre des textes variés','C — Écriture : rédiger des textes clairs et organisés','D — Médias : analyser et créer des messages médiatiques simples'],
-    '3': ['A — Communication orale : s\'exprimer avec clarté et précision','B — Lecture : lire et interpréter des textes littéraires et informatifs','C — Écriture : planifier, rédiger et réviser des textes organisés','D — Médias : analyser l\'intention et les effets de messages médiatiques'],
-    '4': ['A — Communication orale : s\'exprimer avec efficacité dans des contextes variés','B — Lecture : lire et analyser des textes littéraires et courants','C — Écriture : produire des textes bien structurés','D — Médias : analyser et produire des messages médiatiques'],
-    '5': ['A — Communication orale : communiquer de façon efficace et nuancée','B — Lecture : lire, interpréter et analyser des textes complexes','C — Écriture : rédiger des textes bien développés avec un style clair','D — Médias : analyser de façon critique et produire des messages'],
-    '6': ['A — Communication orale : s\'exprimer avec précision et esprit critique','B — Lecture : lire et analyser de façon critique des textes variés','C — Écriture : rédiger des textes élaborés adaptés au contexte','D — Médias : analyser et créer des messages médiatiques complexes']
+    '1': {
+      'A1 — Compétences transférables': [
+        "A1.1 — déterminer des façons dont les compétences transférables peuvent être utilisées pour appuyer la communication dans divers contextes culturels, sociaux, langagiers et propres à une matière, et mettre en application les compétences transférables lors de la lecture, l'écoute, l'interprétation visuelle, et la création de diverses formes de discours",
+        "A1.2 — démontrer sa compréhension des façons dont les compétences transférables l'aident à développer sa voix et à s'exprimer, et à participer activement à son apprentissage"
+      ],
+      'A2 — Littératie numérique': [
+        "A2.1 — démontrer sa compréhension de ses droits et responsabilités lors de ses interactions en ligne, après avoir obtenu l'autorisation appropriée, et prendre des décisions qui contribuent positivement au développement de son identité numérique et de ses communautés",
+        "A2.2 — démontrer sa compréhension de la navigation sécuritaire dans des environnements en ligne, des façons de gérer sa vie privée et d'interagir avec les autres d'une manière qui contribue à son bien-être et à celui des autres, y compris l'obtention d'une autorisation appropriée",
+        "A2.3 — recueillir, évaluer et utiliser de l'information, en tenant compte de diverses perspectives, pour développer ses connaissances et démontrer son apprentissage",
+        "A2.4 — démontrer sa compréhension des formes de discours, des conventions et des techniques associées aux textes numériques et médiatiques, et mettre en application cette compréhension lors de l'analyse des textes",
+        "A2.5 — démontrer sa compréhension de l'interrelation entre la forme de discours, le contenu, le contexte, les destinataires et la créatrice ou le créateur d'un texte",
+        "A2.6 — utiliser des outils numériques et médiatiques pour soutenir les étapes d'un processus de design et pour élaborer des solutions créatives en réponse à des défis authentiques de la vie",
+        "A2.7 — communiquer et collaborer au sein de diverses communautés de façon sécuritaire, respectueuse, responsable et inclusive lors de son utilisation des plateformes et environnements en ligne, y compris des outils numériques et médiatiques, tout en faisant preuve de sensibilité culturelle"
+      ],
+      'A3 — Identité, communauté et PNMI': [
+        "A3.1 — mettre en application ses connaissances et ses habiletés développées dans le présent programme-cadre pour soutenir son apprentissage dans d'autres matières et déterminer quelques façons d'utiliser cet apprentissage dans la vie quotidienne",
+        "A3.2 — démontrer sa compréhension des contributions, des expériences vécues et des perspectives de personnes et de communautés diverses, y compris du Canada, en explorant les concepts d'identité, de soi et de sentiment d'appartenance dans des textes sensibles et adaptés à la culture",
+        "A3.3 — déterminer des thèmes explorés dans les cultures des Premières Nations, des Métis et des Inuit afin de démontrer sa compréhension d'une gamme d'identités, de perspectives, de relations, d'héritages, de vérités, de formes du savoir et de façons d'être et de faire"
+      ],
+      'B1 — Communication orale': [
+        "B1.1 — utiliser diverses habiletés d'écoute efficace, notamment écouter attentivement et poser des questions pertinentes dans des contextes formels et informels, comme des conversations ou des activités en salle de classe",
+        "B1.2 — repérer et utiliser des stratégies avant, pendant et après l'écoute de messages pour comprendre l'information communiquée de façon orale et non verbale",
+        "B1.3 — déterminer l'intention et l'auditoire pour la communication orale dans des contextes formels et informels et utiliser des stratégies appropriées, y compris prendre la parole à tour de rôle, comprendre quand parler, ce qu'il faut dire et quand s'arrêter, pour communiquer de façon claire et cohérente",
+        "B1.4 — déterminer et utiliser des stratégies de communication orale et non verbale, y compris l'expression, les gestes et le langage corporel, pour interpréter ou contribuer au sens des messages",
+        "B1.5 — choisir et utiliser des mots appropriés, y compris des mots appris récemment, la grammaire et des expressions et des phrases cohérentes pour s'exprimer à l'oral et communiquer ses idées"
+      ],
+      'B2 — Notions fondamentales de la lecture et de l\'écriture': [
+        "B2.1 — mettre en application sa compréhension de la structure sonore des mots pour isoler, segmenter et fusionner des phonèmes dans des mots à l'oral, en commençant par des structures simples avec deux phonèmes et en progressant à des structures plus complexes avec un plus grand nombre de phonèmes",
+        "B2.2 — nommer et former les lettres majuscules et minuscules peu importe l'ordre dans lequel elles sont présentées et démontrer sa connaissance de l'ordre alphabétique, en faisant preuve d'automaticité",
+        "B2.3 — reconnaître, lire et orthographier les correspondances graphèmes-phonèmes relatives aux consonnes et des voyelles les plus fréquentes, avec de plus en plus d'automaticité",
+        "B2.4 — mettre en application ses connaissances des correspondances graphèmes-phonèmes et fusionner des phonèmes pour lire des mots, et segmenter des phonèmes pour orthographier des mots phonétiquement réguliers, de façon isolée et dans des contextes textuels variés",
+        "B2.5 — mettre en application ses connaissances orthographiques, y compris celles relatives à la loi de position, pour faire un choix orthographique ou prononcer un mot avec précision lors de la lecture de mots",
+        "B2.6 — développer et mettre en application ses connaissances du sens des mots et des composantes des mots, comme les bases, les préfixes et les suffixes, pour lire et orthographier des mots",
+        "B2.7 — démontrer sa compréhension du sens des mots courants, acquérir et utiliser le vocabulaire explicitement enseigné dans divers contextes, y compris les contextes relatifs à d'autres matières, et développer et mettre en application sa connaissance de la morphologie pour analyser et comprendre les mots nouveaux dans leur contexte",
+        "B2.8 — lire avec fluidité des mots simples, des phrases courtes et des paragraphes dans une variété de textes, avec précision et à un rythme approprié, pour appuyer la compréhension et lire à haute voix avec expression"
+      ],
+      'B3 — Apprentissages linguistiques': [
+        "B3.1 — reconnaître et construire divers types et formes de phrases simples, y compris des phrases déclaratives, à la forme positive et négative",
+        "B3.2 — démontrer sa compréhension de la phrase de base et ses constituants, des groupes syntaxiques et des classes de mots, des types et des formes de phrases, de l'orthographe grammaticale, de la conjugaison des verbes et de la grammaire du texte pour démontrer sa compréhension de messages et communiquer du sens avec clarté",
+        "B3.3 — mettre en application sa compréhension de la signification et de la fonction de la ponctuation et des majuscules pour communiquer clairement du sens, y compris l'utilisation de la majuscule au début de la phrase et pour les noms propres, et de la ponctuation appropriée à la fin de la phrase"
+      ],
+      'C1 — Connaissances des textes': [
+        "C1.1 — lire et démontrer sa compréhension des textes courts et simples en utilisant sa connaissance des mots, de la grammaire, des mots de liaison et de la structure des phrases, et ses connaissances antérieures",
+        "C1.2 — reconnaître des formes simples de discours narratif, descriptif, incitatif et poétique/ludique, et des genres de textes qui leur sont associés",
+        "C1.3 — reconnaître quelques organisateurs textuels associés à diverses formes de discours, y compris la structure séquentielle et l'ordre chronologique, ainsi que des caractéristiques de textes, incluant les illustrations, les symboles et les titres, et expliquer la façon dont ils favorisent la compréhension du sens par les destinataires lors de la lecture, de l'écoute et de l'interprétation visuelle des textes",
+        "C1.4 — démontrer sa compréhension de la relation entre le texte et ses éléments visuels simples, y compris les illustrations, les graphiques et les images",
+        "C1.5 — reconnaître quelques éléments stylistiques simples, y compris la voix, le choix de mots, les régularités lexicales et la structure des phrases, et décrire leur contribution à la communication du sens",
+        "C1.6 — repérer le point de vue de la narratrice ou du narrateur dans une variété de textes et suggérer un autre point de vue pour raconter l'histoire",
+        "C1.7 — lire, écouter et interpréter visuellement des textes relevant de diverses formes de discours produits par des créatrices et créateurs des Premières Nations, métis et inuit pour démontrer sa compréhension des histoires, des cultures, des relations, des communautés, des groupes, des nations et des expériences des Premières Nations, des Métis et des Inuit"
+      ],
+      'C2 — Stratégies de compréhension': [
+        "C2.1 — utiliser ses connaissances antérieures, y compris les connaissances acquises à partir d'expériences personnelles et ses connaissances textuelles, qui pourront être utilisées pour comprendre le sujet de nouveaux textes",
+        "C2.2 — déterminer les intentions visées par l'interaction avec des textes, y compris le plaisir de lire ou la recherche d'information",
+        "C2.3 — faire des prédictions à partir de ses connaissances antérieures, des caractéristiques textuelles et des preuves tirées du texte",
+        "C2.4 — utiliser des stratégies, y compris la relecture, la visualisation et le questionnement pour vérifier sa compréhension de textes simples, incluant des textes d'autrices et auteurs de l'Ontario français",
+        "C2.5 — établir des liens entre les idées exprimées dans des textes simples, ses propres connaissances et expériences vécues, les idées véhiculées par d'autres textes familiers et le monde qui l'entoure",
+        "C2.6 — repérer l'information importante véhiculée dans un texte simple, y compris l'idée principale",
+        "C2.7 — déterminer les stratégies qui ont favorisé sa compréhension de textes, y compris l'activation des connaissances antérieures et la visualisation"
+      ],
+      'C3 — Pensée critique en littératie': [
+        "C3.1 — reconnaître des procédés littéraires simples, y compris la rime, l'allitération et les onomatopées, et décrire leur contribution à la communication du sens",
+        "C3.2 — faire des inférences simples à partir d'information et d'idées explicites et implicites pour comprendre des textes simples",
+        "C3.3 — analyser des textes simples, y compris des textes descriptifs, narratifs, incitatifs et poétiques/ludiques, en repérant l'information et les événements d'importance ainsi que la structure séquentielle des textes",
+        "C3.4 — reconnaître quelques éléments culturels véhiculés dans divers textes, incluant des symboles et des valeurs, et expliquer les façons dont ces éléments contribuent à la construction du sens",
+        "C3.5 — déterminer les perspectives explicites et implicites véhiculées dans un texte, et décrire comment ces perspectives pourraient influencer les destinataires",
+        "C3.6 — exprimer ses pensées et ses sentiments sur des idées présentées dans des textes, y compris des idées relatives à la diversité, à l'inclusion et l'accessibilité",
+        "C3.7 — déterminer quelques façons dont des textes créés par des individus, communautés, groupes ou nations des Premières Nations, métis ou inuit communiquent de l'information au sujet des périodes historiques, des expériences culturelles et des événements, et établir des liens entre ces textes et des expériences vécues actuelles",
+        "C3.8 — déterminer les habiletés de la pensée qui ont favorisé sa compréhension des textes simples"
+      ],
+      "D1 — Développement d'idées et organisation": [
+        "D1.1 — déterminer le sujet, l'intention et les destinataires de divers textes simples qu'elle ou il planifie de rédiger",
+        "D1.2 — générer des idées concernant des sujets donnés ou de son choix, en utilisant des stratégies simples et en ayant recours à diverses ressources, y compris ses expériences vécues et ses apprentissages dans d'autres matières",
+        "D1.3 — rassembler de l'information et du contenu pertinents sur un sujet en utilisant une source unique",
+        "D1.4 — trier et ordonner ses idées et l'information recueillie, en tenant compte de la forme de discours et du genre de texte à utiliser",
+        "D1.5 — déterminer les stratégies lui ayant servi à développer ses idées en vue de la création de textes"
+      ],
+      'D2 — Création de textes': [
+        "D2.1 — rédiger des ébauches de textes simples et courts relevant d'une variété de formes de discours et de genres de textes, y compris des modèles de textes d'autrices et auteurs de l'Ontario français, incluant des textes narratifs, descriptifs et incitatifs, en utilisant une gamme de médias, de stratégies et d'outils",
+        "D2.2 — écrire des lettres et des mots en écriture scripte, avec une forme, une taille, un emplacement et un espacement appropriés",
+        "D2.3 — démontrer l'utilisation d'une voix personnelle dans ses textes, en mettant l'accent sur l'emploi des mots qui expriment ses pensées, ses sentiments et ses opinions sur le sujet",
+        "D2.4 — déterminer le point de vue de ses textes, incluant la première personne",
+        "D2.5 — apporter des modifications simples aux ébauches de textes en portant attention aux erreurs relatives aux majuscules, à la ponctuation et à l'orthographe"
+      ],
+      'D3 — Publication, présentation et réflexion': [
+        "D3.1 — produire des versions finales de textes en utilisant des techniques simples, pour obtenir l'effet recherché",
+        "D3.2 — présenter des textes de sa propre création en utilisant les stratégies appropriées, y compris la lecture à haute voix, avec expression",
+        "D3.3 — déterminer une stratégie qui s'est avérée utile lors de la présentation de ses textes"
+      ]
+    },
+    '2': {
+      'A1 — Compétences transférables': [
+        "A1.1 — déterminer des façons dont les compétences transférables peuvent être utilisées pour appuyer la communication dans divers contextes culturels, sociaux, langagiers et propres à une matière, et mettre en application les compétences transférables lors de la lecture, l'écoute, l'interprétation visuelle, et la création de diverses formes de discours",
+        "A1.2 — démontrer sa compréhension des façons dont les compétences transférables l'aident à développer sa voix et à s'exprimer, et à participer activement à son apprentissage"
+      ],
+      'A2 — Littératie numérique': [
+        "A2.1 — démontrer sa compréhension de ses droits et responsabilités lors de ses interactions en ligne, après avoir obtenu l'autorisation appropriée, et prendre des décisions qui contribuent positivement au développement de son identité numérique et de ses communautés",
+        "A2.2 — démontrer sa compréhension de la navigation sécuritaire dans des environnements en ligne, des façons de gérer sa vie privée et d'interagir avec les autres d'une manière qui contribue à son bien-être et à celui des autres, y compris l'obtention d'une autorisation appropriée",
+        "A2.3 — recueillir, évaluer et utiliser de l'information, en tenant compte de diverses perspectives, pour développer ses connaissances et démontrer son apprentissage",
+        "A2.4 — démontrer sa compréhension des formes de discours, des conventions et des techniques associées aux textes numériques et médiatiques, et mettre en application cette compréhension lors de l'analyse des textes",
+        "A2.5 — démontrer sa compréhension de l'interrelation entre la forme de discours, le contenu, le contexte, les destinataires et la créatrice ou le créateur d'un texte",
+        "A2.6 — utiliser des outils numériques et médiatiques pour soutenir les étapes d'un processus de design et pour élaborer des solutions créatives en réponse à des défis authentiques de la vie",
+        "A2.7 — communiquer et collaborer au sein de diverses communautés de façon sécuritaire, respectueuse, responsable et inclusive lors de son utilisation des plateformes et environnements en ligne, y compris des outils numériques et médiatiques, tout en faisant preuve de sensibilité culturelle"
+      ],
+      'A3 — Identité, communauté et PNMI': [
+        "A3.1 — mettre en application ses connaissances et ses habiletés développées dans le présent programme-cadre pour soutenir son apprentissage dans d'autres matières et déterminer quelques façons d'utiliser cet apprentissage dans la vie quotidienne",
+        "A3.2 — démontrer sa compréhension des contributions, des expériences vécues et des perspectives de personnes et de communautés diverses, y compris du Canada, en explorant les concepts d'identité, de soi et de sentiment d'appartenance dans des textes sensibles et adaptés à la culture",
+        "A3.3 — déterminer des thèmes explorés dans les cultures des Premières Nations, des Métis et des Inuit afin de démontrer sa compréhension d'une gamme d'identités, de perspectives, de relations, d'héritages, de vérités, de formes du savoir et de façons d'être et de faire"
+      ],
+      'B1 — Communication orale': [
+        "B1.1 — utiliser des habiletés d'écoute efficace, notamment poser des questions pertinentes, reformuler ce qui a été dit et manifester de l'intérêt dans des contextes formels et informels comme les conversations et diverses activités en salle de classe et à diverses fins",
+        "B1.2 — repérer et utiliser diverses stratégies avant, pendant et après l'écoute de messages, pour comprendre l'information communiquée de façon orale et non verbale, et reconnaître les situations dans lesquelles un message est difficile à comprendre",
+        "B1.3 — déterminer l'intention et l'auditoire pour la communication orale dans des contextes formels et informels et utiliser des stratégies appropriées, y compris parler à tour de rôle et se concentrer sur le sujet, pour communiquer de façon claire et cohérente",
+        "B1.4 — déterminer et utiliser des stratégies de communication orale et non verbale, y compris l'expression, les gestes et le langage corporel, et démontrer sa compréhension de la manière dont ces stratégies peuvent contribuer au sens des messages",
+        "B1.5 — choisir et utiliser des mots appropriés, y compris des mots appris récemment, la grammaire et des phrases cohérentes, lors de la communication orale et la communication des idées pour appuyer la compréhension des messages par les destinataires"
+      ],
+      "B2 — Notions fondamentales de la lecture et de l'écriture": [
+        "B2.1 — mettre en application ses connaissances des correspondances graphèmes-phonèmes consolidées, en utilisant la fusion des phonèmes pour lire des mots, et en utilisant la segmentation des phonèmes pour orthographier des mots de plus en plus complexes, monosyllabiques et polysyllabiques, phonétiquement réguliers, de façon isolée et dans des contextes textuels variés, et utiliser la comparaison pour corriger les approximations",
+        "B2.2 — mettre en application ses connaissances orthographiques, y compris celles relatives à la loi de position, pour faire un choix orthographique ou prononcer correctement un mot lors de la lecture",
+        "B2.3 — développer et mettre en application sa connaissance du sens des mots et des composantes des mots, comme les bases, les préfixes fréquents et les suffixes, pour lire et orthographier des mots",
+        "B2.4 — démontrer sa compréhension du sens de divers mots, acquérir et utiliser le vocabulaire explicitement enseigné dans divers contextes, y compris le vocabulaire propre à d'autres matières, et développer et mettre en application sa connaissance de la morphologie pour analyser et comprendre des mots nouveaux en contexte",
+        "B2.5 — lire avec fluidité des mots, des phrases et des paragraphes dans des textes variés, avec précision et à un rythme approprié, pour appuyer la compréhension et lire à voix haute avec expression et intonation"
+      ],
+      'B3 — Apprentissages linguistiques': [
+        "B3.1 — reconnaître et construire des phrases déclaratives, interrogatives et exclamatives, y compris des phrases composées liées par une conjonction de coordination",
+        "B3.2 — démontrer sa compréhension de la phrase de base et ses constituants, des groupes syntaxiques et des classes de mots, des types et des formes de phrases, de l'orthographe grammaticale, de la conjugaison des verbes et de la grammaire du texte pour démontrer sa compréhension de messages et communiquer du sens avec clarté",
+        "B3.3 — mettre en application sa compréhension du sens et de la fonction de la ponctuation et des majuscules pour communiquer clairement du sens, y compris l'utilisation de la majuscule pour les noms propres et au début de la phrase, de la virgule dans des énumérations, et de la ponctuation appropriée en fin de phrase"
+      ],
+      'C1 — Connaissances des textes': [
+        "C1.1 — lire et démontrer sa compréhension des textes courts, en utilisant sa connaissance des mots, de la grammaire, des mots de liaison et de la structure des phrases, et ses connaissances antérieures",
+        "C1.2 — reconnaître et décrire certaines caractéristiques de formes de discours narratif, descriptif, incitatif et poétique/ludique, et des genres de textes qui leur sont associés",
+        "C1.3 — reconnaître quelques organisateurs textuels associés à diverses formes de discours, y compris l'ordre chronologique associé à des entrées de journal, ainsi que des caractéristiques de textes, incluant les tables des matières, les diagrammes et les icônes, et expliquer la façon dont ils favorisent la compréhension du sens par les destinataires lors de la lecture, de l'écoute et de l'interprétation visuelle des textes",
+        "C1.4 — déterminer des façons dont les images, les éléments visuels et la conception graphique créent et communiquent du sens et y contribuent dans divers textes",
+        "C1.5 — reconnaître quelques procédés littéraires simples et figures de style, y compris la voix, le choix de mots, les régularités lexicales et la structure des phrases, et expliquer la façon dont ils favorisent la communication du sens",
+        "C1.6 — déterminer le point de vue de la narratrice ou du narrateur, y compris la narration à la première personne ou à la troisième personne, dans des textes simples et suggérer un autre point de vue pour raconter l'histoire",
+        "C1.7 — lire, écouter et interpréter visuellement des textes relevant de diverses formes de discours produits par des créatrices et créateurs des Premières Nations, métis et inuit pour démontrer sa compréhension des histoires, des cultures, des relations, des communautés, des groupes, des nations et des expériences des Premières Nations, des Métis et des Inuit"
+      ],
+      'C2 — Stratégies de compréhension': [
+        "C2.1 — utiliser ses connaissances antérieures, y compris les connaissances acquises à partir d'expériences personnelles et ses connaissances textuelles, pour établir des liens et comprendre le sujet et la forme de discours de nouveaux textes",
+        "C2.2 — déterminer diverses intentions visées par l'interaction avec des textes, y compris le plaisir de lire, et la recherche d'information",
+        "C2.3 — faire des prédictions à partir de ses connaissances antérieures, de caractéristiques textuelles et de preuves tirées du texte",
+        "C2.4 — utiliser des stratégies y compris la relecture, la visualisation et le questionnement pour vérifier sa compréhension de textes simples, incluant des textes d'autrices et auteurs de l'Ontario français",
+        "C2.5 — établir des liens entre les idées exprimées dans des textes simples, ses propres connaissances et expériences vécues, les idées véhiculées par d'autres textes familiers et le monde qui l'entoure",
+        "C2.6 — repérer, à partir d'un texte simple, l'idée principale et présenter les détails importants en ordre",
+        "C2.7 — déterminer les stratégies, y compris la relecture, la visualisation et le questionnement, qui ont favorisé sa compréhension de divers textes"
+      ],
+      'C3 — Pensée critique en littératie': [
+        "C3.1 — reconnaître des procédés littéraires simples, y compris la consonance et la comparaison, et décrire leur contribution à la communication du sens",
+        "C3.2 — faire des inférences simples à partir d'information et d'idées explicites et implicites pour comprendre des textes simples",
+        "C3.3 — analyser des textes simples, y compris des textes descriptifs, narratifs, incitatifs et poétiques/ludiques, en repérant l'information importante et la structure séquentielle des textes, ainsi qu'en comparant et contrastant des éléments simples des textes",
+        "C3.4 — reconnaître quelques éléments culturels véhiculés dans divers textes, incluant des symboles, la langue et des valeurs, et poser des questions et partager des idées au sujet de leur contribution à la construction du sens",
+        "C3.5 — déterminer les perspectives explicites et implicites véhiculées par un texte, en fournissant des preuves, et décrire l'influence de ces perspectives sur les destinataires",
+        "C3.6 — exprimer ses pensées et ses sentiments sur des idées présentées dans des textes, y compris des idées relatives à la diversité, à l'inclusion et l'accessibilité",
+        "C3.7 — déterminer quelques façons dont des textes créés par des individus, communautés, groupes ou nations des Premières Nations, métis et inuit communiquent de l'information au sujet des périodes historiques, des expériences culturelles et des événements, et établir des liens entre ces textes et des expériences vécues actuelles",
+        "C3.8 — déterminer les habiletés de la pensée qui l'ont aidé à analyser et à mieux comprendre des textes simples"
+      ],
+      "D1 — Développement d'idées et organisation": [
+        "D1.1 — déterminer le sujet, l'intention et les destinataires d'une variété de textes qu'elle ou il planifie d'écrire",
+        "D1.2 — générer et développer des idées concernant des sujets donnés ou au choix, en utilisant des stratégies simples et en ayant recours à diverses ressources, y compris ses expériences vécues et ses apprentissages dans d'autres matières",
+        "D1.3 — rassembler de l'information et du contenu pertinents sur un sujet en utilisant au moins trois sources",
+        "D1.4 — trier et ordonner ses idées et l'information, en tenant compte de la forme de discours et du genre de texte à utiliser",
+        "D1.5 — déterminer les stratégies qui l'ont aidé à développer ses idées pour la rédaction de textes"
+      ],
+      'D2 — Création de textes': [
+        "D2.1 — rédiger des ébauches de textes courts et simples, relevant d'une variété de formes de discours et de genres de textes, y compris des modèles de textes d'autrices et auteurs de l'Ontario français, incluant des textes narratifs et incitatifs, en utilisant une gamme de médias, d'outils et de stratégies",
+        "D2.2 — écrire des textes en écriture scripte de façon lisible avec fluidité, avec une forme, une taille, un emplacement et un espacement appropriés",
+        "D2.3 — démontrer l'utilisation d'une voix personnelle dans ses textes en utilisant des mots descriptifs pour exprimer ses pensées, ses sentiments et ses opinions sur le sujet",
+        "D2.4 — déterminer le point de vue de ses textes, notamment la première personne",
+        "D2.5 — apporter des révisions à des textes, comme ajouter ou effacer des phrases, en utilisant la rétroaction reçue",
+        "D2.6 — apporter des modifications simples aux ébauches de textes en portant attention aux erreurs relatives aux majuscules, à la ponctuation et à l'orthographe"
+      ],
+      'D3 — Publication, présentation et réflexion': [
+        "D3.1 — produire des versions finales de textes en utilisant des techniques simples, pour obtenir l'effet recherché",
+        "D3.2 — présenter des textes de sa propre création en utilisant les stratégies appropriées, y compris la lecture à haute voix, avec expression",
+        "D3.3 — déterminer quelques stratégies qui se sont avérées utiles lors de la présentation de ses textes"
+      ]
+    },
+    '3': {
+      'A1 — Compétences transférables': [
+        "A1.1 — déterminer des façons dont les compétences transférables peuvent être utilisées pour appuyer la communication dans divers contextes culturels, sociaux, langagiers et propres à une matière, et mettre en application les compétences transférables lors de la lecture, l'écoute, l'interprétation visuelle, et la création de diverses formes de discours",
+        "A1.2 — démontrer sa compréhension des façons dont les compétences transférables l'aident à développer sa voix et à s'exprimer, et à participer activement à son apprentissage"
+      ],
+      'A2 — Littératie numérique': [
+        "A2.1 — démontrer sa compréhension de ses droits et responsabilités lors de ses interactions en ligne, après avoir obtenu l'autorisation appropriée, et prendre des décisions qui contribuent positivement au développement de son identité numérique et de ses communautés",
+        "A2.2 — démontrer sa compréhension de la navigation sécuritaire dans des environnements en ligne, des façons de gérer sa vie privée et d'interagir avec les autres d'une manière qui contribue à son bien-être et à celui des autres, y compris l'obtention d'une autorisation appropriée",
+        "A2.3 — recueillir, évaluer et utiliser de l'information, en tenant compte de diverses perspectives, pour développer ses connaissances et démontrer son apprentissage",
+        "A2.4 — démontrer sa compréhension des formes de discours, des conventions et des techniques associées aux textes numériques et médiatiques, et mettre en application cette compréhension lors de l'analyse des textes",
+        "A2.5 — démontrer sa compréhension de l'interrelation entre la forme de discours, le contenu, le contexte, les destinataires et la créatrice ou le créateur d'un texte",
+        "A2.6 — utiliser des outils numériques et médiatiques pour soutenir les étapes d'un processus de design et pour élaborer des solutions créatives en réponse à des défis authentiques de la vie",
+        "A2.7 — communiquer et collaborer au sein de diverses communautés de façon sécuritaire, respectueuse, responsable et inclusive lors de son utilisation des plateformes et environnements en ligne, y compris des outils numériques et médiatiques, tout en faisant preuve de sensibilité culturelle"
+      ],
+      'A3 — Identité, communauté et PNMI': [
+        "A3.1 — mettre en application ses connaissances et ses habiletés développées dans le présent programme-cadre pour soutenir son apprentissage dans d'autres matières et déterminer quelques façons d'utiliser cet apprentissage dans la vie quotidienne",
+        "A3.2 — démontrer sa compréhension des contributions, des expériences vécues et des perspectives de personnes et de communautés diverses, y compris du Canada, en explorant les concepts d'identité, de soi et de sentiment d'appartenance dans des textes sensibles et adaptés à la culture",
+        "A3.3 — déterminer des thèmes explorés dans les cultures des Premières Nations, des Métis et des Inuit afin de démontrer sa compréhension d'une gamme d'identités, de perspectives, de relations, d'héritages, de vérités, de formes du savoir et de façons d'être et de faire"
+      ],
+      'B1 — Communication orale': [
+        "B1.1 — utiliser des habiletés d'écoute efficace, notamment poser des questions pour obtenir des clarifications quant à l'information et aux idées, dans des contextes formels et informels, comme des conversations en petits et grands groupes et diverses activités en salle de classe, et à diverses fins",
+        "B1.2 — sélectionner et utiliser diverses stratégies avant, pendant et après l'écoute de messages, pour comprendre l'information communiquée de façon orale et non verbale, et reconnaître les situations dans lesquelles un message est difficile à comprendre, et développer une réponse appropriée",
+        "B1.3 — déterminer l'intention et l'auditoire pour la communication orale dans des contextes formels et informels et utiliser des stratégies appropriées, y compris établir un rapport avec les destinataires, pour communiquer de façon claire et cohérente",
+        "B1.4 — déterminer et utiliser des stratégies de communication orale et non verbale, y compris l'expression, les gestes et le langage corporel, et démontrer sa compréhension de la manière dont ces stratégies peuvent contribuer au sens des messages",
+        "B1.5 — utiliser des mots appropriés, y compris des mots appris récemment, la grammaire et des phrases cohérentes lors de la communication orale et la communication des idées dans divers contextes pour appuyer la compréhension des messages par les destinataires"
+      ],
+      "B2 — Notions fondamentales de la lecture et de l'écriture": [
+        "B2.1 — mettre en application ses connaissances des correspondances graphèmes-phonèmes consolidées, en utilisant la fusion des phonèmes pour lire des mots, et en utilisant la segmentation des phonèmes pour orthographier des mots phonétiquement réguliers, monosyllabiques et polysyllabiques, de façon isolée et dans des contextes textuels variés, et utiliser la comparaison pour corriger les approximations",
+        "B2.2 — mettre en application ses connaissances orthographiques consolidées, y compris celles relatives à la loi de position, pour faire un choix orthographique ou prononcer correctement un mot lors de la lecture",
+        "B2.3 — développer et mettre en application sa connaissance du sens des mots et des composantes des mots, comme les bases, les préfixes fréquents et les suffixes, pour lire et orthographier des mots",
+        "B2.4 — démontrer sa compréhension du sens de divers mots, acquérir et utiliser le vocabulaire explicitement enseigné dans divers contextes, y compris le vocabulaire propre à d'autres matières, et développer et mettre en application sa connaissance de la morphologie pour analyser et comprendre des mots nouveaux en contexte",
+        "B2.5 — lire avec fluidité des mots, des phrases complexes et des paragraphes dans une variété de textes, avec précision et à un rythme approprié, pour appuyer la compréhension, et utiliser une expression et une intonation variées lors de la lecture à haute voix, en tenant compte des objectifs de la lecture"
+      ],
+      'B3 — Apprentissages linguistiques': [
+        "B3.1 — reconnaître et construire divers types et formes de phrases simples, y compris des phrases simples et composées liées contenant des conjonctions de coordination",
+        "B3.2 — démontrer sa compréhension de la phrase de base et ses constituants, des groupes syntaxiques et des classes de mots, des types et des formes de phrases, de l'orthographe grammaticale, de la conjugaison des verbes et de la grammaire du texte pour appuyer sa compréhension de messages et communiquer du sens avec clarté",
+        "B3.3 — mettre en application sa compréhension du sens et de la fonction de la ponctuation et des majuscules pour communiquer clairement du sens, y compris l'utilisation de la majuscule en début de phrases graphiques, pour les noms propres et les peuples, de la virgule dans une énumération, des signes de ponctuation qui marquent les paroles rapportées dans un texte de l'apostrophe dans les contractions, et de la ponctuation appropriée"
+      ],
+      'C1 — Connaissances des textes': [
+        "C1.1 — lire et démontrer sa compréhension d'une variété de textes en utilisant sa connaissance des mots, de la grammaire, des mots de liaison et de la structure des phrases, et ses connaissances antérieures",
+        "C1.2 — reconnaître et décrire les caractéristiques de formes de discours narratif, descriptif, incitatif et poétique/ludique, et des genres de textes qui leur sont associés",
+        "C1.3 — reconnaître quelques organisateurs textuels associés à diverses formes de discours, y compris l'ordre d'importance, les causes et effets ainsi que des caractéristiques de textes, notamment les en-têtes et l'index, et expliquer la façon dont ils favorisent la compréhension du sens par les destinataires lors de la lecture, de l'écoute et de l'interprétation visuelle des textes",
+        "C1.4 — décrire les façons dont les images, les éléments visuels et la conception graphique sont utilisés dans un texte donné, et démontrer sa compréhension de leur intention et de leur lien avec le contenu du texte",
+        "C1.5 — reconnaître quelques procédés littéraires et figures de style, y compris la voix, le choix de mots, les régularités lexicales et la structure des phrases, et expliquer la façon dont ils favorisent la communication du sens",
+        "C1.6 — déterminer le point de vue de la narratrice ou du narrateur, y compris la narration à la première personne ou à la troisième personne, dans une variété de textes et suggérer d'autres points de vue pour raconter chaque histoire",
+        "C1.7 — lire, écouter et interpréter visuellement des textes relevant de diverses formes de discours produits par des créatrices et créateurs des Premières Nations, métis et inuit pour démontrer sa compréhension des histoires, des cultures, des relations, des communautés, des groupes, des nations et des expériences des Premières Nations, des Métis et des Inuit"
+      ],
+      'C2 — Stratégies de compréhension': [
+        "C2.1 — utiliser ses connaissances antérieures, y compris les connaissances acquises à partir d'expériences personnelles et ses connaissances textuelles, pour établir des liens et comprendre le sujet et la forme de discours de nouveaux textes",
+        "C2.2 — déterminer les intentions précises visées par l'interaction avec des textes, y compris l'apprentissage de faits ou l'acquisition de l'information et de nouvelles idées ou perspectives",
+        "C2.3 — faire des prédictions en utilisant ses connaissances antérieures, les caractéristiques du texte et les preuves tirées du texte, et ajuster sa compréhension en fonction de l'information nouvelle",
+        "C2.4 — utiliser des stratégies, y compris la relecture, la visualisation et le questionnement, pour vérifier et confirmer sa compréhension de divers textes, incluant des textes d'autrices et auteurs de l'Ontario français",
+        "C2.5 — établir des liens entre les idées exprimées dans les textes, ses propres connaissances et expériences vécues, les idées véhiculées par d'autres textes et le monde qui l'entoure",
+        "C2.6 — repérer l'idée principale dans un texte simple et rappeler les détails importants en ordre",
+        "C2.7 — décrire les façons dont des stratégies, y compris recourir à la visualisation, faire des prédictions et établir des liens avec ses propres expériences, ont favorisé sa compréhension de divers textes"
+      ],
+      'C3 — Pensée critique en littératie': [
+        "C3.1 — reconnaître les procédés littéraires, y compris la métaphore et l'assonance, et décrire leur contribution à la communication du sens",
+        "C3.2 — faire des inférences à partir d'information et d'idées explicites et implicites pour comprendre des textes",
+        "C3.3 — analyser divers textes, y compris les textes descriptifs, narratifs, incitatifs et poétiques/ludiques, en repérant les idées principales et secondaires, en établissant la structure séquentielle de l'information, et en comparant et contrastant des éléments de textes",
+        "C3.4 — reconnaître quelques éléments culturels véhiculés dans divers textes, incluant des symboles, la langue et les valeurs, et poser des questions et partager des idées au sujet de leur contribution à la construction du sens",
+        "C3.5 — déterminer les perspectives explicites et implicites véhiculées par un texte, en fournissant des preuves, et expliquer l'influence de ces perspectives sur les destinataires",
+        "C3.6 — exprimer ses pensées et ses sentiments sur des idées présentées dans des textes, y compris des idées relatives à la diversité, à l'inclusion et l'accessibilité",
+        "C3.7 — déterminer quelques façons dont des textes créés par des individus, communautés, groupes ou nations des Premières Nations, métis et inuit communiquent de l'information au sujet des périodes historiques, des expériences culturelles et des événements, et établir des liens entre ces textes et des expériences vécues actuelles",
+        "C3.8 — déterminer les habiletés de la pensée qui l'ont aidé à analyser et à mieux comprendre divers textes"
+      ],
+      "D1 — Développement d'idées et organisation": [
+        "D1.1 — déterminer le sujet, l'intention et les destinataires d'une variété de textes qu'elle ou il planifie de créer et décrire les façons dont les formes de discours et les genres de textes de son choix l'aident à communiquer son intention",
+        "D1.2 — générer et développer des idées concernant des sujets donnés ou au choix, en utilisant diverses stratégies et en ayant recours à de ressources variées, y compris ses expériences vécues et ses apprentissages dans d'autres matières",
+        "D1.3 — rassembler de l'information et du contenu pertinents sur un sujet, en utilisant au moins trois sources",
+        "D1.4 — trier et ordonner ses idées et l'information recueillie à l'aide de divers outils et stratégies, en tenant compte de la forme du discours et du genre de texte à utiliser",
+        "D1.5 — déterminer les stratégies qui l'ont aidé à développer ses idées et à organiser le contenu de ses textes"
+      ],
+      'D2 — Création de textes': [
+        "D2.1 — rédiger des ébauches de textes courts relevant d'une variété de formes de discours et de genres de textes, y compris des modèles de textes d'autrices et auteurs de l'Ontario français, incluant des textes narratifs, descriptifs et incitatifs, en utilisant une gamme de médias, de stratégies et d'outils",
+        "D2.2 — écrire des textes en lettres cursives ayant une forme, une taille, un emplacement et un espacement appropriés",
+        "D2.3 — démontrer l'utilisation d'une voix personnelle dans ses textes en employant des mots descriptifs et des structures de la phrase variées pour exprimer ses pensées, ses sentiments et ses opinions sur un sujet",
+        "D2.4 — déterminer le point de vue de ses textes, notamment la première ou la troisième personne",
+        "D2.5 — apporter des révisions simples à ses ébauches de textes, y compris remplacer des mots et ajouter des phrases, pour en améliorer le contenu et la clarté, en utilisant la rétroaction reçue",
+        "D2.6 — apporter des modifications aux ébauches de textes pour en améliorer l'exactitude et le style, en portant attention aux erreurs relatives à l'orthographe, à la ponctuation, à la grammaire et aux conventions d'écriture, et relire ses textes pour apporter des corrections"
+      ],
+      'D3 — Publication, présentation et réflexion': [
+        "D3.1 — créer des versions finales de textes en utilisant des techniques simples, pour obtenir l'effet recherché",
+        "D3.2 — présenter un texte de sa propre création en utilisant les stratégies appropriées, y compris en le lisant à haute voix, avec expression",
+        "D3.3 — déterminer les stratégies qui se sont avérées utiles pour communiquer son message et expliquer les façons dont elle ou il s'en est servi pour améliorer ses textes"
+      ]
+    },
+    '4': {
+      'A1 — Compétences transférables': [
+        "A1.1 — expliquer les façons dont les compétences transférables peuvent être utilisées pour appuyer la communication dans divers contextes culturels, sociaux, langagiers et propres à une matière, et mettre en application les compétences transférables lors de la lecture, l'écoute, l'interprétation visuelle, et la création de diverses formes de discours",
+        "A1.2 — expliquer les façons dont les compétences transférables l'aident à développer sa voix et à s'exprimer, à participer activement à son apprentissage et à planifier les prochaines étapes pour développer ses capacités et son potentiel"
+      ],
+      'A2 — Littératie numérique': [
+        "A2.1 — expliquer ses droits et responsabilités lors de ses interactions en ligne, après avoir obtenu l'autorisation appropriée, et prendre des décisions qui contribuent positivement au développement de son identité numérique et de ses communautés",
+        "A2.2 — démontrer sa compréhension de la navigation sécuritaire dans des environnements en ligne, des façons de gérer sa vie privée et ses données personnelles, et d'interagir avec les autres d'une manière qui contribue à son bien-être et à celui des autres, y compris l'obtention d'une autorisation appropriée",
+        "A2.3 — recueillir, évaluer et utiliser de l'information, en tenant compte de sa validité, de sa crédibilité, de son exactitude et des diverses perspectives, pour développer ses connaissances, créer des textes et démontrer son apprentissage",
+        "A2.4 — démontrer sa compréhension des formes de discours, des conventions et des techniques associées aux textes numériques et médiatiques, en considérant leurs effets sur les destinataires, et mettre en application cette compréhension lors de l'analyse et de la création de textes",
+        "A2.5 — démontrer sa compréhension de l'interrelation entre la forme de discours, le contenu, le contexte, les destinataires visés et l'intention de la production de textes",
+        "A2.6 — sélectionner et utiliser des outils numériques et médiatiques appropriés pour soutenir un processus de design et pour élaborer des solutions innovantes en réponse à des défis authentiques et pertinents de la vie",
+        "A2.7 — communiquer et collaborer au sein de diverses communautés de façon sécuritaire, respectueuse, responsable et inclusive lors de son utilisation des plateformes et environnements en ligne, y compris des outils numériques et médiatiques, faire preuve d'une sensibilité culturelle auprès des membres de la communauté en modelant les comportements souhaités"
+      ],
+      'A3 — Identité, communauté et PNMI': [
+        "A3.1 — expliquer les façons dont ses connaissances et ses habiletés développées dans le présent programme-cadre soutiennent son apprentissage dans diverses matières et dans la vie quotidienne, et décrire les façons dont ces connaissances et habiletés améliorent sa compréhension et sa communication",
+        "A3.2 — démontrer sa compréhension des contextes historiques, des contributions, des expériences vécues et des perspectives de personnes et de communautés diverses, y compris du Canada, en explorant les concepts d'identité, de soi et de sentiment d'appartenance dans une variété de textes sensibles et adaptés à la culture",
+        "A3.3 — expliquer des thèmes explorés dans les cultures des Premières Nations, des Métis et des Inuit afin de démontrer sa compréhension d'une gamme d'identités, de perspectives, de relations, d'héritages, de vérités, de formes du savoir et de façons d'être et de faire"
+      ],
+      'B1 — Communication orale': [
+        "B1.1 — utiliser des habiletés d'écoute efficace, notamment en posant des questions pour encourager la locutrice ou le locuteur à élaborer son propos, et répondre aux contributions des autres dans des discussions en groupe dans différents contextes informels et formels et à diverses fins",
+        "B1.2 — sélectionner et utiliser diverses stratégies avant, pendant et après l'écoute, pour comprendre l'information et les idées communiquées de façon orale et non verbale, manifester de l'intérêt pour ce qui est dit à des moments appropriés, demander des éclaircissements et élaborer une réponse appropriée",
+        "B1.3 — déterminer l'intention et l'auditoire pour la communication orale dans des contextes formels et informels et utiliser des stratégies appropriées, y compris formuler des paraphrases et répéter son propos, pour communiquer de façon claire et cohérente",
+        "B1.4 — déterminer et utiliser des stratégies de communication orale et non verbale, y compris l'expression, les gestes et le langage corporel, et expliquer la manière dont ces stratégies peuvent contribuer au sens des messages",
+        "B1.5 — utiliser des mots appropriés, y compris des mots appris récemment, et une variété d'adjectifs et d'adverbes, pour élaborer son propos et utiliser divers types de phrases cohérentes lors de la communication dans des contextes formels et informels pour appuyer la compréhension des messages par les destinataires"
+      ],
+      "B2 — Notions fondamentales de la lecture et de l'écriture": [
+        "B2.1 — mettre en application sa connaissance du sens des mots et des composantes des mots, comme les bases, les préfixes fréquents et les suffixes, pour lire et orthographier des mots",
+        "B2.2 — démontrer sa compréhension du sens de divers mots, acquérir et utiliser le vocabulaire explicitement enseigné dans divers contextes, y compris le vocabulaire propre à d'autres matières, et mettre en application sa connaissance de la morphologie pour analyser et comprendre des mots nouveaux en contexte",
+        "B2.3 — lire avec fluidité une variété de textes, avec précision et à un rythme approprié, pour appuyer la compréhension des textes, et ajuster l'expression et l'intonation lors de la lecture à haute voix, en tenant compte des objectifs de la lecture"
+      ],
+      'B3 — Apprentissages linguistiques': [
+        "B3.1 — reconnaître et construire divers types et formes de phrases, y compris des phrases simples et composées liées par une conjonction de coordination",
+        "B3.2 — démontrer sa compréhension de la phrase de base et ses constituants, des groupes syntaxiques et des classes de mots, des types et des formes de phrases, de l'orthographe grammaticale, de la conjugaison des verbes et de la grammaire du texte pour appuyer sa compréhension de messages et communiquer du sens avec clarté",
+        "B3.3 — mettre en application sa compréhension du sens et de la fonction de la ponctuation et des majuscules pour communiquer clairement du sens, y compris l'utilisation de la majuscule pour les peuples, dans les dialogues et les titres, des signes de ponctuation qui marquent les paroles rapportées dans un texte, de la virgule dans une énumération et pour détacher des groupes de mots, de l'apostrophe dans les contractions, et de la ponctuation appropriée"
+      ],
+      'C1 — Connaissances des textes': [
+        "C1.1 — lire et démontrer sa compréhension d'une variété de textes en utilisant sa connaissance des mots, de la grammaire, des mots de liaison et de la structure des phrases, et ses connaissances antérieures",
+        "C1.2 — décrire les caractéristiques d'un éventail de formes de discours narratif, descriptif, incitatif, explicatif et poétique/ludique, y compris de formes de discours à caractère culturel, et de genres de textes, et expliquer les façons dont ces caractéristiques favorisent la communication du sens",
+        "C1.3 — reconnaître des organisateurs textuels, y compris l'ordre spatial dans un texte graphique, ainsi que des caractéristiques de textes, comme les polices de caractères et les hyperliens, associés à diverses formes de discours, incluant celles à caractère culturel, et expliquer la façon dont ils favorisent la compréhension du sens par les destinataires lors de la lecture, de l'écoute et de l'interprétation visuelle des textes",
+        "C1.4 — expliquer les façons dont les images, les éléments visuels et la conception graphique créent et communiquent du sens et y contribuent dans divers textes",
+        "C1.5 — décrire une variété de procédés littéraires et de figures de style, y compris la voix, le choix de mots, les régularités lexicales et la structure des phrases, et analyser leur contribution à la création du sens et leur lien avec la forme de discours et le genre du texte",
+        "C1.6 — déterminer le point de vue de la narratrice ou du narrateur, y compris la narration à la première, à la deuxième ou à la troisième personne, dans une variété de textes, et décrire les avantages et les désavantages du point de vue employé dans un récit",
+        "C1.7 — lire, écouter et interpréter visuellement des textes relevant de diverses formes de discours produits par des créatrices et créateurs des Premières Nations, métis et inuit pour démontrer sa compréhension des histoires, des cultures, des relations, des communautés, des groupes, des nations et des expériences des Premières Nations, des Métis et des Inuit"
+      ],
+      'C2 — Stratégies de compréhension': [
+        "C2.1 — déterminer ses connaissances antérieures provenant de diverses sources, y compris les connaissances acquises à partir d'expériences personnelles et ses connaissances textuelles, et expliquer la façon dont elles favorisent l'établissement des liens et la compréhension de nouveaux textes",
+        "C2.2 — déterminer une variété d'intentions visées par l'interaction avec des textes et sélectionner des textes provenant d'autrices et auteurs divers, qui conviennent à ces intentions",
+        "C2.3 — faire des prédictions en utilisant ses connaissances antérieures, les caractéristiques du texte et les preuves tirées du texte, et poser des questions pour valider la justesse de ses prédictions",
+        "C2.4 — utiliser des stratégies, y compris l'ajustement du rythme de la lecture, la visualisation, l'anticipation, le questionnement, la consultation de références et de ressources, pour vérifier et confirmer sa compréhension de divers textes, incluant des textes d'autrices et auteurs de l'Ontario français",
+        "C2.5 — décrire les façons dont les idées exprimées dans les textes sont liées à ses propres connaissances et expériences vécues, aux idées véhiculées par d'autres textes et au monde qui l'entoure",
+        "C2.6 — résumer, à partir d'un texte, l'idée principale et les détails à l'appui en ordre et tirer une conclusion simple",
+        "C2.7 — expliquer les façons dont des stratégies, y compris recourir à la visualisation, faire des prédictions, faire des résumés et établir des liens avec ses propres expériences, ont favorisé sa compréhension de divers textes"
+      ],
+      'C3 — Pensée critique en littératie': [
+        "C3.1 — décrire des procédés littéraires dans une variété de textes, y compris la personnification et l'anthropomorphisme, et expliquer comment ils contribuent à créer du sens et sont adaptés à l'intention et aux destinataires visés",
+        "C3.2 — faire des inférences locales et globales en utilisant des preuves explicites et implicites pour parfaire sa compréhension de divers textes",
+        "C3.3 — analyser divers textes, incluant des textes descriptifs, narratifs, incitatifs, explicatifs et poétiques/ludiques, en repérant les idées principales et secondaires des textes, en établissant la structure séquentielle de multiples intrigues et en expliquant les causes et effets des événements",
+        "C3.4 — reconnaître des éléments culturels véhiculés dans divers textes, incluant des normes, des valeurs, des artefacts, le sport et la musique, examiner le sens de ces éléments et établir des liens avec ses propres expériences et cultures",
+        "C3.5 — déterminer les perspectives explicites et implicites véhiculées par divers textes, expliquer comment ces points de vue sont véhiculés, donner des indications sur les préjugés que les textes peuvent contenir et suggérer des façons dont ces préjugés pourraient influencer les destinataires",
+        "C3.6 — expliquer les façons dont les sujets divers, y compris ceux liés à la diversité, à l'inclusion et l'accessibilité, sont abordés dans des textes et décrire les perspectives ou messages qui y sont communiqués",
+        "C3.7 — expliquer les façons dont des textes créés par des individus, communautés, groupes ou nations des Premières Nations, métis et inuit sont influencés par des périodes historiques, des expériences culturelles et des événements, et établir des liens entre ces textes et des expériences vécues actuelles",
+        "C3.8 — déterminer les habiletés de la pensée critique employées pour analyser et évaluer divers textes et expliquer les façons dont ces habiletés ont amélioré sa compréhension de ces textes"
+      ],
+      "D1 — Développement d'idées et organisation": [
+        "D1.1 — déterminer le sujet, l'intention et les destinataires d'une variété de textes qu'elle ou il planifie de créer et expliquer pourquoi les formes de discours, les genres de textes et les médias de son choix sont appropriés à l'intention et aux destinataires et comment ceux-ci l'aideront à communiquer son intention d'écriture",
+        "D1.2 — générer et développer des idées concernant divers sujets, y compris des sujets relatifs à la diversité, à l'équité et à l'inclusion, en utilisant diverses stratégies et en ayant recours à une variété de ressources, y compris ses expériences vécues",
+        "D1.3 — rassembler de l'information et du contenu pertinents sur un sujet en utilisant diverses sources et stratégies, et citer les sources de l'information utilisée",
+        "D1.4 — sélectionner et classifier ses idées et l'information recueillie à l'aide de divers outils et stratégies, et ordonner le contenu en tenant compte de la forme de discours, du genre de texte et du média de son choix",
+        "D1.5 — décrire les stratégies et les outils qui l'ont aidé à développer ses idées et à organiser le contenu pour créer des textes, en ayant recours à des formes de discours, des genres de textes et des médias de son choix, et expliquer les façons dont elle ou il s'en est servi pour s'améliorer en matière de rédaction et création de textes"
+      ],
+      'D2 — Création de textes': [
+        "D2.1 — rédiger des ébauches de textes relevant de diverses formes de discours et divers genres de textes, y compris des modèles de textes d'autrices et auteurs de l'Ontario français, incluant des textes narratifs, incitatifs et explicatifs, en utilisant une variété de médias, outils et stratégies",
+        "D2.2 — écrire en lettres cursives ayant une forme, une taille, des proportions et une inclinaison appropriées pour améliorer la lisibilité des textes, et développer ses habiletés de saisie au clavier en utilisant des techniques de clavigraphie",
+        "D2.3 — établir une voix personnelle dans ses textes en ayant recours à des éléments linguistiques et stylistiques variés pour exprimer ses pensées, ses sentiments et ses opinions sur un sujet, en utilisant un ton approprié à la forme de discours et au genre de texte",
+        "D2.4 — déterminer les points de vue, les perspectives et les préjugés véhiculés dans ses textes",
+        "D2.5 — apporter des révisions au contenu et aux éléments stylistiques des ébauches de textes, y compris réviser le choix de mots et ajouter et effacer des phrases pour améliorer la clarté, la concision et la cohérence des textes, et chercher de la rétroaction",
+        "D2.6 — apporter des modifications aux ébauches de textes pour en améliorer l'exactitude et le style, en portant attention aux erreurs relatives à l'orthographe, à la ponctuation, à la grammaire et à la mise en page, et utiliser des outils de traitement de texte pour faire les corrections"
+      ],
+      'D3 — Publication, présentation et réflexion': [
+        "D3.1 — produire des versions finales de textes à l'aide de plusieurs techniques et outils, y compris des outils de conception et de production numériques simples, pour obtenir l'effet recherché",
+        "D3.2 — utiliser les médias et les outils de son choix pour publier et présenter des textes de sa propre création, et expliquer les façons dont ces choix favorisent la communication de son message",
+        "D3.3 — décrire diverses stratégies qui l'ont aidé à présenter et à communiquer son message lors de la publication et la présentation de textes, et expliquer comment ces stratégies l'ont aidé à s'améliorer"
+      ]
+    },
+    '5': {
+      'A1 — Compétences transférables': [
+        "A1.1 — expliquer les façons dont les compétences transférables peuvent être utilisées pour appuyer la communication dans divers contextes culturels, sociaux, langagiers et propres à une matière, et mettre en application les compétences transférables lors de la lecture, l'écoute, l'interprétation visuelle, et la création de diverses formes de discours",
+        "A1.2 — expliquer les façons dont les compétences transférables l'aident à développer sa voix et à s'exprimer, à participer activement à son apprentissage et à planifier les prochaines étapes pour développer ses capacités et son potentiel"
+      ],
+      'A2 — Littératie numérique': [
+        "A2.1 — expliquer ses droits et responsabilités lors de ses interactions en ligne, après avoir obtenu l'autorisation appropriée, et prendre des décisions qui contribuent positivement au développement de son identité numérique et de ses communautés",
+        "A2.2 — démontrer sa compréhension de la navigation sécuritaire dans des environnements en ligne, des façons de gérer sa vie privée et ses données personnelles, et d'interagir avec les autres d'une manière qui contribue à son bien-être et à celui des autres, y compris l'obtention d'une autorisation appropriée",
+        "A2.3 — recueillir, évaluer et utiliser de l'information, en tenant compte de sa validité, de sa crédibilité, de son exactitude et des diverses perspectives, pour développer ses connaissances, créer des textes et démontrer son apprentissage",
+        "A2.4 — démontrer sa compréhension des formes de discours, des conventions et des techniques associées aux textes numériques et médiatiques, en considérant leurs effets sur les destinataires, et mettre en application cette compréhension lors de l'analyse et de la création de textes",
+        "A2.5 — démontrer sa compréhension de l'interrelation entre la forme de discours, le contenu, le contexte, les destinataires visés et l'intention de la production de textes",
+        "A2.6 — sélectionner et utiliser des outils numériques et médiatiques appropriés pour soutenir un processus de design et pour élaborer des solutions innovantes en réponse à des défis authentiques et pertinents de la vie",
+        "A2.7 — communiquer et collaborer au sein de diverses communautés de façon sécuritaire, respectueuse, responsable et inclusive lors de son utilisation des plateformes et environnements en ligne, y compris des outils numériques et médiatiques, faire preuve d'une sensibilité culturelle auprès des membres de la communauté en modelant les comportements souhaités"
+      ],
+      'A3 — Identité, communauté et PNMI': [
+        "A3.1 — expliquer les façons dont ses connaissances et ses habiletés développées dans le présent programme-cadre soutiennent son apprentissage dans diverses matières et dans la vie quotidienne, et décrire les façons dont ces connaissances et habiletés améliorent sa compréhension et sa communication",
+        "A3.2 — démontrer sa compréhension des contextes historiques, des contributions, des expériences vécues et des perspectives de personnes et de communautés diverses, y compris du Canada, en explorant les concepts d'identité, de soi et de sentiment d'appartenance dans une variété de textes sensibles et adaptés à la culture",
+        "A3.3 — expliquer des thèmes explorés dans les cultures des Premières Nations, des Métis et des Inuit afin de démontrer sa compréhension d'une gamme d'identités, de perspectives, de relations, d'héritages, de vérités, de formes du savoir et de façons d'être et de faire"
+      ],
+      'B1 — Communication orale': [
+        "B1.1 — utiliser diverses habiletés d'écoute efficace, notamment manifester son intérêt pour ce qui est dit à des moments appropriés, poser des questions pour encourager la locutrice ou le locuteur à élaborer son propos, et répondre aux contributions des autres dans des discussions en groupe dans différents contextes informels et formels et à diverses fins",
+        "B1.2 — sélectionner et utiliser diverses stratégies avant, pendant et après l'écoute de messages pour comprendre l'information et les idées communiquées de façon orale et non verbale, pour obtenir des clarifications et élaborer une réponse appropriée",
+        "B1.3 — déterminer l'intention et l'auditoire pour la communication orale dans des contextes formels et informels et utiliser des stratégies appropriées, y compris formuler des paraphrases et répéter son propos, pour communiquer de façon claire et cohérente",
+        "B1.4 — déterminer et utiliser des stratégies de communication orale et non verbale, y compris l'expression, les gestes et le langage corporel, et expliquer la manière dont ces stratégies peuvent contribuer au sens des messages",
+        "B1.5 — utiliser des mots appropriés, y compris des mots appris récemment, une variété d'adjectifs et d'adverbes pour élaborer son propos et utiliser divers types de phrases cohérentes lors de la communication dans des contextes formels et informels pour appuyer la compréhension des messages par les destinataires"
+      ],
+      "B2 — Notions fondamentales de la lecture et de l'écriture": [
+        "B2.1 — mettre en application sa connaissance généralisée du sens des mots et des composantes des mots, comme les bases, les préfixes et les suffixes, pour lire et orthographier des mots avec précision et automaticité",
+        "B2.2 — démontrer sa compréhension du sens de divers mots, acquérir et utiliser le vocabulaire explicitement enseigné dans divers contextes, y compris le vocabulaire propre à d'autres matières, et mettre en application sa connaissance généralisée de la morphologie pour analyser et comprendre des mots nouveaux en contexte",
+        "B2.3 — lire avec fluidité une variété de textes, avec précision et à un rythme approprié, pour appuyer la compréhension des textes, et ajuster l'expression et l'intonation lors de la lecture à haute voix, en tenant compte des objectifs de la lecture"
+      ],
+      'B3 — Apprentissages linguistiques': [
+        "B3.1 — reconnaître et construire divers types et formes de phrases, y compris des phrases complexes et développer ses habiletés relatives à la construction de phrases, en évitant de produire des phrases fragmentaires ou incohérentes",
+        "B3.2 — démontrer sa compréhension de la phrase de base et ses constituants, des groupes syntaxiques et des classes de mots, des types et des formes de phrases, de l'orthographe grammaticale, de la conjugaison des verbes et de la grammaire du texte pour appuyer sa compréhension de messages et communiquer du sens avec clarté",
+        "B3.3 — mettre en application sa compréhension du sens et de la fonction de la ponctuation et des majuscules pour communiquer clairement du sens, y compris l'utilisation des virgules dans la juxtaposition de phrases et les énumérations"
+      ],
+      'C1 — Connaissances des textes': [
+        "C1.1 — lire et démontrer sa compréhension d'une variété de textes en utilisant sa connaissance des mots, de la grammaire, des mots de liaison et de la structure des phrases, et ses connaissances antérieures",
+        "C1.2 — décrire les caractéristiques d'un éventail de formes de discours narratif, descriptif, incitatif, explicatif et poétique/ludique, et de genres de textes, y compris des textes culturels, et expliquer les façons dont ces caractéristiques favorisent la communication du sens",
+        "C1.3 — reconnaître des organisateurs textuels, y compris les causes et les effets dans un texte argumentatif, ainsi que des caractéristiques de textes, comme la préface et le glossaire, associés à diverses formes de discours, incluant celles à caractère culturel, et expliquer la façon dont ils favorisent la compréhension du sens par les destinataires lors de la lecture, de l'écoute et de l'interprétation visuelle des textes",
+        "C1.4 — expliquer les façons dont les images, les éléments visuels et la conception graphique créent et communiquent du sens et y contribuent dans divers textes",
+        "C1.5 — décrire une variété de procédés littéraires et de figures de style, y compris la voix, le choix de mots, les régularités lexicales et la structure des phrases, et analyser leur contribution à la création du sens et leur lien avec la forme de discours et le genre du texte",
+        "C1.6 — déterminer le point de vue de la narratrice ou du narrateur, y compris la narration à la première, à la deuxième ou à la troisième personne, dans une variété de textes, et décrire les avantages et les désavantages du choix du point de vue employé dans un récit",
+        "C1.7 — lire, écouter et interpréter visuellement des textes relevant de diverses formes de discours produits par des créatrices et créateurs des Premières Nations, métis et inuit pour démontrer sa compréhension des histoires, des cultures, des relations, des communautés, des groupes, des nations et des expériences des Premières Nations, des Métis et des Inuit"
+      ],
+      'C2 — Stratégies de compréhension': [
+        "C2.1 — déterminer et expliquer ses connaissances antérieures provenant de diverses sources, y compris de ses expériences personnelles, et expliquer la façon dont elles favorisent l'établissement des liens et la compréhension de nouveaux textes",
+        "C2.2 — déterminer une variété d'intentions visées par l'interaction avec des textes et sélectionner des textes appropriés d'autrices et auteurs divers, qui conviennent à ces intentions",
+        "C2.3 — faire des prédictions en utilisant ses connaissances antérieures, les caractéristiques du texte et des preuves tirées du texte, et poser des questions pour valider la justesse de ses prédictions",
+        "C2.4 — utiliser des stratégies, y compris l'ajustement du rythme de la lecture, la visualisation, l'anticipation, le questionnement, la consultation de références, de ressources et d'autres textes, pour vérifier et confirmer sa compréhension de divers textes, incluant des textes d'autrices et auteurs de l'Ontario français",
+        "C2.5 — décrire les façons dont les idées exprimées dans les textes sont liées à ses propres connaissances et expériences vécues, aux idées véhiculées par d'autres textes et au monde qui l'entoure",
+        "C2.6 — résumer, à partir d'un texte, l'idée principale et les détails à l'appui en ordre et tirer une conclusion bien fondée",
+        "C2.7 — expliquer les façons dont des stratégies, y compris recourir à la visualisation, faire des prédictions, faire des résumés et établir des liens avec ses propres expériences, ont favorisé sa compréhension de divers textes"
+      ],
+      'C3 — Pensée critique en littératie': [
+        "C3.1 — décrire des procédés littéraires dans une variété de textes, y compris la visualisation et l'humour, et expliquer comment ils contribuent à créer du sens et sont adaptés à l'intention et aux destinataires visés",
+        "C3.2 — faire des inférences locales et globales en utilisant des preuves explicites et implicites pour parfaire sa compréhension de divers textes",
+        "C3.3 — analyser divers textes, incluant des textes descriptifs, narratifs, incitatifs, explicatifs et poétiques/ludiques, en repérant les idées principales et secondaires des textes, en établissant la structure séquentielle de multiples intrigues, en notant l'information pertinente et en expliquant les causes et effets des événements",
+        "C3.4 — reconnaître des éléments culturels véhiculés dans divers textes, incluant des normes, des valeurs, des artefacts, le sport et la musique, examiner le sens de ces éléments et établir des liens avec ses propres expériences et cultures",
+        "C3.5 — déterminer les perspectives explicites et implicites véhiculées par divers textes, expliquer comment ces points de vue sont véhiculés, donner des indications sur les préjugés que les textes peuvent contenir et suggérer des façons dont ces préjugés pourraient influencer les destinataires",
+        "C3.6 — expliquer les façons dont les sujets divers, y compris ceux liés à la diversité, à l'inclusion et l'accessibilité, sont abordés dans des textes et décrire les perspectives ou messages qui y sont communiqués",
+        "C3.7 — expliquer les façons dont des textes créés par des individus, communautés, groupes ou nations des Premières Nations, métis et inuit sont influencés par des périodes historiques, des expériences culturelles et des événements, et expliquer des liens entre ces textes et les expériences vécues actuelles",
+        "C3.8 — déterminer les habiletés de la pensée critique employées pour analyser et évaluer divers textes et expliquer les façons dont ces habiletés ont amélioré sa compréhension de ces textes"
+      ],
+      "D1 — Développement d'idées et organisation": [
+        "D1.1 — déterminer le sujet, l'intention et les destinataires d'une variété de textes qu'elle ou il planifie de créer et expliquer pourquoi les formes de discours, les genres de textes et le média de son choix sont appropriés à l'intention et aux destinataires et comment ceux-ci l'aideront à communiquer son intention",
+        "D1.2 — générer et élaborer des idées et détails concernant divers sujets, y compris des sujets relatifs à la diversité, à l'équité, à l'inclusion et à d'autres matières, en utilisant diverses stratégies et ressources, incluant ses expériences vécues",
+        "D1.3 — rassembler et noter l'information et le contenu pertinents sur un sujet, en utilisant plusieurs sources textuelles et en ligne, vérifier la fiabilité des sources à l'aide de critères simples, et noter qui a rédigé ou créé le contenu et sa source",
+        "D1.4 — sélectionner et classifier ses idées et l'information recueillie à l'aide d'outils et de stratégies appropriées, et ordonner le contenu pertinent, en tenant compte des formes de discours, des genres de textes et du média de son choix",
+        "D1.5 — décrire les stratégies et les outils qui l'ont aidé à développer ses idées et à organiser le contenu pour créer des textes, en ayant recours à des formes de discours, des genres de textes et des médias de son choix, et expliquer les façons dont elle ou il s'en est servi pour s'améliorer en matière de rédaction et création de textes"
+      ],
+      'D2 — Création de textes': [
+        "D2.1 — rédiger des ébauches de textes relevant d'une variété de formes de discours et genres de textes, y compris des modèles de textes d'autrices et auteurs de l'Ontario français, incluant des textes narratifs, incitatifs et explicatifs, en utilisant une gamme de médias, d'outils et de stratégies",
+        "D2.2 — écrire en lettres cursives avec fluidité, taper au clavier avec de plus en plus d'automaticité, et mettre en application des techniques de traitement de texte, y compris la sélection de polices appropriées, pour produire et améliorer des textes de longueurs variées",
+        "D2.3 — développer une voix personnelle dans ses textes en ayant recours à un vocabulaire et à des éléments stylistiques variés afin d'exprimer clairement ses pensées, ses sentiments et ses opinions sur le sujet en utilisant un ton approprié à la forme de discours et au genre de texte",
+        "D2.4 — déterminer les points de vue, les perspectives et les préjugés implicites et explicites véhiculés dans ses textes, et expliquer les façons dont ses messages peuvent être interprétés par des destinataires ayant des perspectives différentes",
+        "D2.5 — apporter des révisions au contenu et aux éléments stylistiques des ébauches de textes, telles que réviser le choix de mots et ajouter et effacer des phrases pour améliorer la clarté, la concision et la cohérence des textes, et chercher de la rétroaction",
+        "D2.6 — apporter des modifications aux ébauches de textes pour en améliorer l'exactitude et le style, en portant attention aux erreurs relatives à l'orthographe, à la ponctuation, à la grammaire et à la mise en page et utiliser des outils de traitement de texte pour faire les corrections"
+      ],
+      'D3 — Publication, présentation et réflexion': [
+        "D3.1 — produire des versions finales de textes à l'aide d'une variété de techniques et d'outils, y compris des outils de conception et de production numériques, pour obtenir l'effet recherché",
+        "D3.2 — utiliser les médias et les outils de son choix pour publier et présenter des textes de sa propre création, et expliquer les façons dont ces choix favorisent la communication de son intention",
+        "D3.3 — décrire divers stratégies et outils qui lui ont permis de communiquer son message lors de la publication et de la présentation de textes, et suggérer des pistes pour s'améliorer"
+      ]
+    },
+    '6': {
+      'A1 — Compétences transférables': [
+        "A1.1 — expliquer les façons dont les compétences transférables peuvent être utilisées pour appuyer la communication dans divers contextes culturels, sociaux, langagiers et propres à une matière, et mettre en application les compétences transférables lors de la lecture, l'écoute, l'interprétation visuelle, et la création de diverses formes de discours",
+        "A1.2 — expliquer les façons dont les compétences transférables l'aident à développer sa voix et à s'exprimer, à participer activement à son apprentissage et à planifier les prochaines étapes pour développer ses capacités et son potentiel"
+      ],
+      'A2 — Littératie numérique': [
+        "A2.1 — expliquer ses droits et responsabilités lors de ses interactions en ligne, après avoir obtenu l'autorisation appropriée, et prendre des décisions qui contribuent positivement au développement de son identité numérique et de ses communautés",
+        "A2.2 — démontrer sa compréhension de la navigation sécuritaire dans des environnements en ligne, des façons de gérer sa vie privée et ses données personnelles, et d'interagir avec les autres d'une manière qui contribue à son bien-être et à celui des autres, y compris l'obtention d'une autorisation appropriée",
+        "A2.3 — recueillir, évaluer et utiliser de l'information, en tenant compte de sa validité, de sa crédibilité, de son exactitude et des diverses perspectives, pour développer ses connaissances, créer des textes et démontrer son apprentissage",
+        "A2.4 — démontrer sa compréhension des formes de discours, des conventions et des techniques associées aux textes numériques et médiatiques, en considérant leurs effets sur les destinataires, et mettre en application cette compréhension lors de l'analyse et de la création de textes",
+        "A2.5 — démontrer sa compréhension de l'interrelation entre la forme de discours, le contenu, le contexte, les destinataires visés et l'intention de la production de textes",
+        "A2.6 — sélectionner et utiliser des outils numériques et médiatiques appropriés pour soutenir un processus de design et pour élaborer des solutions innovantes en réponse à des défis authentiques et pertinents de la vie",
+        "A2.7 — communiquer et collaborer au sein de diverses communautés de façon sécuritaire et inclusive lors de son utilisation des plateformes et environnements en ligne, y compris des outils numériques et médiatiques, tout en faisant preuve de sensibilité culturelle"
+      ],
+      'A3 — Identité, communauté et PNMI': [
+        "A3.1 — expliquer les façons dont ses connaissances et ses habiletés développées dans le présent programme-cadre soutiennent son apprentissage dans diverses matières et dans la vie quotidienne, et décrire les façons dont ces connaissances et habiletés améliorent sa compréhension et sa communication",
+        "A3.2 — démontrer sa compréhension des contextes historiques, des contributions, des expériences vécues et des perspectives de personnes et de communautés diverses, y compris du Canada, en explorant les concepts d'identité, de soi et de sentiment d'appartenance dans une variété de textes sensibles et adaptés à la culture",
+        "A3.3 — expliquer des thèmes explorés dans les cultures des Premières Nations, des Métis et des Inuit afin de démontrer sa compréhension d'une gamme d'identités, de perspectives, de relations, d'héritages, de vérités, de formes du savoir et de façons d'être et de faire"
+      ],
+      'B1 — Communication orale': [
+        "B1.1 — analyser diverses habiletés d'écoute efficace, y compris comprendre quand poser des questions pertinentes et comment répondre aux contributions des autres dans des discussions en groupe, et utiliser ces habiletés dans des contextes informels et formels et à diverses fins",
+        "B1.2 — sélectionner et utiliser diverses stratégies avant, pendant et après l'écoute de messages pour comprendre l'information communiquée de façon orale et non verbale, pour obtenir des clarifications et élaborer une réponse pertinente au contexte",
+        "B1.3 — déterminer l'intention et l'auditoire pour la communication orale dans des contextes formels et informels et choisir des stratégies appropriées pour communiquer de façon claire et cohérente",
+        "B1.4 — déterminer et utiliser des stratégies de communication orale et non verbale, y compris l'expression, les gestes et le langage corporel, et analyser la manière dont ces stratégies favorisent la compréhension ou la communication, y compris la manière dont leur utilisation peut varier d'une culture à l'autre",
+        "B1.5 — utiliser des mots appropriés et précis, y compris une variété d'adjectifs et d'adverbes pour élaborer son propos, divers types de phrases cohérentes et la voix active et la voix passive lors de la communication dans des contextes formels et informels pour appuyer la compréhension des messages par les destinataires"
+      ],
+      "B2 — Notions fondamentales de la lecture et de l'écriture": [
+        "B2.1 — mettre en application sa connaissance généralisée du sens des mots et des composantes des mots, comme les bases, les préfixes fréquents et les suffixes, pour lire et orthographier des mots avec précision et automaticité",
+        "B2.2 — démontrer sa compréhension du sens d'une variété de mots, acquérir et utiliser le vocabulaire explicitement enseigné dans divers contextes, y compris le vocabulaire propre à d'autres matières, et mettre en application sa connaissance de la morphologie généralisée pour analyser et comprendre des mots nouveaux en contexte",
+        "B2.3 — lire avec fluidité des mots, des phrases complexes et des paragraphes dans une variété de textes, avec précision et à un rythme approprié, pour appuyer la compréhension des textes, et ajuster l'expression et l'intonation lors de la lecture à haute voix, en tenant compte des objectifs de la lecture"
+      ],
+      'B3 — Apprentissages linguistiques': [
+        "B3.1 — mettre en application sa connaissance de divers types et formes de phrases pour formuler des phrases qui communiquent des idées clairement, y compris des phrases à la forme personnelle et impersonnelle",
+        "B3.2 — démontrer sa compréhension de la phrase de base et ses constituants, des groupes syntaxiques et des classes de mots, des types et des formes de phrases, de l'orthographe grammaticale, de la conjugaison des verbes et de la grammaire du texte pour appuyer sa compréhension de messages et communiquer du sens avec clarté",
+        "B3.3 — mettre en application sa compréhension du sens et de la fonction de la ponctuation et des majuscules pour communiquer clairement du sens, y compris l'utilisation des tirets, des deux-points et des guillemets dans les dialogues et de la phrase incise"
+      ],
+      'C1 — Connaissances des textes': [
+        "C1.1 — lire et démontrer sa compréhension d'une variété de textes en utilisant sa connaissance des mots, de la grammaire, des mots de liaison et de la structure des phrases, et ses connaissances antérieures",
+        "C1.2 — analyser une variété de formes de discours narratif, descriptif, incitatif, explicatif et poétique/ludique, y compris des formes de discours à caractère culturel, et de genres de textes, et expliquer les façons dont leurs caractéristiques favorisent la communication du sens",
+        "C1.3 — analyser des organisateurs textuels associés à diverses formes de discours dont celles à caractère culturel, y compris un problème et sa résolution dans un rapport, ainsi que des caractéristiques de textes, comme les sous-titres et les menus déroulants, et expliquer la façon dont ils favorisent la compréhension du sens par les destinataires lors de la lecture, de l'écoute et de l'interprétation visuelle des textes",
+        "C1.4 — analyser et comparer les façons dont les images, les éléments visuels et la conception graphique créent et communiquent du sens et y contribuent dans une variété de textes",
+        "C1.5 — démontrer sa compréhension de divers procédés littéraires et figures de style, y compris la voix, le choix de mots, les régularités lexicales et la structure des phrases, et analyser comment chaque élément contribue à créer du sens et est adapté à la forme de discours et au genre du texte",
+        "C1.6 — déterminer le point de vue de la narratrice ou du narrateur, y compris la narration à la première, à la deuxième ou à la troisième personne, dans une variété de textes, en fournissant des preuves, et expliquer comment un autre point de vue changerait l'histoire",
+        "C1.7 — lire, écouter et interpréter visuellement des textes relevant de diverses formes de discours produits par des créatrices et créateurs des Premières Nations, métis et inuit pour démontrer sa compréhension des histoires, des cultures, des relations, des communautés, des groupes, des nations et des expériences des Premières Nations, des Métis et des Inuit"
+      ],
+      'C2 — Stratégies de compréhension': [
+        "C2.1 — déterminer ses connaissances antérieures provenant de diverses sources, y compris ses expériences personnelles et son apprentissage dans d'autres matières, et expliquer la façon dont elles favorisent l'établissement des liens et la compréhension de nouveaux textes",
+        "C2.2 — déterminer et expliquer une variété d'intentions visées par l'interaction avec des textes, sélectionner des textes d'autrices et auteurs divers qui conviennent à ces intentions, et expliquer pourquoi ces choix sont appropriés",
+        "C2.3 — faire des prédictions à partir de ses connaissances antérieures et de l'information textuelle, et poser des questions pour valider la justesse de ses prédictions et ajuster sa compréhension, au besoin",
+        "C2.4 — utiliser des stratégies, y compris la visualisation, l'anticipation, le questionnement, la consultation de références, de ressources et d'autres, pour vérifier et confirmer sa compréhension de divers textes, incluant des textes d'autrices et auteurs de l'Ontario français",
+        "C2.5 — expliquer les façons dont les idées exprimées dans les textes sont liées à ses propres connaissances et expériences vécues, à des idées véhiculées par d'autres textes et au monde qui l'entoure",
+        "C2.6 — résumer et noter, à partir de divers textes, l'idée principale et les détails à l'appui, et tirer des conclusions bien fondées",
+        "C2.7 — expliquer et comparer les façons dont diverses stratégies, y compris recourir à la visualisation, faire des prédictions, faire des résumés et établir des liens avec ses propres expériences, ont favorisé sa compréhension de divers textes, et se fixer des objectifs pour améliorer sa compréhension"
+      ],
+      'C3 — Pensée critique en littératie': [
+        "C3.1 — décrire des procédés littéraires dans une variété de textes, y compris l'hyperbole et les expressions idiomatiques, et expliquer comment ils créent du sens et sont adaptés à l'intention et aux destinataires visés",
+        "C3.2 — faire des inférences locales et globales en utilisant des preuves explicites et implicites pour développer des interprétations sur des textes variés et approfondir sa compréhension",
+        "C3.3 — analyser divers textes, incluant des textes descriptifs, narratifs, incitatifs, explicatifs et poétiques/ludiques, en repérant les idées principales et secondaires, en évaluant la qualité de l'information et sa pertinence pour ses intentions de lecture, et formuler des conclusions",
+        "C3.4 — analyser des éléments culturels véhiculés dans divers textes, incluant des valeurs, des rituels, des cérémonies, l'architecture, l'art et la danse, en examinant le sens de ces éléments, en établissant des liens avec ses expériences et sa culture et en partageant ses interprétations avec d'autres",
+        "C3.5 — expliquer les perspectives explicites et implicites véhiculées par divers textes, y compris les textes narratifs, fournir des preuves qui pourraient suggérer un préjugé dans ces perspectives et proposer des moyens de l'éviter",
+        "C3.6 — expliquer les façons dont les sujets divers, y compris ceux liés à la diversité, à l'inclusion et l'accessibilité sont abordés dans divers textes, analyser les perspectives ou messages qui y sont communiqués, et déterminer différentes positions qui y sont véhiculées",
+        "C3.7 — évaluer l'influence des périodes historiques, des expériences culturelles ou des conditions et événements sociopolitiques sur les textes créés par des individus, communautés, groupes ou nations des Premières Nations, métis et inuit, et évaluer des liens entre ces textes et des expériences vécues actuelles",
+        "C3.8 — comparer les habiletés de la pensée critique utilisées lors de son analyse et de son évaluation de divers textes, déterminer celles qui soutiennent sa compréhension et expliquer pourquoi elles ont été efficaces"
+      ],
+      "D1 — Développement d'idées et organisation": [
+        "D1.1 — déterminer le sujet, l'intention et les destinataires d'une variété de textes qu'elle ou il planifie de créer et expliquer les raisons pour lesquelles les formes de discours, les genres de textes et les médias de son choix sont appropriés à l'intention et aux destinataires, et comment ceux-ci l'aideront à communiquer son intention",
+        "D1.2 — générer et développer des idées et des détails concernant divers sujets, y compris des sujets relatifs à la diversité, à l'équité et à l'inclusion, et à d'autres matières, en utilisant diverses stratégies et en ayant recours à une variété de ressources, y compris ses expériences vécues",
+        "D1.3 — rassembler de l'information et du contenu pertinents sur un sujet en utilisant plusieurs sources d'information textuelles, résumer l'information, vérifier la fiabilité des sources d'information, et noter qui a rédigé ou créé le contenu et sa source",
+        "D1.4 — organiser et classifier ses idées et l'information recueillie, en utilisant des outils et stratégies appropriés, repérer et ordonner le contenu pertinent, en tenant compte des formes de discours, des genres de textes et du média",
+        "D1.5 — expliquer et comparer les façons dont les stratégies et les outils utilisés l'ont aidé à développer ses idées et à organiser le contenu pour créer des textes, en ayant recours à des formes de discours, des genres de textes et des médias de son choix, ainsi que les façons dont elle ou il s'en est servi pour s'améliorer en matière de rédaction et création de textes"
+      ],
+      'D2 — Création de textes': [
+        "D2.1 — rédiger des textes complexes relevant d'une variété de formes de discours et genres de textes, y compris des modèles de textes d'autrices et auteurs de l'Ontario français, incluant des textes narratifs, incitatifs et explicatifs, en utilisant une gamme de médias, d'outils et de stratégies",
+        "D2.2 — écrire en lettres cursives avec fluidité, et mettre en application les techniques de saisie au clavier avec de plus en plus de fluidité, d'automaticité et de maîtrise, afin d'améliorer la précision et l'efficacité des textes",
+        "D2.3 — établir une voix personnelle dans ses textes, en ayant recours à un vocabulaire et à des éléments stylistiques variés afin d'exprimer clairement ses pensées, ses sentiments et ses opinions sur un sujet, en utilisant un ton approprié à la forme de discours et au genre de texte",
+        "D2.4 — déterminer les points de vue, les perspectives et les préjugés véhiculés dans ses textes, et expliquer les façons dont son message peut être interprété par des destinataires ayant des points de vue différents",
+        "D2.5 — apporter des révisions au contenu, aux éléments stylistiques et aux caractéristiques des ébauches de textes, et ajouter et effacer des phrases pour améliorer la clarté, la concision et la cohérence des textes, à l'aide de diverses stratégies, en cherchant de la rétroaction et en l'utilisant de façon sélective",
+        "D2.6 — apporter des modifications aux ébauches de textes pour en améliorer l'exactitude et le style, en portant attention aux erreurs relatives à l'orthographe, à la ponctuation, à la grammaire et à la mise en page, et corriger des textes numériques à l'aide d'un logiciel de traitement de texte, y compris les outils de vérification de l'orthographe et de la grammaire"
+      ],
+      'D3 — Publication, présentation et réflexion': [
+        "D3.1 — produire des versions finales de textes en sélectionnant une variété de techniques et outils appropriés, y compris des outils de conception et de production numériques, pour obtenir l'effet recherché",
+        "D3.2 — utiliser les médias et les outils de son choix pour publier et présenter des textes de sa propre création, et analyser les façons dont ces choix l'ont aidé à communiquer son message",
+        "D3.3 — comparer l'efficacité d'une variété de stratégies et outils qui lui ont permis de communiquer son message lors de la publication et de la présentation de textes, et suggérer des pistes pour s'améliorer"
+      ]
+    }
   },
   'Études sociales': {
     '1': ['A — Recherche et communication : formuler des questions et communiquer des découvertes','B — Patrimoine et identité : décrire les caractéristiques de sa famille et de sa communauté','C — Personnes et environnements : décrire son environnement naturel et construit'],
@@ -776,6 +1288,49 @@ function copySheetHeaders(type) {
 // ════════════════════════════════════════════════════════════════
 // CLASSE ENTIÈRE — ATTENTES UI
 // ════════════════════════════════════════════════════════════════
+function renderAttentesList(matiere, annee, keyPrefix, onchangeFn) {
+  const data = ATTENTES[matiere]?.[annee];
+  if (!data) return '';
+  // Nested structure (object with sous-domaines as keys)
+  if (!Array.isArray(data)) {
+    let html = '';
+    Object.entries(data).forEach(([sousDomaine, attentes]) => {
+      const sdKey = keyPrefix + '_' + sousDomaine.replace(/[\s()'\/—]/g,'_');
+      html += `<div style="margin-bottom:8px;">
+        <div onclick="toggleSousDomaine('${sdKey}')" style="cursor:pointer; font-size:12px; font-weight:600; color:#555; padding:5px 8px; background:#f0f0f0; border-radius:4px; display:flex; justify-content:space-between; align-items:center; user-select:none;">
+          <span>${sousDomaine}</span>
+          <span id="sdtoggle-${sdKey}" style="font-size:10px;">▶</span>
+        </div>
+        <div id="sdbody-${sdKey}" style="display:none; padding:4px 0 4px 12px;">
+          ${attentes.map((a, i) => {
+            const globalIdx = sousDomaine + '||' + i;
+            return `<label class="attente-item" id="${keyPrefix}-${sdKey}-${i}">
+              <input type="checkbox" onchange="${onchangeFn}('${matiere.replace(/'/g,"\\'")}', '${sousDomaine.replace(/'/g,"\\'")}', ${i})" data-attente="${a.replace(/"/g,'&quot;')}">
+              <span>${a}</span>
+            </label>`;
+          }).join('')}
+        </div>
+      </div>`;
+    });
+    return html;
+  }
+  // Flat array (all other subjects)
+  return data.map((a, i) => `
+    <label class="attente-item" id="${keyPrefix}-${i}">
+      <input type="checkbox" onchange="${onchangeFn}('${matiere.replace(/'/g,"\\'")}', null, ${i})" data-attente="${a.replace(/"/g,'&quot;')}">
+      <span>${a}</span>
+    </label>`).join('');
+}
+
+function toggleSousDomaine(sdKey) {
+  const body = document.getElementById('sdbody-' + sdKey);
+  const toggle = document.getElementById('sdtoggle-' + sdKey);
+  if (!body) return;
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  toggle.textContent = isOpen ? '▶' : '▼';
+}
+
 function updateClasseAttentes() {
   const annee = document.getElementById('classe-annee').value;
   const container = document.getElementById('classe-attentes-container');
@@ -784,8 +1339,9 @@ function updateClasseAttentes() {
 
   let html = '';
   MATIERES.forEach(matiere => {
-    const attentes = ATTENTES[matiere]?.[annee] || [];
-    if (!attentes.length) return;
+    const data = ATTENTES[matiere]?.[annee];
+    const isEmpty = !data || (Array.isArray(data) && !data.length) || (!Array.isArray(data) && !Object.keys(data).length);
+    if (isEmpty) return;
     const key = matiere.replace(/[\s()']/g,'_');
     html += `
       <div class="matiere-section">
@@ -795,11 +1351,7 @@ function updateClasseAttentes() {
         </div>
         <div class="matiere-body" id="body-${key}">
           <p style="font-size:12px; color:#777; margin-bottom:10px;">Sélectionnez les attentes enseignées cette période :</p>
-          ${attentes.map((a, i) => `
-            <label class="attente-item" id="ai-${key}-${i}">
-              <input type="checkbox" onchange="toggleAttente('${matiere.replace(/'/g,"\\'")}', ${i})" data-attente="${a.replace(/"/g,'&quot;')}">
-              <span>${a}</span>
-            </label>`).join('')}
+          ${renderAttentesList(matiere, annee, 'ai-' + key, 'toggleAttente')}
         </div>
       </div>`;
   });
@@ -815,10 +1367,17 @@ function toggleMatiere(matiere) {
   toggle.textContent = isOpen ? '▶' : '▼';
 }
 
-function toggleAttente(matiere, idx) {
+function toggleAttente(matiere, sousDomaine, idx) {
   const annee = document.getElementById('classe-annee').value;
-  const attentes = ATTENTES[matiere]?.[annee] || [];
-  const attente = attentes[idx];
+  const data = ATTENTES[matiere]?.[annee];
+  if (!data) return;
+  let attente;
+  if (sousDomaine && !Array.isArray(data)) {
+    attente = data[sousDomaine]?.[idx];
+  } else {
+    attente = data[idx];
+  }
+  if (!attente) return;
   if (!classeAttentesSelected[matiere]) classeAttentesSelected[matiere] = [];
   const pos = classeAttentesSelected[matiere].indexOf(attente);
   if (pos === -1) classeAttentesSelected[matiere].push(attente);
@@ -843,18 +1402,43 @@ function updateAttentes() {
   const list = document.getElementById('attentes-list-individuel');
   selectedAttentesInd = [];
   if (!annee || !matiere || !ATTENTES[matiere]?.[annee]) { list.innerHTML = '<p style="color:#999; font-style:italic; font-size:13px; padding:8px;">Aucune attente disponible.</p>'; return; }
-  list.innerHTML = ATTENTES[matiere][annee].map((a, i) => `
-    <label class="attente-item" id="ind-att-${i}">
-      <input type="checkbox" onchange="toggleAttenteInd(${i}, '${a.replace(/'/g,"\\'")}')">
-      <span>${a}</span>
-    </label>`).join('');
+  const data = ATTENTES[matiere][annee];
+  if (!Array.isArray(data)) {
+    // Nested sous-domaine structure
+    let html = '';
+    Object.entries(data).forEach(([sousDomaine, attentes]) => {
+      const sdKey = 'ind_' + sousDomaine.replace(/[\s()'\/—]/g,'_');
+      html += `<div style="margin-bottom:8px;">
+        <div onclick="toggleSousDomaine('${sdKey}')" style="cursor:pointer; font-size:12px; font-weight:600; color:#555; padding:5px 8px; background:#f0f0f0; border-radius:4px; display:flex; justify-content:space-between; align-items:center;">
+          <span>${sousDomaine}</span>
+          <span id="sdtoggle-${sdKey}" style="font-size:10px;">▶</span>
+        </div>
+        <div id="sdbody-${sdKey}" style="display:none; padding:4px 0 4px 12px;">
+          ${attentes.map((a, i) => `
+            <label class="attente-item" id="ind-att-${sdKey}-${i}">
+              <input type="checkbox" onchange="toggleAttenteInd('${sousDomaine.replace(/'/g,"\\'")}', ${i}, '${a.replace(/'/g,"\\'")}')">
+              <span>${a}</span>
+            </label>`).join('')}
+        </div>
+      </div>`;
+    });
+    list.innerHTML = html;
+  } else {
+    list.innerHTML = data.map((a, i) => `
+      <label class="attente-item" id="ind-att-${i}">
+        <input type="checkbox" onchange="toggleAttenteInd(null, ${i}, '${a.replace(/'/g,"\\'")}')">
+        <span>${a}</span>
+      </label>`).join('');
+  }
 }
 
-function toggleAttenteInd(idx, attente) {
+function toggleAttenteInd(sousDomaine, idx, attente) {
   const pos = selectedAttentesInd.indexOf(attente);
   if (pos === -1) selectedAttentesInd.push(attente);
   else selectedAttentesInd.splice(pos, 1);
-  document.getElementById(`ind-att-${idx}`).classList.toggle('selected', pos === -1);
+  const key = sousDomaine ? 'ind_' + sousDomaine.replace(/[\s()'\/—]/g,'_') + '-' + idx : idx;
+  const el = document.getElementById(`ind-att-${key}`);
+  if (el) el.classList.toggle('selected', pos === -1);
 }
 
 function selectNiveau(n) {
