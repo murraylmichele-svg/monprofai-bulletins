@@ -1499,42 +1499,409 @@ const ATTENTES = {
     '6': ['A — Recherche et communication : évaluer des sources et des perspectives','B — Patrimoine et identité : développements historiques et leurs impacts','C — Personnes et environnements : enjeux environnementaux mondiaux']
   },
   'Sciences et technologie': {
-    '1': [
-      'B — Systèmes vivants : les êtres vivants, leurs caractéristiques et leurs besoins',
-      'C — Matière et énergie : l\'énergie dans nos vies',
-      'D — Structures et mécanismes : les matériaux, les objets et les structures au quotidien',
-      'E — Systèmes de la Terre et de l\'espace : le cycle des jours et des saisons'
-    ],
-    '2': [
-      'B — Systèmes vivants : les animaux — croissance et changements',
-      'C — Matière et énergie : les propriétés des liquides et des solides',
-      'D — Structures et mécanismes : les machines simples et le mouvement',
-      'E — Systèmes de la Terre et de l\'espace : l\'air et l\'eau dans l\'environnement'
-    ],
-    '3': [
-      'B — Systèmes vivants : les plantes — croissance et changements',
-      'C — Matière et énergie : les forces et le mouvement',
-      'D — Structures et mécanismes : les structures solides et stables',
-      'E — Systèmes de la Terre et de l\'espace : le sol dans l\'environnement'
-    ],
-    '4': [
-      'B — Systèmes vivants : les habitats et les communautés',
-      'C — Matière et énergie : la lumière et le son',
-      'D — Structures et mécanismes : les machines et leurs mécanismes',
-      'E — Systèmes de la Terre et de l\'espace : les roches, les minéraux et les processus géologiques'
-    ],
-    '5': [
-      'B — Systèmes vivants : la santé et les systèmes du corps humain',
-      'C — Matière et énergie : les propriétés et les changements de la matière',
-      'D — Structures et mécanismes : les forces agissant sur les structures',
-      'E — Systèmes de la Terre et de l\'espace : conservation de l\'énergie et des ressources'
-    ],
-    '6': [
-      'B — Systèmes vivants : la biodiversité',
-      'C — Matière et énergie : les phénomènes, l\'énergie et les dispositifs électriques',
-      'D — Structures et mécanismes : le vol',
-      'E — Systèmes de la Terre et de l\'espace : l\'espace'
-    ]
+    '1': {
+      'A1 — Recherches, expériences STIM et communication': [
+        "A1.1 — utiliser une démarche de recherche et les habiletés connexes pour effectuer des recherches",
+        "A1.2 — utiliser une démarche expérimentale et les habiletés connexes pour effectuer des expériences",
+        "A1.3 — utiliser un processus de design en ingénierie et les habiletés connexes pour concevoir, construire et tester des dispositifs, des modèles, des structures et/ou des systèmes",
+        "A1.4 — respecter les consignes de santé et de sécurité à suivre durant les expériences scientifiques et technologiques, et utiliser adéquatement les outils, les instruments et le matériel mis à sa disposition",
+        "A1.5 — communiquer les résultats de ses recherches et de ses expériences en utilisant la terminologie propre aux sciences et à la technologie et les moyens de communication appropriés"
+      ],
+      'A2 — Codage et technologies émergentes': [
+        "A2.1 — écrire et exécuter des codes lors de l'exploration et de la modélisation de concepts, notamment pour créer des instructions claires et précises dans des algorithmes simples",
+        "A2.2 — déterminer et décrire l'incidence du codage et des technologies émergentes sur des situations de la vie quotidienne"
+      ],
+      'A3 — Applications, liens et contributions': [
+        "A3.1 — décrire des applications pratiques de concepts de sciences et technologie à la maison et dans sa communauté, ainsi que des façons dont ces applications traitent de problèmes tirés de situations de la vie quotidienne",
+        "A3.2 — examiner des façons dont les sciences et la technologie peuvent être utilisées avec d'autres disciplines pour traiter de problèmes tirés de situations de la vie quotidienne",
+        "A3.3 — analyser des contributions apportées aux sciences et à la technologie par diverses communautés"
+      ],
+      'B1 — Êtres vivants : rapprochement S&T et monde en évolution': [
+        "B1.1 — décrire des changements ou des problèmes qui pourraient résulter de la perte d'êtres vivants et d'éléments non vivants faisant partie de la vie quotidienne, en tenant compte de diverses perspectives",
+        "B1.2 — suggérer des actions qui peuvent contribuer à un environnement sain"
+      ],
+      'B2 — Êtres vivants : exploration et compréhension des concepts': [
+        "B2.1 — décrire l'environnement comme étant un lieu dans lequel les êtres vivants et les éléments non vivants sont interreliés",
+        "B2.2 — déterminer les besoins essentiels d'êtres vivants, y compris les besoins en air, en eau, en nourriture, en chaleur, en abri et en espace",
+        "B2.3 — déterminer les caractéristiques physiques d'une variété de plantes et d'animaux, y compris les humains, et expliquer les façons dont ces caractéristiques permettent aux plantes et aux animaux de répondre à leurs besoins essentiels",
+        "B2.4 — localiser les parties principales du corps humain, y compris les organes sensoriels, et décrire leurs fonctions",
+        "B2.5 — décrire les caractéristiques d'un environnement sain, y compris l'air et l'eau purs et les aliments nutritifs, et les façons dont un tel environnement permet aux êtres vivants de satisfaire leurs besoins",
+        "B2.6 — décrire des façons dont des êtres vivants répondent aux besoins d'autres êtres vivants"
+      ],
+      'C1 — Énergie dans nos vies : rapprochement S&T et monde en évolution': [
+        "C1.1 — décrire l'usage quotidien de l'énergie à l'école et à la maison, et proposer des façons d'utiliser l'énergie de manière responsable",
+        "C1.2 — décrire les façons dont la vie des humains et des autres êtres vivants changerait si l'énergie électrique n'était plus disponible"
+      ],
+      'C2 — Énergie dans nos vies : exploration et compréhension des concepts': [
+        "C2.1 — reconnaître que l'énergie est nécessaire pour effectuer un mouvement ou entraîner un changement",
+        "C2.2 — expliquer que le Soleil est la source principale d'énergie sur la Terre en reconnaissant qu'il réchauffe l'air, l'eau et le sol, qu'il procure de la lumière à la Terre, et qu'il permet de faire pousser les plantes",
+        "C2.3 — reconnaître que la nourriture est une source d'énergie pour les êtres vivants",
+        "C2.4 — dresser une liste d'utilisations quotidiennes de diverses sources d'énergie",
+        "C2.5 — expliquer que les humains obtiennent les ressources énergétiques nécessaires du monde qui les entoure et que plusieurs de ces ressources sont en quantités limitées",
+        "C2.6 — décrire différentes façons d'utiliser l'énergie et diverses formes d'énergie utilisées selon les saisons"
+      ],
+      'D1 — Matériaux et structures : rapprochement S&T et monde en évolution': [
+        "D1.1 — identifier les types de déchets produits par les humains, et établir et mettre en action un plan afin de minimiser le gaspillage dans la salle de classe ou à la maison, en expliquant l'importance de chaque action",
+        "D1.2 — examiner des objets de la vie quotidienne, y compris des structures, qui ont la même fonction, selon les types et les origines de matériaux qui les composent et le sort de ces objets une fois usés ou devenus inutiles"
+      ],
+      'D2 — Matériaux et structures : exploration et compréhension des concepts': [
+        "D2.1 — décrire les objets comme étant des choses composées d'un ou de plusieurs matériaux",
+        "D2.2 — déterminer des structures pouvant supporter une charge, y compris des structures à ossature servant de support à d'autres objets",
+        "D2.3 — déterminer les matériaux utilisés dans la fabrication de divers objets de la vie quotidienne, y compris des structures",
+        "D2.4 — décrire des caractéristiques observables de divers objets de la vie quotidienne, y compris des structures, en se servant de l'information qualitative perçue par ses sens",
+        "D2.5 — décrire l'utilité de divers objets de la vie quotidienne, y compris des structures",
+        "D2.6 — décrire les propriétés de matériaux qui sont essentielles au fonctionnement et à l'utilisation d'objets",
+        "D2.7 — donner des exemples de différentes formes d'attaches et de leur utilisation",
+        "D2.8 — reconnaître les substances d'origine naturelle dans les matériaux couramment utilisés pour fabriquer divers objets, y compris des structures"
+      ],
+      'E1 — Cycle des jours et des saisons : rapprochement S&T et monde en évolution': [
+        "E1.1 — examiner l'incidence des changements quotidiens et saisonniers sur les activités humaines en plein air, et indiquer des innovations qui permettent de s'adonner à une variété d'activités tout au long de l'année",
+        "E1.2 — évaluer les répercussions des changements quotidiens et saisonniers sur la société, sur l'environnement, et sur les êtres vivants, autres que les humains"
+      ],
+      'E2 — Cycle des jours et des saisons : exploration et compréhension des concepts': [
+        "E2.1 — reconnaître que des changements quotidiens et saisonniers sur la Terre sont le résultat de la relation entre la Terre et le Soleil",
+        "E2.2 — reconnaître qu'un cycle est une série d'événements répétitifs et que des changements cycliques s'observent dans le contexte des jours et des saisons",
+        "E2.3 — décrire les variations dans l'intensité de la lumière et de la chaleur provenant du Soleil au cours de la journée et selon les saisons",
+        "E2.4 — décrire et comparer les quatre saisons, dans sa communauté, en se référant aux conditions météorologiques, y compris aux précipitations et à la température",
+        "E2.5 — décrire des changements d'apparence ou de comportements d'êtres vivants en réponse aux changements saisonniers",
+        "E2.6 — décrire les façons dont les humains se préparent ou s'adaptent aux changements quotidiens et saisonniers"
+      ]
+    },
+    '2': {
+      'A1 — Recherches, expériences STIM et communication': [
+        "A1.1 — utiliser une démarche de recherche et les habiletés connexes pour effectuer des recherches",
+        "A1.2 — utiliser une démarche expérimentale et les habiletés connexes pour effectuer des expériences",
+        "A1.3 — utiliser un processus de design en ingénierie et les habiletés connexes pour concevoir, construire et tester des dispositifs, des modèles, des structures et/ou des systèmes",
+        "A1.4 — respecter les consignes de santé et de sécurité à suivre durant les expériences scientifiques et technologiques, et utiliser adéquatement les outils, les instruments et le matériel mis à sa disposition",
+        "A1.5 — communiquer les résultats de ses recherches et de ses expériences en utilisant la terminologie propre aux sciences et à la technologie et les moyens de communication appropriés"
+      ],
+      'A2 — Codage et technologies émergentes': [
+        "A2.1 — écrire et exécuter des codes lors de l'exploration et de la modélisation de concepts, notamment pour décomposer des problèmes en petites étapes",
+        "A2.2 — déterminer et décrire l'incidence du codage et des technologies émergentes sur des situations de la vie quotidienne"
+      ],
+      'A3 — Applications, liens et contributions': [
+        "A3.1 — décrire des applications pratiques de concepts de sciences et technologie à la maison et dans sa communauté, ainsi que des façons dont ces applications traitent de problèmes tirés de situations de la vie quotidienne",
+        "A3.2 — examiner des façons dont les sciences et la technologie peuvent être utilisées avec d'autres disciplines pour traiter de problèmes tirés de situations de la vie quotidienne",
+        "A3.3 — analyser des contributions apportées aux sciences et à la technologie par diverses communautés"
+      ],
+      'B1 — Animaux : rapprochement S&T et monde en évolution': [
+        "B1.1 — examiner l'incidence que les animaux peuvent avoir sur la société et l'environnement, et décrire des façons d'en minimiser les effets négatifs",
+        "B1.2 — examiner l'incidence de diverses activités humaines sur les animaux et leurs habitats, et décrire des pratiques qui minimisent les effets négatifs"
+      ],
+      'B2 — Animaux : exploration et compréhension des concepts': [
+        "B2.1 — comparer les caractéristiques physiques de divers animaux, y compris celles qui restent constantes et celles qui changent",
+        "B2.2 — décrire les modes de locomotion d'une variété d'animaux",
+        "B2.3 — décrire le cycle de vie d'une variété d'animaux, y compris des insectes, des amphibiens, des oiseaux et des mammifères",
+        "B2.4 — comparer des changements physiques et comportementaux de divers animaux au cours de leur cycle de vie",
+        "B2.5 — décrire des adaptations, telles que des changements physiques ou comportementaux, qui permettent aux animaux de survivre dans leur habitat"
+      ],
+      'C1 — Liquides et solides : rapprochement S&T et monde en évolution': [
+        "C1.1 — décrire diverses utilisations de liquides et de solides à la maison, y compris leur entreposage et leur mise au rebut, en tenant compte de divers aspects dont la santé et sécurité personnelle et l'intendance environnementale, et proposer des façons d'améliorer ces pratiques",
+        "C1.2 — évaluer les conséquences de différents changements d'état des liquides et des solides sur les humains, l'environnement naturel et l'environnement bâti"
+      ],
+      'C2 — Liquides et solides : exploration et compréhension des concepts': [
+        "C2.1 — reconnaître diverses substances dans l'environnement naturel et l'environnement bâti en tant que liquides ou solides",
+        "C2.2 — décrire les propriétés des liquides et des solides",
+        "C2.3 — décrire les propriétés de l'eau à l'état liquide et à l'état solide, et déterminer les conditions qui provoquent le passage d'un état à un autre",
+        "C2.4 — déterminer des situations dans lesquelles les états des liquides et des solides demeurent constants, et les conditions propices à leur changement",
+        "C2.5 — décrire certaines façons de combiner des liquides et des solides afin d'obtenir des mélanges utiles",
+        "C2.6 — classifier des objets et des matériaux solides selon leur flottabilité et leur capacité à absorber l'eau ou à la repousser",
+        "C2.7 — décrire les symboles internationaux qui renseignent sur les dangers des substances"
+      ],
+      'D1 — Machines simples et mouvement : rapprochement S&T et monde en évolution': [
+        "D1.1 — examiner l'incidence de l'utilisation de machines simples sur la vie quotidienne de diverses communautés",
+        "D1.2 — examiner l'incidence sur l'environnement des appareils technologiques qui utilisent des machines simples pour faciliter le mouvement"
+      ],
+      'D2 — Machines simples et mouvement : exploration et compréhension des concepts': [
+        "D2.1 — décrire différentes sortes de mouvements d'objets",
+        "D2.2 — déterminer des façons de changer la position d'un objet",
+        "D2.3 — reconnaître les six principaux types de machines simples : levier, plan incliné, poulie, roue et essieu, vis, et coin",
+        "D2.4 — décrire des façons dont chaque type de machine simple est utilisé pour faciliter le travail au quotidien",
+        "D2.5 — comparer, qualitativement ou quantitativement, la force requise pour déplacer un objet à l'aide de diverses machines simples à la force requise pour déplacer l'objet sans utiliser de machine simple"
+      ],
+      'E1 — Air et eau : rapprochement S&T et monde en évolution': [
+        "E1.1 — évaluer les répercussions de l'activité humaine sur l'air et l'eau, en tenant compte de diverses perspectives, incluant celles des Premières Nations, des Métis et des Inuit, et élaborer un plan d'action pour contribuer à la protection de l'air et de l'eau dans sa communauté",
+        "E1.2 — évaluer son utilisation personnelle de l'eau et celle de son foyer, et élaborer un plan pour utiliser l'eau de manière responsable",
+        "E1.3 — examiner la disponibilité de l'eau douce et potable à travers le monde et décrire l'incidence sur des communautés locales quand les ressources en eau sont insuffisantes ou rares"
+      ],
+      'E2 — Air et eau : exploration et compréhension des concepts': [
+        "E2.1 — examiner les principales propriétés de l'air et de l'eau",
+        "E2.2 — identifier des sources d'eau dans l'environnement naturel et l'environnement bâti",
+        "E2.3 — décrire les phases du cycle de l'eau, dont l'évaporation, la condensation, la précipitation et la collecte",
+        "E2.4 — décrire les trois états de l'eau dans l'environnement et expliquer les façons dont des changements de température influencent l'état de l'eau dans le cycle de l'eau",
+        "E2.5 — décrire la dépendance des êtres vivants, y compris les humains, à l'égard de l'air et de l'eau"
+      ]
+    },
+    '3': {
+      'A1 — Recherches, expériences STIM et communication': [
+        "A1.1 — utiliser une démarche de recherche et les habiletés connexes pour effectuer des recherches",
+        "A1.2 — utiliser une démarche expérimentale et les habiletés connexes pour effectuer des expériences",
+        "A1.3 — utiliser un processus de design en ingénierie et les habiletés connexes pour concevoir, construire et tester des dispositifs, des modèles, des structures et/ou des systèmes",
+        "A1.4 — respecter les consignes de santé et de sécurité à suivre durant les expériences scientifiques et technologiques, et utiliser adéquatement les outils, les instruments et le matériel mis à sa disposition",
+        "A1.5 — communiquer les résultats de ses recherches et de ses expériences en utilisant la terminologie propre aux sciences et à la technologie et les moyens de communication appropriés"
+      ],
+      'A2 — Codage et technologies émergentes': [
+        "A2.1 — écrire et exécuter des codes lors de l'exploration et de la modélisation de concepts, notamment pour tester, déboguer et améliorer des programmes",
+        "A2.2 — déterminer et décrire l'incidence du codage et des technologies émergentes sur des situations de la vie quotidienne"
+      ],
+      'A3 — Applications, liens et contributions': [
+        "A3.1 — décrire des applications pratiques de concepts de sciences et technologie à la maison et dans sa communauté, ainsi que des façons dont ces applications traitent de problèmes tirés de situations de la vie quotidienne",
+        "A3.2 — examiner des façons dont les sciences et la technologie peuvent être utilisées avec d'autres disciplines pour traiter de problèmes tirés de situations de la vie quotidienne",
+        "A3.3 — analyser des contributions apportées aux sciences et à la technologie par diverses communautés"
+      ],
+      'B1 — Plantes : rapprochement S&T et monde en évolution': [
+        "B1.1 — souligner l'importance des plantes pour les humains et les autres êtres vivants, en tenant compte de diverses perspectives, et suggérer des moyens par lesquels les humains peuvent assurer la survie de plantes indigènes et de leurs habitats",
+        "B1.2 — examiner l'incidence de l'activité humaine sur les plantes et leurs habitats, et suggérer des actions personnelles pour minimiser les effets négatifs et accentuer les effets positifs",
+        "B1.3 — examiner les bienfaits et les limites des aliments cultivés localement"
+      ],
+      'B2 — Plantes : exploration et compréhension des concepts': [
+        "B2.1 — décrire les besoins essentiels des plantes, y compris leurs besoins en air, en eau, en lumière, en chaleur, en éléments nutritifs et en espace, et déterminer des conditions environnementales qui peuvent menacer la survie des plantes",
+        "B2.2 — nommer les différentes parties d'une plante, dont la racine, la tige, la feuille, la fleur, la graine, le pistil, l'étamine, le fruit et le cône, et décrire la contribution de chaque partie à la survie de la plante dans son environnement",
+        "B2.3 — décrire les changements qui s'opèrent dans les plantes au cours de leur cycle de vie",
+        "B2.4 — décrire des adaptations ou des réactions de diverses plantes à leur environnement, y compris à des changements à l'environnement",
+        "B2.5 — reconnaître que la plupart des plantes obtiennent l'énergie directement du Soleil à la suite du processus de la photosynthèse, qui se produit par l'absorption du dioxyde de carbone et la libération de l'oxygène",
+        "B2.6 — décrire diverses utilisations de plantes comme sources de nourriture, d'abri, de médicaments et de vêtements par des individus provenant de différentes cultures du monde, y compris les peuples autochtones",
+        "B2.7 — décrire diverses plantes qui servent de nourriture, y compris celles cultivées par les Premières Nations, les Métis et les Inuit, et indiquer des endroits locaux où elles peuvent être trouvées ou cultivées",
+        "B2.8 — décrire l'interdépendance entre les plantes et les animaux, y compris les humains"
+      ],
+      'C1 — Forces et mouvement : rapprochement S&T et monde en évolution': [
+        "C1.1 — examiner les effets des forces résultant de phénomènes naturels sur l'environnement naturel et l'environnement bâti, et indiquer des façons dont les humains peuvent réduire ou accentuer ces effets",
+        "C1.2 — examiner les effets négatifs de forces pouvant résulter de diverses activités humaines, et décrire des façons dont des dispositifs favorisant la santé et la sécurité peuvent minimiser ces effets"
+      ],
+      'C2 — Forces et mouvement : exploration et compréhension des concepts': [
+        "C2.1 — décrire différents types de forces de contact et de forces à distance",
+        "C2.2 — décrire différentes façons dont une force peut être appliquée sur un objet",
+        "C2.3 — décrire comment différentes forces agissant sur un objet, y compris des forces de diverses intensités, peuvent le mettre en mouvement, l'arrêter, le faire changer de direction ou de vitesse, ou changer sa forme",
+        "C2.4 — énumérer des applications de diverses forces dans des situations de la vie quotidienne"
+      ],
+      'D1 — Structures solides et stables : rapprochement S&T et monde en évolution': [
+        "D1.1 — examiner l'incidence sur la société et l'environnement des structures solides et stables",
+        "D1.2 — examiner l'incidence environnementale de structures construites par divers animaux, y compris de structures construites par les humains"
+      ],
+      'D2 — Structures solides et stables : exploration et compréhension des concepts': [
+        "D2.1 — décrire une structure comme un objet supportant une charge et ayant une taille, une forme et une fonction précises, et reconnaître des structures dans l'environnement naturel et dans l'environnement bâti",
+        "D2.2 — expliquer la relation entre la forme et la fonction de diverses structures",
+        "D2.3 — décrire la solidité d'une structure comme étant sa capacité à supporter une charge et décrire des façons d'augmenter la solidité des structures",
+        "D2.4 — décrire la stabilité d'une structure comme étant sa capacité à conserver sa forme, à maintenir son équilibre, à flotter ou à rester fixe à son emplacement quand elle est soumise à une force, et décrire des façons d'améliorer sa stabilité",
+        "D2.5 — indiquer des propriétés de matériaux à considérer lors de la construction des structures",
+        "D2.6 — décrire les façons dont différentes forces peuvent modifier la forme, l'équilibre ou la position d'une structure",
+        "D2.7 — expliquer la fonction des entretoises et des attaches dans les structures soumises à une charge"
+      ],
+      'E1 — Sol dans l'environnement : rapprochement S&T et monde en évolution': [
+        "E1.1 — examiner l'importance des sols pour la société et l'environnement",
+        "E1.2 — examiner l'incidence de l'activité humaine sur les sols et suggérer des façons dont les humains peuvent améliorer la santé des sols et, le cas échéant, minimiser ou prévenir la dégradation des sols"
+      ],
+      "E2 — Sol dans l'environnement : exploration et compréhension des concepts": [
+        "E2.1 — nommer les principales composantes vivantes et non vivantes du sol et décrire les caractéristiques d'un sol sain",
+        "E2.2 — déterminer des substances qui sont communément ajoutées aux sols ou absorbées par ceux-ci, et décrire leurs effets sur la santé des sols",
+        "E2.3 — examiner divers types de sols en Ontario et décrire les façons dont différents sols sont adaptés à la culture d'aliments, y compris des produits agricoles",
+        "E2.4 — expliquer le processus d'érosion, y compris ses causes et ses effets sur les sols",
+        "E2.5 — décrire différentes pratiques en Ontario pour préserver et améliorer la santé des sols",
+        "E2.6 — décrire le processus de compostage et expliquer certains de ses bienfaits"
+      ]
+    },
+    '4': {
+      'A1 — Recherches, expériences STIM et communication': [
+        "A1.1 — utiliser une démarche de recherche et les habiletés connexes pour effectuer des recherches",
+        "A1.2 — utiliser une démarche expérimentale et les habiletés connexes pour effectuer des expériences",
+        "A1.3 — utiliser un processus de design en ingénierie et les habiletés connexes pour concevoir, construire et tester des dispositifs, des modèles, des structures et/ou des systèmes",
+        "A1.4 — respecter les consignes de santé et de sécurité à suivre durant les expériences scientifiques et technologiques, et utiliser adéquatement les outils, les instruments et le matériel mis à sa disposition",
+        "A1.5 — communiquer les résultats de ses recherches et de ses expériences en utilisant la terminologie propre aux sciences et à la technologie et les moyens de communication appropriés"
+      ],
+      'A2 — Codage et technologies émergentes': [
+        "A2.1 — écrire et exécuter des codes lors de l'exploration et de la modélisation de concepts, notamment pour produire différents types de données de sortie à des fins diverses",
+        "A2.2 — déterminer et décrire l'incidence du codage et des technologies émergentes sur des situations de la vie quotidienne et sur des métiers spécialisés"
+      ],
+      'A3 — Applications, liens et contributions': [
+        "A3.1 — décrire des applications pratiques de concepts de sciences et technologie dans le cadre de diverses professions, y compris des métiers spécialisés, ainsi que des façons dont ces applications traitent de problèmes tirés de situations de la vie quotidienne",
+        "A3.2 — examiner des façons dont les sciences et la technologie peuvent être utilisées avec d'autres disciplines pour traiter de problèmes tirés de situations de la vie quotidienne",
+        "A3.3 — analyser des contributions apportées aux sciences et à la technologie par diverses communautés"
+      ],
+      'B1 — Habitats et communautés : rapprochement S&T et monde en évolution': [
+        "B1.1 — examiner les effets positifs et négatifs de l'activité humaine sur les habitats et les communautés, en tenant compte de diverses perspectives",
+        "B1.2 — examiner les répercussions de la décroissance ou de la disparition d'une espèce sur son habitat et dans la communauté, et décrire des actions pour prévenir cette décroissance ou disparition"
+      ],
+      'B2 — Habitats et communautés : exploration et compréhension des concepts': [
+        "B2.1 — décrire un habitat comme un milieu naturel qui comble les besoins essentiels des organismes, incluant les plantes et les animaux, ainsi que des façons dont un habitat local répond à ces besoins",
+        "B2.2 — décrire une communauté comme un ensemble d'organismes interagissant dans un habitat commun, et déterminer des facteurs qui ont une incidence sur la capacité d'une communauté de plantes et d'animaux à survivre dans un habitat local",
+        "B2.3 — décrire la relation entre des organismes dans une chaîne alimentaire, et classifier les organismes en tant que producteurs, consommateurs ou décomposeurs",
+        "B2.4 — décrire un réseau alimentaire comme l'interrelation de plusieurs chaînes alimentaires dans une communauté naturelle",
+        "B2.5 — expliquer que les animaux peuvent être classifiés selon leur régime alimentaire et classifier divers animaux en tant que carnivores, herbivores ou omnivores",
+        "B2.6 — décrire des adaptations structurelles de divers plantes et animaux et les façons dont elles aident à la survie de ces êtres vivants dans un habitat donné",
+        "B2.7 — expliquer que tous les habitats ont un nombre maximal d'animaux et de plantes qu'ils peuvent soutenir"
+      ],
+      'C1 — Lumière et son : rapprochement S&T et monde en évolution': [
+        "C1.1 — analyser l'incidence sur la société de dispositifs faisant appel aux propriétés du son, de la lumière ou des deux",
+        "C1.2 — analyser l'incidence sur l'environnement de l'énergie lumineuse et de l'énergie sonore produites par différentes technologies, en tenant compte de diverses perspectives"
+      ],
+      'C2 — Lumière et son : exploration et compréhension des concepts': [
+        "C2.1 — déterminer diverses sources de lumière naturelle et artificielle",
+        "C2.2 — distinguer les objets et les êtres vivants qui émettent la lumière de ceux qui réfléchissent la lumière provenant d'autres sources",
+        "C2.3 — décrire des propriétés de la lumière, y compris la propagation rectiligne, ainsi que le fait que la lumière peut être absorbée, réfléchie ou réfractée",
+        "C2.4 — décrire des propriétés du son, y compris la propagation d'ondes sonores dans un milieu, ainsi que le fait que le son peut être absorbé, réfléchi ou modifié",
+        "C2.5 — expliquer que les ondes sonores sont causées par des vibrations",
+        "C2.6 — décrire les interactions de l'énergie lumineuse et de l'énergie sonore avec différents objets et matériaux",
+        "C2.7 — distinguer les sources de lumière qui émettent la lumière et la chaleur des sources qui émettent la lumière et très peu de chaleur",
+        "C2.8 — nommer des organes sensoriels et des dispositifs qui utilisent les propriétés de la lumière et du son"
+      ],
+      'D1 — Machines et mécanismes : rapprochement S&T et monde en évolution': [
+        "D1.1 — analyser l'incidence de l'utilisation de machines et de leurs mécanismes sur la vie quotidienne de diverses communautés",
+        "D1.2 — évaluer les répercussions environnementales de l'utilisation de diverses machines ayant la même fonction"
+      ],
+      'D2 — Machines et mécanismes : exploration et compréhension des concepts': [
+        "D2.1 — nommer des machines couramment utilisées et décrire leurs fonctions",
+        "D2.2 — nommer les pièces de divers mécanismes et décrire le rôle de chacune",
+        "D2.3 — décrire les mécanismes permettant de transmettre divers types de mouvement, y compris le mouvement de rotation, d'une pièce mécanique à une autre",
+        "D2.4 — décrire les mécanismes permettant de transformer divers types de mouvement, y compris les façons dont ils peuvent changer le plan géométrique dans lequel le mouvement se produit, ainsi que la vitesse et la direction du mouvement",
+        "D2.5 — expliquer les façons de modifier la force dans une variété de machines"
+      ],
+      'E1 — Roches, minéraux et processus géologiques : rapprochement S&T et monde en évolution': [
+        "E1.1 — analyser l'incidence des processus géologiques sur la société et l'environnement",
+        "E1.2 — évaluer les effets sur la société et sur l'environnement de l'extraction et du raffinage des roches et des minéraux, ainsi que de la fabrication, du recyclage et de l'élimination des produits dérivés de roches et de minéraux, en tenant compte de diverses perspectives"
+      ],
+      'E2 — Roches, minéraux et processus géologiques : exploration et compréhension des concepts': [
+        "E2.1 — expliquer les processus géologiques à l'origine de la formation des roches ignées, sédimentaires et métamorphiques, en utilisant le cycle des roches",
+        "E2.2 — décrire les propriétés physiques des roches ignées, sédimentaires et métamorphiques",
+        "E2.3 — classifier différents roches et minéraux selon leur composition et leurs propriétés physiques, à l'aide de divers tests et critères",
+        "E2.4 — décrire diverses utilisations quotidiennes de roches et de minéraux",
+        "E2.5 — décrire la formation de fossiles et l'information qu'ils fournissent au sujet de l'histoire de la Terre",
+        "E2.6 — expliquer les façons dont les Premières Nations, les Métis et les Inuit mettent en application leurs connaissances géologiques pour choisir des roches et des minéraux à des fins précises"
+      ]
+    },
+    '5': {
+      'A1 — Recherches, expériences STIM et communication': [
+        "A1.1 — utiliser une démarche de recherche et les habiletés connexes pour effectuer des recherches",
+        "A1.2 — utiliser une démarche expérimentale et les habiletés connexes pour effectuer des expériences",
+        "A1.3 — utiliser un processus de design en ingénierie et les habiletés connexes pour concevoir, construire et tester des dispositifs, des modèles, des structures et/ou des systèmes",
+        "A1.4 — respecter les consignes de santé et de sécurité à suivre durant les expériences scientifiques et technologiques, et utiliser adéquatement les outils, les instruments et le matériel mis à sa disposition",
+        "A1.5 — communiquer les résultats de ses recherches et de ses expériences en utilisant la terminologie propre aux sciences et à la technologie et les moyens de communication appropriés"
+      ],
+      'A2 — Codage et technologies émergentes': [
+        "A2.1 — écrire et exécuter des codes lors de l'exploration et de la modélisation de concepts, notamment pour utiliser différentes méthodes de stockage et de traitement de données à des fins diverses",
+        "A2.2 — déterminer et décrire l'incidence du codage et des technologies émergentes sur des situations de la vie quotidienne et sur des métiers spécialisés"
+      ],
+      'A3 — Applications, liens et contributions': [
+        "A3.1 — décrire des applications pratiques de concepts de sciences et technologie dans le cadre de diverses professions, y compris des métiers spécialisés, ainsi que des façons dont ces applications traitent de problèmes tirés de situations de la vie quotidienne",
+        "A3.2 — examiner des façons dont les sciences et la technologie peuvent être utilisées avec d'autres disciplines pour traiter de problèmes tirés de situations de la vie quotidienne",
+        "A3.3 — analyser des contributions apportées aux sciences et à la technologie par diverses communautés"
+      ],
+      'B1 — Corps humain : rapprochement S&T et monde en évolution': [
+        "B1.1 — examiner les effets de facteurs sociaux et environnementaux sur la santé, et décrire des moyens d'en réduire les conséquences nocives et d'en exploiter les bienfaits",
+        "B1.2 — examiner les effets de diverses technologies sur la santé et les systèmes du corps humain, en tenant compte de diverses perspectives",
+        "B1.3 — expliquer les façons dont la littératie alimentaire peut appuyer les décisions quant à la santé physique et mentale"
+      ],
+      'B2 — Corps humain : exploration et compréhension des concepts': [
+        "B2.1 — nommer des systèmes du corps humain et décrire leurs fonctions principales",
+        "B2.2 — décrire la structure et la fonction de base des organes vitaux de divers systèmes du corps humain",
+        "B2.3 — décrire des interrelations entre des systèmes du corps humain",
+        "B2.4 — nommer des maladies ou des troubles de santé qui affectent les organes ou les systèmes du corps humain"
+      ],
+      'C1 — Propriétés et changements de la matière : rapprochement S&T et monde en évolution': [
+        "C1.1 — analyser l'incidence sur la société et l'environnement de divers procédés de fabrication de produits courants",
+        "C1.2 — analyser l'incidence sur l'environnement de l'utilisation de certains matériaux dans la fabrication de produits courants, et proposer des actions que les individus et la société peuvent entreprendre pour en atténuer les effets négatifs"
+      ],
+      'C2 — Propriétés et changements de la matière : exploration et compréhension des concepts': [
+        "C2.1 — décrire la matière comme tout ce qui a une masse et qui occupe un volume",
+        "C2.2 — reconnaître les états de la matière, et décrire les caractéristiques et les propriétés des solides, des liquides et des gaz",
+        "C2.3 — décrire des changements d'état de la matière observés à la maison, dans la communauté ou dans la nature",
+        "C2.4 — décrire des changements physiques de la matière comme étant des changements d'état, de volume ou de forme n'entraînant pas la formation d'une autre substance",
+        "C2.5 — décrire des changements chimiques de la matière comme étant des changements entraînant la formation d'autres substances, et déterminer des indicateurs d'un changement chimique",
+        "C2.6 — expliquer des changements d'état qui peuvent se produire lorsque la matière absorbe ou libère de l'énergie thermique",
+        "C2.7 — expliquer pourquoi les propriétés physiques spécifiques de divers solides, liquides et gaz les rendent utiles pour des applications précises"
+      ],
+      'D1 — Forces agissant sur les structures : rapprochement S&T et monde en évolution': [
+        "D1.1 — analyser les effets des forces résultant de phénomènes naturels sur des structures dans un environnement naturel et un environnement bâti",
+        "D1.2 — examiner des moyens mis en place par les humains visant à atténuer les effets des forces résultant de phénomènes naturels sur des structures dans les communautés urbaines, rurales et éloignées"
+      ],
+      'D2 — Forces agissant sur les structures : exploration et compréhension des concepts': [
+        "D2.1 — indiquer des forces internes agissant sur une structure et décrire leurs effets sur celle-ci",
+        "D2.2 — indiquer des forces externes agissant sur une structure et décrire leurs effets sur celle-ci",
+        "D2.3 — décrire des forces résultant de phénomènes naturels, qui peuvent avoir de graves conséquences sur des structures bâties par les humains, et déterminer des caractéristiques structurelles ainsi que des choix de matériaux qui peuvent permettre à de telles structures de résister à ces forces",
+        "D2.4 — décrire les façons dont des caractéristiques physiques de diverses espèces animales et végétales contribuent à les protéger contre les effets potentiellement négatifs des forces",
+        "D2.5 — décrire les façons dont des équipements de protection contribuent à protéger les humains contre les effets potentiellement négatifs des forces"
+      ],
+      'E1 — Conservation de l'énergie et des ressources : rapprochement S&T et monde en évolution': [
+        "E1.1 — analyser l'incidence à long terme de l'utilisation de l'énergie et des ressources naturelles par les humains sur la société et l'environnement, y compris les changements climatiques, et proposer des moyens d'en réduire les effets négatifs",
+        "E1.2 — analyser l'incidence de diverses technologies sur la consommation d'énergie et décrire des moyens de faire appel à la technologie afin de réduire la consommation d'énergie",
+        "E1.3 — décrire des façons dont des communautés des Premières Nations, des Métis et des Inuit utilisent leurs connaissances et formes du savoir pour conserver l'énergie et les ressources naturelles"
+      ],
+      "E2 — Conservation de l'énergie et des ressources : exploration et compréhension des concepts": [
+        "E2.1 — nommer diverses formes d'énergie et en donner des exemples d'utilisations quotidiennes",
+        "E2.2 — reconnaître que, d'après la loi de la conservation de l'énergie, l'énergie ne peut être ni créée ni détruite, mais qu'elle peut seulement être transformée d'une forme à une autre",
+        "E2.3 — décrire des façons dont l'énergie est emmagasinée sous forme d'énergie potentielle et transformée par un dispositif ou un système donné",
+        "E2.4 — reconnaître que lors du processus de transformation d'énergie d'une forme à une autre, une certaine quantité d'énergie peut se dissiper dans l'environnement sous forme de chaleur, de lumière ou d'énergie sonore",
+        "E2.5 — distinguer des sources d'énergie renouvelables et non renouvelables",
+        "E2.6 — expliquer comment l'utilisation de l'énergie dérivée de combustibles fossiles change la composition de l'atmosphère et comment ces changements contribuent aux changements climatiques"
+      ]
+    },
+    '6': {
+      'A1 — Recherches, expériences STIM et communication': [
+        "A1.1 — utiliser une démarche de recherche et les habiletés connexes pour effectuer des recherches",
+        "A1.2 — utiliser une démarche expérimentale et les habiletés connexes pour effectuer des expériences",
+        "A1.3 — utiliser un processus de design en ingénierie et les habiletés connexes pour concevoir, construire et tester des dispositifs, des modèles, des structures et/ou des systèmes",
+        "A1.4 — respecter les consignes de santé et de sécurité à suivre durant les expériences scientifiques et technologiques, et utiliser adéquatement les outils, les instruments et le matériel mis à sa disposition",
+        "A1.5 — communiquer les résultats de ses recherches et de ses expériences en utilisant la terminologie propre aux sciences et à la technologie et les moyens de communication appropriés"
+      ],
+      'A2 — Codage et technologies émergentes': [
+        "A2.1 — écrire et exécuter des codes lors de l'exploration et de la modélisation de concepts, notamment pour obtenir des données d'entrée de différentes façons à des fins diverses",
+        "A2.2 — déterminer et décrire l'incidence du codage et des technologies émergentes sur des situations de la vie quotidienne et sur des métiers spécialisés"
+      ],
+      'A3 — Applications, liens et contributions': [
+        "A3.1 — décrire des applications pratiques de concepts de sciences et technologie dans le cadre de diverses professions, y compris des métiers spécialisés, ainsi que des façons dont ces applications traitent de problèmes tirés de situations de la vie quotidienne",
+        "A3.2 — examiner des façons dont les sciences et la technologie peuvent être utilisées avec d'autres disciplines pour traiter de problèmes tirés de situations de la vie quotidienne",
+        "A3.3 — analyser des contributions apportées aux sciences et à la technologie par diverses communautés"
+      ],
+      'B1 — Biodiversité : rapprochement S&T et monde en évolution': [
+        "B1.1 — évaluer les bienfaits de la biodiversité et les conséquences de la réduction de la biodiversité",
+        "B1.2 — examiner un enjeu d'ordre local qui porte sur la biodiversité, en tenant compte de diverses perspectives, élaborer un plan d'action en vue de remédier à l'enjeu, et agir en fonction de ce plan"
+      ],
+      'B2 — Biodiversité : exploration et compréhension des concepts': [
+        "B2.1 — décrire différents groupes d'organismes selon des caractéristiques distinctes, et utiliser ces caractéristiques pour classifier ces organismes à l'aide d'un système de classification",
+        "B2.2 — décrire la biodiversité comme la diversité de la vie sur la Terre, incluant la diversité d'organismes au sein de chaque espèce, la diversité parmi les espèces dans une communauté, ainsi qu'au sein des communautés et des habitats les soutenant",
+        "B2.3 — décrire l'importance de la biodiversité au sein d'une espèce pour sa survie",
+        "B2.4 — décrire des façons dont la biodiversité au sein des communautés, et entre elles, est essentielle à leur survie",
+        "B2.5 — décrire les interrelations existant au sein des espèces, entre diverses espèces et entre des espèces et leur environnement, et expliquer comment ces relations soutiennent la biodiversité",
+        "B2.6 — expliquer les façons dont les espèces envahissantes réduisent la biodiversité dans les environnements locaux",
+        "B2.7 — expliquer le rôle des changements climatiques dans la perte de biodiversité et décrire l'incidence de ces pertes",
+        "B2.8 — décrire l'importance de la biodiversité pour soutenir l'agriculture, y compris l'agriculture autochtone dans le monde"
+      ],
+      'C1 — Phénomènes et dispositifs électriques : rapprochement S&T et monde en évolution': [
+        "C1.1 — examiner l'incidence à court terme et à long terme sur la société et l'environnement de la production d'énergie électrique au Canada, y compris l'incidence sur les communautés des Premières Nations, des Métis et des Inuit, et sur les changements climatiques",
+        "C1.2 — examiner différentes façons de réduire sa consommation personnelle d'énergie électrique, en tenant compte de diverses sources renouvelables et non renouvelables, et proposer des pratiques responsables d'utiliser l'énergie électrique dans la communauté scolaire"
+      ],
+      'C2 — Phénomènes et dispositifs électriques : exploration et compréhension des concepts': [
+        "C2.1 — expliquer des phénomènes électrostatiques couramment observés à partir des principes de l'électricité statique",
+        "C2.2 — décrire l'électricité dynamique et la comparer à l'électricité statique en faisant ressortir les différences",
+        "C2.3 — nommer des matériaux qui sont de bons conducteurs d'électricité et d'autres qui sont de bons isolants",
+        "C2.4 — décrire des façons dont les technologies transforment diverses formes d'énergie en énergie électrique",
+        "C2.5 — décrire diverses façons de transformer l'énergie électrique en d'autres formes d'énergie",
+        "C2.6 — expliquer les fonctions des composantes d'un circuit électrique simple",
+        "C2.7 — distinguer les circuits en série des circuits en parallèle, et déterminer des utilisations courantes de chaque type de circuit"
+      ],
+      'D1 — Vol : rapprochement S&T et monde en évolution': [
+        "D1.1 — analyser l'incidence des technologies aéronautiques sur la société, en tenant compte des perspectives locales et mondiales"
+      ],
+      'D2 — Vol : exploration et compréhension des concepts': [
+        "D2.1 — déterminer des applications des propriétés de l'air dans le domaine de la mécanique du vol",
+        "D2.2 — décrire les relations qui existent entre les quatre forces du vol : la portance, le poids, la traînée et la poussée, et qui rendent le vol possible",
+        "D2.3 — décrire l'utilisation par des machines volantes et divers êtres vivants de l'équilibre et du déséquilibre des forces pour contrôler leur vol",
+        "D2.4 — décrire diverses méthodes utilisées pour modifier les quatre forces du vol",
+        "D2.5 — décrire les caractéristiques et les adaptations qui permettent aux organismes de voler"
+      ],
+      "E1 — L'espace : rapprochement S&T et monde en évolution": [
+        "E1.1 — examiner les effets de l'espace sur les astronautes en mission spatiale et les adaptations nécessaires à leurs besoins sociaux, émotionnels et physiologiques dans l'espace",
+        "E1.2 — évaluer le rôle des technologies liées à l'exploration spatiale dans l'observation et la compréhension des changements environnementaux sur la Terre, y compris les changements climatiques",
+        "E1.3 — analyser l'incidence de l'exploration spatiale sur la société et l'environnement, en tenant compte de diverses perspectives"
+      ],
+      "E2 — L'espace : exploration et compréhension des concepts": [
+        "E2.1 — identifier des composantes du système solaire, incluant le Soleil, la Terre, les autres planètes, les satellites naturels, les comètes, les astéroïdes et les météoroïdes, et décrire leurs principales caractéristiques physiques",
+        "E2.2 — distinguer entre les concepts de masse et de poids",
+        "E2.3 — décrire la relation entre la force gravitationnelle et le poids d'un corps",
+        "E2.4 — distinguer, dans l'espace, les corps qui émettent de la lumière de ceux qui réfléchissent la lumière",
+        "E2.5 — décrire divers effets des mouvements et des positions relatives de la Terre, de la Lune et du Soleil",
+        "E2.6 — nommer diverses technologies liées à l'exploration spatiale et décrire la contribution des innovations technologiques à notre compréhension de l'espace"
+      ]
+    }
   },
   'Arts (arts visuels)': {
     '1': ['Création et expression : créer des œuvres avec des éléments de base','Analyse et appréciation : décrire et interpréter des œuvres'],
