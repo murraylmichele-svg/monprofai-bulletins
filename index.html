@@ -546,12 +546,429 @@ const MATIERES = [
 
 const ATTENTES = {
   'Mathématiques': {
-    '1': ['B1 — Sens du nombre : lire, représenter et composer les nombres naturels jusqu\'à 50','B2 — Opérations : additionner et soustraire jusqu\'à 20','C1 — Algèbre : identifier et décrire des régularités dans des suites','D1 — Données : recueillir et organiser des données simples','E1 — Sens de l\'espace : décrire et représenter des formes 2D et 3D','E2 — Mesure : mesurer avec des unités non standard','F1 — Littératie financière : identifier différentes façons de payer'],
-    '2': ['B1 — Sens du nombre : représenter et composer les nombres jusqu\'à 200','B2 — Opérations : additionner et soustraire jusqu\'à 100','B3 — Fractions : décrire les fractions comme parties d\'un tout','C1 — Algèbre : identifier des régularités croissantes','D1 — Données : recueillir et afficher dans des diagrammes','E1 — Sens de l\'espace : classifier et comparer des figures','E2 — Mesure : mesurer la longueur en cm et m','F1 — Littératie financière : valeur des pièces et billets'],
-    '3': ['B1 — Sens du nombre : représenter les nombres jusqu\'à 1000','B2 — Opérations : multiplier et diviser avec les faits de base','B3 — Fractions : comparer et ordonner des fractions simples','C1 — Algèbre : créer des régularités avec tables et graphiques','D1 — Données : analyser et formuler des conclusions','E1 — Sens de l\'espace : classifier les figures selon leurs propriétés','E2 — Mesure : calculer périmètre et aire'],
-    '4': ['B1 — Sens du nombre : nombres jusqu\'à 10 000, fractions, décimaux aux dixièmes','B2 — Opérations : multiplier et diviser des nombres à deux chiffres','C1 — Algèbre : identifier des régularités dans des tables de valeurs','C2 — Équations : représenter et résoudre des équations simples','D1 — Données : diagrammes à bandes et probabilités simples','E1 — Sens de l\'espace : propriétés des rectangles et transformations','E2 — Mesure : aire et périmètre de rectangles','F1 — Littératie financière : besoins, désirs et décisions financières'],
-    '5': ['B1 — Sens du nombre : nombres jusqu\'à 100 000, décimaux aux centièmes, fractions','B2 — Opérations : multiplier et diviser des nombres à plusieurs chiffres','C1 — Algèbre : tables de valeurs et régularités','C2 — Équations : résoudre avec une variable','D1 — Données : diagrammes variés et probabilités','E1 — Sens de l\'espace : propriétés des triangles et transformations','E2 — Mesure : volume de prismes rectangulaires','F1 — Littératie financière : facteurs influençant les décisions'],
-    '6': ['B1 — Sens du nombre : entiers, décimaux, pourcentages, fractions, ratios','B2 — Opérations : nombres entiers négatifs, taux équivalents','C1 — Algèbre : régularités croissantes et décroissantes','C2 — Équations : équations avec nombres entiers','D1 — Données : analyser et interpréter des diagrammes variés','D2 — Probabilité : théorique et expérimentale','E1 — Sens de l\'espace : propriétés des quadrilatères et transformations','E2 — Mesure : aire de triangles et parallélogrammes','F1 — Littératie financière : facteurs influençant l\'épargne']
+    '1': {
+      'A1 — Habiletés socioémotionnelles': [
+        "A1 — mettre en application, au mieux de ses capacités, diverses habiletés socioémotionnelles pour appuyer son utilisation des processus mathématiques et son apprentissage lié aux attentes et aux contenus d'apprentissage des cinq autres domaines d'étude du programme-cadre de mathématiques"
+      ],
+      'B1 — Sens du nombre': [
+        "B1.1 — lire et représenter les nombres naturels de 0 jusqu'à 50 et décrire de quelles façons ils sont utilisés dans la vie quotidienne",
+        "B1.2 — composer et décomposer les nombres naturels de 0 jusqu'à 50, à l'aide d'une variété d'outils et de stratégies, dans divers contextes",
+        "B1.3 — comparer et ordonner les nombres naturels jusqu'à 50, dans divers contextes",
+        "B1.4 — estimer le nombre d'objets dans des ensembles qui comprennent jusqu'à 50 objets et vérifier son estimation en utilisant des stratégies de dénombrement",
+        "B1.5 — compter jusqu'à 50 par intervalles de 1, 2, 5 et 10, à l'aide d'une variété d'outils et de stratégies",
+        "B1.6 — utiliser des schémas pour représenter et résoudre des problèmes de partage équitable d'une quantité entre 2 et 4 personnes, avec un reste de 1 ou 2",
+        "B1.7 — reconnaître l'équivalence entre un demi et deux quarts d'un même tout, dans des contextes de partage équitable d'une quantité",
+        "B1.8 — utiliser des schémas pour comparer et ordonner des fractions unitaires désignant les portions individuelles obtenues lorsqu'un tout est divisé par des nombres différents de personnes, jusqu'à un maximum de 10"
+      ],
+      'B2 — Sens des opérations': [
+        "B2.1 — utiliser les propriétés de l'addition et de la soustraction ainsi que la relation entre l'addition et la soustraction pour résoudre des problèmes et vérifier la vraisemblance des calculs",
+        "B2.2 — se rappeler les faits d'addition de nombres jusqu'à 10 et les faits de soustraction associés, et démontrer sa compréhension de ces faits",
+        "B2.3 — utiliser des stratégies de calcul mental, y compris l'estimation, pour additionner des nombres naturels dont la somme est égale ou inférieure à 20 et pour soustraire des nombres égaux ou inférieurs à 20, et expliquer les stratégies utilisées",
+        "B2.4 — utiliser des objets, des schémas et des équations pour représenter, décrire et résoudre des situations relatives à l'addition de nombres naturels dont la somme est égale ou inférieure à 50 et à la soustraction de nombres égaux ou inférieurs à 50",
+        "B2.5 — représenter et résoudre des problèmes de groupes égaux dont le nombre d'éléments est égal ou inférieur à 10, y compris des problèmes dans lesquels chaque groupe est la moitié d'un tout, à l'aide d'outils et de schémas"
+      ],
+      'C1 — Suites et relations': [
+        "C1.1 — reconnaître et décrire les règles dans une variété de suites, y compris des suites trouvées dans la vie quotidienne",
+        "C1.2 — créer des suites à l'aide de mouvements, de sons, d'objets, de formes géométriques, de lettres et de nombres, et représenter les suites de différentes façons",
+        "C1.3 — déterminer et utiliser les règles pour prolonger des suites, faire et justifier des prédictions, et trouver les termes manquants dans des suites",
+        "C1.4 — créer et décrire des suites numériques comprenant des nombres naturels jusqu'à 50, et représenter des relations entre ces nombres"
+      ],
+      'C2 — Équations et inégalités': [
+        "C2.1 — déterminer les quantités qui peuvent changer et celles qui restent toujours les mêmes, dans des situations de la vie quotidienne",
+        "C2.2 — déterminer si des paires d'expressions numériques comportant des additions et des soustractions sont équivalentes ou non",
+        "C2.3 — déterminer et utiliser des relations d'équivalence comprenant des nombres naturels jusqu'à 50, dans divers contextes"
+      ],
+      'C3 — Codage': [
+        "C3.1 — résoudre des problèmes et créer des représentations de situations mathématiques de façons computationnelles en écrivant et exécutant des codes, y compris des codes comprenant des événements séquentiels",
+        "C3.2 — lire et modifier des codes donnés, y compris des codes comprenant des événements séquentiels, et décrire l'incidence des changements sur les résultats"
+      ],
+      'D1 — Littératie statistique': [
+        "D1.1 — trier et classer des ensembles de données portant sur des personnes ou des objets en fonction d'un attribut et décrire les critères de classement utilisés",
+        "D1.2 — collecter des données au moyen d'observations, d'expériences et d'entrevues pour répondre à des questions d'intérêt concernant un seul élément d'information, enregistrer les données en utilisant des méthodes d'enregistrement de son choix, et organiser les données dans des tableaux de dénombrement",
+        "D1.3 — représenter des ensembles de données, en utilisant la correspondance un à un, à l'aide de diagrammes concrets et de diagrammes à pictogrammes comprenant des sources, des titres et des étiquettes appropriés",
+        "D1.4 — ordonner, en fonction de leur fréquence, de la plus élevée à la plus faible, des catégories de données appartenant à divers ensembles de données présentées dans des tableaux de dénombrement, des diagrammes concrets ou des diagrammes à pictogrammes",
+        "D1.5 — analyser divers ensembles de données présentées de différentes façons, y compris dans des tableaux de dénombrement, des diagrammes concrets et des diagrammes à pictogrammes, en se posant des questions au sujet des données, en y répondant et en tirant des conclusions, et ensuite formuler des arguments persuasifs et prendre des décisions éclairées"
+      ],
+      'D2 — Probabilité': [
+        "D2.1 — utiliser le vocabulaire mathématique, y compris des termes comme « impossible », « possible » et « certain » pour exprimer la probabilité que des événements se produisent, et s'appuyer sur cette probabilité pour faire des prédictions et prendre des décisions éclairées",
+        "D2.2 — formuler et vérifier des prédictions sur la probabilité que les catégories d'un ensemble de données d'une population aient les mêmes fréquences si les données sont collectées auprès d'une population différente mais de la même taille"
+      ],
+      'E1 — Raisonnement géométrique et spatial': [
+        "E1.1 — classer des solides et des figures planes selon un attribut à la fois et déterminer le critère de classement utilisé",
+        "E1.2 — construire des solides et décrire les figures planes qui les composent",
+        "E1.3 — construire et décrire des figures planes et des solides qui sont symétriques",
+        "E1.4 — décrire l'emplacement relatif d'objets ou de personnes, en utilisant le vocabulaire associé à la position",
+        "E1.5 — donner et suivre des directives pour se déplacer d'un endroit à un autre"
+      ],
+      'E2 — Sens de la mesure': [
+        "E2.1 — reconnaître les attributs mesurables de figures planes et de solides, y compris la longueur, l'aire, la masse, la capacité et les angles",
+        "E2.2 — comparer plusieurs objets du quotidien et les mettre en ordre selon leur longueur, leur aire, leur masse et leur capacité",
+        "E2.3 — lire la date à partir d'un calendrier et savoir y reconnaître les jours, les semaines, les mois, les fêtes et les saisons"
+      ],
+      'F1 — Argent et finances': [
+        "F1.1 — nommer les pièces de monnaie canadienne jusqu'à 50 ¢ et des pièces de monnaie et des billets jusqu'à 50 $, et comparer leur valeur"
+      ]
+    },
+    '2': {
+      'A1 — Habiletés socioémotionnelles': [
+        "A1 — mettre en application, au mieux de ses capacités, diverses habiletés socioémotionnelles pour appuyer son utilisation des processus mathématiques et son apprentissage lié aux attentes et aux contenus d'apprentissage des cinq autres domaines d'étude du programme-cadre de mathématiques"
+      ],
+      'B1 — Sens du nombre': [
+        "B1.1 — lire, représenter, composer et décomposer les nombres naturels de 0 jusqu'à 200, à l'aide d'une variété d'outils et de stratégies, dans divers contextes, et décrire de quelles façons ils sont utilisés dans la vie quotidienne",
+        "B1.2 — comparer et ordonner les nombres naturels jusqu'à 200, dans divers contextes",
+        "B1.3 — estimer le nombre d'objets dans des ensembles comprenant jusqu'à 200 objets et vérifier son estimation en utilisant des stratégies de dénombrement",
+        "B1.4 — compter jusqu'à 200, y compris par intervalles de 20, 25 et 50, à l'aide d'une variété d'outils et de stratégies",
+        "B1.5 — décrire les caractéristiques des nombres pairs et impairs",
+        "B1.6 — utiliser des schémas pour représenter et résoudre des problèmes de partage équitable d'un tout pouvant comprendre jusqu'à 10 éléments entre 2, 3, 4 et 6 personnes, y compris des problèmes dont le résultat est un nombre naturel, un nombre fractionnaire ou une fraction, et comparer les résultats",
+        "B1.7 — reconnaître l'équivalence entre un tiers et deux sixièmes d'un même tout, dans des contextes de partage équitable d'une quantité"
+      ],
+      'B2 — Sens des opérations': [
+        "B2.1 — utiliser les propriétés de l'addition et de la soustraction, et les relations entre l'addition et la multiplication ainsi qu'entre la soustraction et la division pour résoudre des problèmes et vérifier la vraisemblance des calculs",
+        "B2.2 — se rappeler les faits d'addition et de soustraction de nombres jusqu'à 20 et les faits de la soustraction associés, et démontrer sa compréhension de ces faits",
+        "B2.3 — utiliser des stratégies de calcul mental, y compris l'estimation, pour additionner des nombres naturels dont la somme est égale ou inférieure à 50 et pour soustraire des nombres égaux ou inférieurs à 50, et expliquer les stratégies utilisées",
+        "B2.4 — utiliser des objets, des schémas et des équations pour représenter, décrire et résoudre des situations relatives à l'addition de nombres naturels dont la somme est égale ou inférieure à 100 et à la soustraction de nombres égaux ou inférieurs à 100",
+        "B2.5 — représenter et résoudre des problèmes relatifs à la multiplication en tant qu'addition répétée de groupes égaux, y compris des groupes de un demi et de un quart, à l'aide d'une variété d'outils et de schémas",
+        "B2.6 — représenter et résoudre des problèmes relatifs à la division de 12 éléments ou moins en tant que partage égal d'une quantité, à l'aide d'une variété d'outils et de schémas"
+      ],
+      'C1 — Suites et relations': [
+        "C1.1 — reconnaître et décrire une variété de suites non numériques, y compris des suites trouvées dans la vie quotidienne",
+        "C1.2 — créer des suites à l'aide d'une variété de représentations, y compris des nombres et des formes géométriques, et établir des liens entre les différentes représentations",
+        "C1.3 — déterminer et utiliser les règles pour prolonger des suites, faire et justifier des prédictions, et trouver des termes manquants dans des suites représentées à l'aide de formes géométriques et de nombres",
+        "C1.4 — créer et décrire des suites comprenant des nombres naturels jusqu'à 100, et représenter des relations entre ces nombres"
+      ],
+      'C2 — Équations et inégalités': [
+        "C2.1 — décrire des façons et des situations où des symboles sont utilisés comme variables",
+        "C2.2 — déterminer ce qui doit être ajouté ou soustrait pour que des expressions comportant des additions et des soustractions deviennent équivalentes",
+        "C2.3 — déterminer et utiliser des relations d'équivalence comprenant des nombres naturels jusqu'à 100, dans divers contextes"
+      ],
+      'C3 — Codage': [
+        "C3.1 — résoudre des problèmes et créer des représentations de situations mathématiques de façons computationnelles en écrivant et exécutant des codes, y compris des codes comprenant des événements séquentiels et des événements simultanés",
+        "C3.2 — lire et modifier des codes donnés, y compris des codes comprenant des événements séquentiels et des événements simultanés, et décrire l'incidence de ces changements sur les résultats dans divers contextes"
+      ],
+      'D1 — Littératie statistique': [
+        "D1.1 — trier et classer des ensembles de données portant sur des personnes ou des objets en fonction de deux attributs, en utilisant des tableaux et des logigrammes, y compris des diagrammes de Venn et de Carroll",
+        "D1.2 — collecter des données au moyen d'observations, d'expériences et d'entrevues pour répondre à des questions d'intérêt concernant deux éléments d'information, et organiser ces données à l'aide de tableaux de dénombrement à double entrée",
+        "D1.3 — représenter des ensembles de données, en utilisant la correspondance un à un, à l'aide de diagrammes concrets, de diagrammes à pictogrammes, de lignes de dénombrement et de diagrammes à bandes, comprenant des sources, des titres et des étiquettes appropriés",
+        "D1.4 — déterminer le ou les modes de divers ensembles de données présentées dans des diagrammes concrets, des diagrammes à pictogrammes, des lignes de dénombrement, des diagrammes à bandes et des tableaux, et expliquer ce que ces valeurs indiquent au sujet des données",
+        "D1.5 — analyser divers ensembles de données présentées de différentes façons, y compris dans des logigrammes, des lignes de dénombrement et des diagrammes à bandes, en se posant des questions au sujet des données, en y répondant et en tirant des conclusions, et ensuite formuler des arguments persuasifs et prendre des décisions éclairées"
+      ],
+      'D2 — Probabilité': [
+        "D2.1 — utiliser le vocabulaire mathématique, y compris des termes comme « impossible », « possible » et « certain » pour exprimer la probabilité que des événements complémentaires se produisent et s'appuyer sur cette probabilité pour faire des prédictions et prendre des décisions éclairées",
+        "D2.2 — formuler et vérifier des prédictions sur la probabilité que le ou les modes d'un ensemble de données reste le même si les données sont collectées auprès d'une population différente"
+      ],
+      'E1 — Raisonnement géométrique et spatial': [
+        "E1.1 — classer et identifier des figures planes en comparant le nombre de côtés, la longueur des côtés, les angles et le nombre d'axes de symétrie",
+        "E1.2 — composer et décomposer des figures planes, et montrer que l'aire d'une figure reste constante, quelle que soit la façon dont ses parties sont organisées",
+        "E1.3 — identifier des longueurs et des angles congrus dans des figures planes en les superposant mentalement et concrètement, et déterminer si les figures planes sont congruentes",
+        "E1.4 — créer et interpréter des cartes simples représentant des lieux familiers",
+        "E1.5 — décrire la position relative d'objets divers et les déplacements nécessaires pour passer d'un objet à l'autre"
+      ],
+      'E2 — Sens de la mesure': [
+        "E2.1 — utiliser des unités de mesure non conventionnelles de façon appropriée pour mesurer des longueurs, et décrire la relation inverse entre la taille de l'unité et le nombre d'unités nécessaire",
+        "E2.2 — expliquer la relation entre les centimètres et les mètres comme unités de mesure de longueur, et utiliser des repères représentant ces unités pour estimer des longueurs",
+        "E2.3 — mesurer et tracer des longueurs en centimètres et en mètres en utilisant un instrument de mesure, et reconnaître les conséquences du choix d'un point de départ autre que zéro",
+        "E2.4 — utiliser des unités de mesure de temps, y compris des secondes, des minutes, des heures ainsi que des unités de mesure non conventionnelles, pour décrire la durée d'une gamme d'activités"
+      ],
+      'F1 — Argent et finances': [
+        "F1.1 — déterminer différentes façons d'arriver au même montant d'argent en monnaie canadienne jusqu'à 200 ¢ avec diverses combinaisons de pièces de monnaie, et jusqu'à 200 $ avec différentes combinaisons de pièces de 1 $ et de 2 $ et de billets de 5 $, 10 $, 20 $, 50 $ et 100 $"
+      ]
+    },
+    '3': {
+      'A1 — Habiletés socioémotionnelles': [
+        "A1 — mettre en application, au mieux de ses capacités, diverses habiletés socioémotionnelles pour appuyer son utilisation des processus mathématiques et son apprentissage lié aux attentes et aux contenus d'apprentissage des cinq autres domaines d'étude du programme-cadre de mathématiques"
+      ],
+      'B1 — Sens du nombre': [
+        "B1.1 — lire, représenter, composer et décomposer les nombres naturels de 0 jusqu'à 1 000, à l'aide d'une variété d'outils et de stratégies, et décrire de quelles façons ils sont utilisés dans la vie quotidienne",
+        "B1.2 — comparer et ordonner les nombres naturels jusqu'à 1 000, dans divers contextes",
+        "B1.3 — arrondir les nombres naturels à la dizaine et à la centaine près, dans divers contextes",
+        "B1.4 — compter jusqu'à 1 000, y compris par intervalles de 50, 100 et 200, à l'aide d'une variété d'outils et de stratégies",
+        "B1.5 — utiliser la valeur de position pour décrire et représenter des nombres de différentes façons, y compris à l'aide de matériel de base dix",
+        "B1.6 — utiliser des schémas pour représenter et résoudre des problèmes de partage équitable d'un tout pouvant comprendre jusqu'à 20 éléments entre 2, 3, 4, 5, 6, 8 et 10 personnes, incluant des problèmes dont le résultat est un nombre naturel, un nombre fractionnaire ou une fraction, et comparer les résultats",
+        "B1.7 — représenter et résoudre des problèmes de partage équitable ciblant la recherche et l'utilisation des fractions équivalentes, y compris des problèmes comportant des demis, des quarts et des huitièmes; des tiers et des sixièmes; ou des cinquièmes et des dixièmes"
+      ],
+      'B2 — Sens des opérations': [
+        "B2.1 — utiliser les propriétés des opérations, et démontrer les relations entre la multiplication et la division pour résoudre des problèmes et vérifier la vraisemblance des calculs",
+        "B2.2 — se rappeler les faits de multiplication de 2, 5 et 10, et les faits de division associés, et démontrer sa compréhension de ces faits",
+        "B2.3 — utiliser des stratégies de calcul mental, y compris l'estimation, pour additionner des nombres dont la somme est égale ou inférieure à 1 000 et pour soustraire des nombres naturels égaux ou inférieurs à 1 000, et expliquer les stratégies utilisées",
+        "B2.4 — démontrer sa compréhension des algorithmes de l'addition et de la soustraction de nombres naturels en établissant des liens avec les outils et les stratégies utilisés pour additionner et soustraire, et décrire ces liens",
+        "B2.5 — représenter et résoudre des problèmes relatifs à l'addition de nombres naturels dont la somme est égale ou inférieure à 1 000 et à la soustraction de nombres naturels égaux ou inférieurs à 1 000, à l'aide d'une variété d'outils et d'algorithmes",
+        "B2.6 — représenter la multiplication de nombres jusqu'à 10 × 10 et la division de nombres jusqu'à 100 ÷ 10, à l'aide d'une variété d'outils et de schémas, y compris des dispositions rectangulaires",
+        "B2.7 — représenter et résoudre des problèmes relatifs à la multiplication et à la division, y compris des problèmes comprenant des groupes de un demi, un tiers et un quart, à l'aide d'outils et de schémas",
+        "B2.8 — démontrer la relation entre le numérateur d'une fraction et l'addition répétée de la fraction unitaire ayant le même dénominateur, à l'aide d'une variété d'outils et de schémas ainsi que de la notation fractionnaire usuelle",
+        "B2.9 — utiliser les rapports de 1 à 2, de 1 à 5 et de 1 à 10 pour résoudre des problèmes, y compris des problèmes faisant appel au raisonnement proportionnel"
+      ],
+      'C1 — Suites et relations': [
+        "C1.1 — reconnaître et décrire les éléments et les opérations qui se répètent dans diverses suites (numériques et non numériques), y compris des suites trouvées dans la vie quotidienne",
+        "C1.2 — créer des suites qui comprennent des éléments, des mouvements ou des opérations qui se répètent, à l'aide d'une variété de représentations, y compris des formes géométriques, des nombres et des tables de valeurs, et établir des liens entre les différentes représentations",
+        "C1.3 — déterminer et utiliser les règles pour prolonger des suites, faire et justifier des prédictions, et trouver des termes manquants dans des suites qui ont des éléments, des mouvements ou des opérations qui se répètent",
+        "C1.4 — créer et décrire des suites numériques comprenant des nombres naturels jusqu'à 1 000, et représenter des relations entre ces nombres"
+      ],
+      'C2 — Équations et inégalités': [
+        "C2.1 — décrire de quelles façons les variables sont utilisées et les utiliser de manière appropriée dans une variété de contextes",
+        "C2.2 — déterminer si des ensembles d'expressions qui comportent des additions, des soustractions, des multiplications et des divisions sont équivalents ou non",
+        "C2.3 — déterminer et utiliser les relations d'équivalence comprenant des nombres naturels jusqu'à 1 000, dans divers contextes"
+      ],
+      'C3 — Codage': [
+        "C3.1 — résoudre des problèmes et créer des représentations de situations mathématiques de façons computationnelles en écrivant et exécutant des codes, y compris des codes comprenant des événements séquentiels, simultanés et répétitifs",
+        "C3.2 — lire et modifier des codes donnés, y compris des codes comprenant des événements séquentiels, simultanés et répétitifs, et décrire l'incidence de ces changements sur les résultats"
+      ],
+      'D1 — Littératie statistique': [
+        "D1.1 — trier et classer des ensembles de données portant sur des personnes ou des objets en fonction de deux ou trois attributs, en utilisant des tableaux et des logigrammes, y compris des diagrammes de Venn et de Carroll, et des diagrammes en arbre",
+        "D1.2 — collecter des données au moyen d'observations, d'expériences et d'entrevues pour répondre à des questions d'intérêt concernant les données qualitatives et quantitatives, et organiser les données à l'aide de tableaux de fréquences",
+        "D1.3 — représenter des ensembles de données, en utilisant la correspondance un à plusieurs, à l'aide de diagrammes à pictogrammes et de diagrammes à bandes comprenant des sources, des titres, des étiquettes et des échelles appropriés",
+        "D1.4 — déterminer la moyenne et le ou les modes de divers ensembles de données représentées à l'aide de nombres naturels, et expliquer ce que chacune de ces valeurs indique au sujet des données",
+        "D1.5 — analyser divers ensembles de données présentées de différentes façons, y compris dans des tableaux de fréquences et des diagrammes à différentes échelles, en se posant des questions au sujet des données, en y répondant et en tirant des conclusions, et ensuite formuler des arguments persuasifs et prendre des décisions éclairées"
+      ],
+      'D2 — Probabilité': [
+        "D2.1 — utiliser le vocabulaire mathématique, y compris des termes comme « impossible », « peu probable », « équiprobable », « très probable » et « certain » pour exprimer la probabilité que des événements se produisent et s'appuyer sur cette probabilité pour faire des prédictions et prendre des décisions éclairées",
+        "D2.2 — formuler et vérifier des prédictions sur la probabilité que la moyenne et le ou les modes d'un ensemble de données restent les mêmes si les données sont collectées auprès d'une population différente"
+      ],
+      'E1 — Raisonnement géométrique et spatial': [
+        "E1.1 — classer, construire et identifier des cubes, des prismes, des pyramides, des cylindres et des cônes en comparant les faces, les sommets, les arêtes et les angles",
+        "E1.2 — composer et décomposer des structures variées, et reconnaître les figures planes et les solides qu'elles contiennent",
+        "E1.3 — reconnaître des longueurs et des angles congrus ainsi que des faces congruentes dans des solides en les superposant, et déterminer si les solides sont congruents",
+        "E1.4 — donner et suivre des directives à étapes multiples, incluant des distances ainsi que des demi-tours et des quarts de tour, pour effectuer un déplacement d'un endroit à un autre"
+      ],
+      'E2 — Sens de la mesure': [
+        "E2.1 — utiliser des unités de mesure de longueur appropriées pour estimer, mesurer et comparer les périmètres de polygones et de lignes courbes fermées, et construire des polygones ayant un périmètre donné",
+        "E2.2 — expliquer la relation entre les millimètres, les centimètres, les mètres et les kilomètres comme unités de mesure de longueur du système métrique, et utiliser des repères représentant ces unités pour estimer des longueurs",
+        "E2.3 — utiliser correctement des unités de mesure non conventionnelles pour estimer, mesurer et comparer des capacités, et expliquer l'effet du remplissage excessif ou insuffisant et des espaces entre les unités sur l'exactitude de la mesure",
+        "E2.4 — comparer, estimer et mesurer la masse de divers objets, à l'aide d'une balance à plateaux et des unités de mesure non conventionnelles",
+        "E2.5 — utiliser des unités de mesure de tailles différentes pour mesurer le même attribut d'un objet donné et démontrer que même si l'utilisation de différentes unités de mesure donne des résultats différents, la taille de l'attribut reste inchangée",
+        "E2.6 — utiliser des horloges et des minuteries analogiques et numériques pour dire l'heure, en heures, en minutes et en secondes",
+        "E2.7 — comparer les aires de figures planes en les faisant correspondre, en les superposant ou en les décomposant et les recomposant, et démontrer que différentes figures planes peuvent avoir la même aire",
+        "E2.8 — utiliser des unités de mesure non conventionnelles appropriées pour mesurer l'aire et expliquer l'incidence du chevauchement et des espaces entre les unités sur l'exactitude de la mesure",
+        "E2.9 — utiliser des centimètres carrés (cm²) et des mètres carrés (m²) pour estimer, mesurer et comparer l'aire de diverses figures planes, y compris celles avec des lignes courbes"
+      ],
+      'F1 — Argent et finances': [
+        "F1.1 — estimer et calculer la monnaie à rendre pour diverses transactions monétaires simples en argent comptant, comportant des montants en dollars et des montants de moins de un dollar"
+      ]
+    },
+    '4': {
+      'A1 — Habiletés socioémotionnelles': [
+        "A1 — mettre en application, au mieux de ses capacités, diverses habiletés socioémotionnelles pour appuyer son utilisation des processus mathématiques et son apprentissage lié aux attentes et aux contenus d'apprentissage des cinq autres domaines d'étude du programme-cadre de mathématiques"
+      ],
+      'B1 — Sens du nombre': [
+        "B1.1 — lire, représenter, composer et décomposer les nombres naturels de 0 jusqu'à 10 000, à l'aide d'outils et de stratégies appropriés, et décrire de quelles façons ils sont utilisés dans la vie quotidienne",
+        "B1.2 — comparer et ordonner les nombres naturels jusqu'à 10 000, dans divers contextes",
+        "B1.3 — arrondir les nombres naturels à la dizaine, à la centaine ou au millier près, dans divers contextes",
+        "B1.4 — représenter des fractions à partir des demis jusqu'aux dixièmes à l'aide de schémas, d'outils et de la notation fractionnaire usuelle, et expliquer la signification du numérateur et du dénominateur",
+        "B1.5 — utiliser des schémas et des modèles pour représenter, comparer et ordonner des fractions représentant les portions individuelles provenant de deux scénarios de partage équitable d'une quantité entre n'importe quel regroupement de 2, 3, 4, 5, 6, 8 et 10 personnes",
+        "B1.6 — compter jusqu'à 10 par intervalle de un demi, de un tiers, de un quart, de un cinquième, de un sixième, de un huitième et de un dixième avec ou sans l'aide d'outils",
+        "B1.7 — lire, représenter, comparer et ordonner des nombres décimaux jusqu'aux dixièmes, dans divers contextes",
+        "B1.8 — arrondir des nombres décimaux au nombre naturel le plus près, dans divers contextes",
+        "B1.9 — décrire les relations et représenter les équivalences entre des fractions et des nombres décimaux jusqu'aux dixièmes, dans divers contextes"
+      ],
+      'B2 — Sens des opérations': [
+        "B2.1 — utiliser les propriétés des opérations et les relations entre l'addition, la soustraction, la multiplication et la division pour résoudre des problèmes comprenant des nombres naturels, y compris des problèmes nécessitant plus d'une opération, et vérifier la vraisemblance des calculs",
+        "B2.2 — se rappeler les faits de multiplication de 1 × 1 à 10 × 10 et les faits de division associés, et démontrer sa compréhension de ces faits",
+        "B2.3 — utiliser des stratégies de calcul mental pour multiplier un nombre naturel par 10, 100 et 1 000 et pour diviser un nombre naturel par 10, et additionner et soustraire des nombres décimaux jusqu'aux dixièmes, et expliquer les stratégies utilisées",
+        "B2.4 — représenter et résoudre des problèmes relatifs à l'addition de nombres naturels dont la somme est égale ou inférieure à 10 000 et à la soustraction de nombres naturels égaux ou inférieurs à 10 000 ainsi qu'à l'addition et à la soustraction de nombres décimaux jusqu'aux dixièmes, à l'aide d'outils et de stratégies appropriés, et d'algorithmes",
+        "B2.5 — représenter et résoudre des problèmes relatifs à la multiplication d'un nombre naturel à deux ou à trois chiffres par un nombre naturel à un chiffre, et par 10, 100, et 1 000, à l'aide d'outils appropriés, y compris des dispositions rectangulaires",
+        "B2.6 — représenter et résoudre des problèmes relatifs à la division d'un nombre naturel à deux ou à trois chiffres par un nombre naturel à un chiffre, en exprimant le reste sous forme de fraction, si nécessaire, à l'aide d'outils appropriés, y compris de dispositions rectangulaires",
+        "B2.7 — démontrer la relation entre l'addition répétée d'une fraction unitaire et la multiplication de cette fraction unitaire par un nombre naturel, à l'aide d'outils, de schémas et de la notation fractionnaire usuelle",
+        "B2.8 — représenter des relations multiplicatives simples comprenant des taux avec des nombres naturels, à l'aide d'une variété d'outils et de schémas"
+      ],
+      'C1 — Suites et relations': [
+        "C1.1 — reconnaître et décrire des suites à motif répété et des suites croissantes, y compris des suites trouvées dans la vie quotidienne",
+        "C1.2 — créer des suites à motif répété et des suites croissantes, à l'aide d'une variété de représentations, y compris des tables de valeurs et des représentations graphiques, et établir des liens entre les différentes représentations",
+        "C1.3 — déterminer et utiliser les règles pour prolonger des suites, faire et justifier des prédictions, et trouver des termes manquants dans des suites à motif répété et des suites croissantes",
+        "C1.4 — créer et décrire des suites numériques comprenant des nombres naturels et des nombres décimaux jusqu'aux dixièmes, et représenter des relations entre les nombres"
+      ],
+      'C2 — Équations et inégalités': [
+        "C2.1 — déterminer et utiliser des symboles comme variables dans des expressions et des équations",
+        "C2.2 — résoudre des équations qui comprennent des nombres naturels jusqu'à 50, dans divers contextes, et vérifier les solutions",
+        "C2.3 — résoudre des inégalités qui comprennent des additions et des soustractions de nombres naturels jusqu'à 20, et vérifier et présenter les solutions à l'aide de modèles et de représentations graphiques"
+      ],
+      'C3 — Codage': [
+        "C3.1 — résoudre des problèmes et créer des représentations de situations mathématiques de façons computationnelles en écrivant et exécutant des codes, y compris des codes comprenant des événements séquentiels, simultanés, répétitifs et imbriqués",
+        "C3.2 — lire et modifier des codes donnés, y compris des codes comprenant des événements séquentiels, simultanés, répétitifs et imbriqués, et décrire l'incidence de ces changements sur les résultats"
+      ],
+      'D1 — Littératie statistique': [
+        "D1.1 — décrire la différence entre les données qualitatives et les données quantitatives, et fournir des exemples de leur utilisation dans divers contextes",
+        "D1.2 — collecter des données provenant de sources primaires et secondaires pour répondre à des questions d'intérêt concernant la comparaison entre deux ou plusieurs ensembles de données et organiser ces données à l'aide de tableaux de fréquences et de diagrammes à tiges et à feuilles",
+        "D1.3 — choisir le diagramme le plus approprié pour représenter divers ensembles de données à partir d'une variété de diagrammes, y compris des diagrammes à bandes multiples; représenter ces données à l'aide de diagrammes comprenant des sources, des titres, des étiquettes et des échelles appropriés; et justifier son choix",
+        "D1.4 — créer une infographie pour représenter un ensemble de données de façon appropriée, y compris à l'aide de tableaux de fréquences, de diagrammes à tiges et à feuilles et de diagrammes à bandes multiples, ainsi qu'en incorporant d'autres renseignements pertinents qui permettent de raconter une histoire au sujet des données",
+        "D1.5 — déterminer la moyenne, la médiane et le ou les modes de divers ensembles de données représentées à l'aide de nombres naturels, et expliquer ce que chacune de ces valeurs indique au sujet des données",
+        "D1.6 — examiner divers ensembles de données présentées de différentes façons, y compris dans des diagrammes à tiges et à feuilles et des diagrammes à bandes multiples, en se posant des questions au sujet des données, en y répondant et en tirant des conclusions, et ensuite formuler des arguments persuasifs et prendre des décisions éclairées"
+      ],
+      'D2 — Probabilité': [
+        "D2.1 — utiliser le vocabulaire mathématique, y compris des termes comme « impossible », « peu probable », « équiprobable », « très probable » et « certain » pour exprimer la probabilité que des événements se produisent, la représenter sur une ligne de probabilité et s'appuyer sur cette probabilité pour faire des prédictions et prendre des décisions éclairées",
+        "D2.2 — formuler et vérifier des prédictions sur la probabilité que la moyenne, la médiane et le ou les modes d'un ensemble de données restent les mêmes si les données sont collectées auprès d'une population différente"
+      ],
+      'E1 — Raisonnement géométrique et spatial': [
+        "E1.1 — identifier les propriétés géométriques des rectangles, y compris le nombre d'angles droits, de côtés parallèles et perpendiculaires et d'axes de symétrie",
+        "E1.2 — situer et lire des coordonnées dans le premier quadrant d'un plan cartésien, et décrire les déplacements d'une coordonnée à l'autre à l'aide de translations",
+        "E1.3 — décrire et effectuer des translations et des réflexions dans une grille, et prédire les résultats de ces transformations"
+      ],
+      'E2 — Sens de la mesure': [
+        "E2.1 — expliquer les relations entre des grammes et des kilogrammes comme unités de mesure métriques de la masse ainsi que des millilitres et des litres comme unités de mesure métriques de la capacité, et utiliser des repères représentant ces unités pour estimer la masse et la capacité",
+        "E2.2 — utiliser des préfixes métriques pour décrire la taille relative de différentes unités de mesure métriques et choisir l'unité et l'instrument de mesure appropriés pour mesurer la longueur, la masse et la capacité",
+        "E2.3 — résoudre des problèmes associés à la durée en se servant des relations entre différentes unités de mesure de temps",
+        "E2.4 — reconnaître des angles et les classer en tant qu'angle droit, plat, aigu ou obtus",
+        "E2.5 — utiliser la structure en rangées et en colonnes d'une disposition rectangulaire pour mesurer l'aire d'un rectangle et pour démontrer que l'aire d'un rectangle peut être calculée en multipliant sa base par sa hauteur",
+        "E2.6 — se servir de la formule de calcul de l'aire d'un rectangle pour trouver la mesure inconnue lorsque deux des trois mesures sont connues"
+      ],
+      'F1 — Argent et finances': [
+        "F1.1 — déterminer divers modes de paiement qui peuvent être utilisés pour acheter des biens et des services",
+        "F1.2 — estimer et calculer le coût de transactions comprenant plusieurs articles dont les valeurs sont en dollars, en excluant les taxes de vente, ainsi que le montant de monnaie nécessaire lorsque le paiement est effectué en argent comptant, en utilisant le calcul mental",
+        "F1.3 — expliquer les concepts de dépense, d'épargne, de revenu, d'investissement et de don, et déterminer les principaux éléments à considérer dans la prise de décisions simples",
+        "F1.4 — expliquer la relation entre les dépenses et l'épargne, et décrire comment les comportements en matière de dépenses et d'épargne peuvent varier d'une personne à l'autre",
+        "F1.5 — décrire des façons de déterminer si le prix d'une chose est raisonnable et par conséquent constitue un bon achat"
+      ]
+    },
+    '5': {
+      'A1 — Habiletés socioémotionnelles': [
+        "A1 — mettre en application, au mieux de ses capacités, diverses habiletés socioémotionnelles pour appuyer son utilisation des processus mathématiques et son apprentissage lié aux attentes et aux contenus d'apprentissage des cinq autres domaines d'étude du programme-cadre de mathématiques"
+      ],
+      'B1 — Sens du nombre': [
+        "B1.1 — lire, représenter, composer et décomposer les nombres naturels de 0 jusqu'à 100 000, à l'aide d'outils et de stratégies appropriés, et décrire de quelles façons ils sont utilisés dans la vie quotidienne",
+        "B1.2 — comparer et ordonner les nombres naturels jusqu'à 100 000, dans divers contextes",
+        "B1.3 — représenter des fractions équivalentes à partir des demis jusqu'aux douzièmes, y compris des fractions impropres et des nombres fractionnaires, à l'aide d'outils appropriés, dans divers contextes",
+        "B1.4 — comparer et ordonner des fractions à partir des demis jusqu'aux douzièmes, y compris des fractions impropres et des nombres fractionnaires, dans divers contextes",
+        "B1.5 — lire, représenter, comparer et ordonner des nombres décimaux jusqu'aux centièmes, dans divers contextes",
+        "B1.6 — arrondir les nombres décimaux au dixième près, dans divers contextes",
+        "B1.7 — décrire les relations et représenter les équivalences entre des fractions, des nombres décimaux jusqu'aux centièmes et des pourcentages, à l'aide d'outils et de schémas appropriés, dans divers contextes"
+      ],
+      'B2 — Sens des opérations': [
+        "B2.1 — utiliser les propriétés des opérations et les relations entre les opérations pour résoudre des problèmes comprenant des nombres naturels et des nombres décimaux, y compris des problèmes nécessitant plus d'une opération, et vérifier la vraisemblance des calculs",
+        "B2.2 — se rappeler les faits de multiplication de 0 × 0 à 12 × 12 et les faits de division associés, et démontrer sa compréhension de ces faits",
+        "B2.3 — utiliser des stratégies de calcul mental pour multiplier des nombres naturels par 0,1 et 0,01 et estimer des sommes et des différences de nombres décimaux jusqu'aux centièmes, et expliquer les stratégies utilisées",
+        "B2.4 — représenter et résoudre des problèmes relatifs à l'addition de nombres naturels dont la somme est égale ou inférieure à 100 000 et à la soustraction de nombres naturels égaux ou inférieurs à 100 000, et l'addition et la soustraction de nombres décimaux jusqu'aux centièmes, à l'aide d'outils et de stratégies appropriés, et d'algorithmes",
+        "B2.5 — additionner et soustraire des fractions ayant des dénominateurs communs, dans divers contextes",
+        "B2.6 — représenter et résoudre des problèmes relatifs à la multiplication d'un nombre naturel à deux chiffres par un nombre naturel à deux chiffres, et établir des liens entre la disposition rectangulaire et les algorithmes",
+        "B2.7 — représenter et résoudre des problèmes relatifs à la division d'un nombre naturel à trois chiffres par un nombre naturel à deux chiffres, et établir des liens entre la disposition rectangulaire et les algorithmes, et exprimer le reste de façon appropriée",
+        "B2.8 — multiplier et diviser un nombre naturel à un chiffre par une fraction unitaire, à l'aide d'outils et de schémas",
+        "B2.9 — représenter et créer des rapports et des taux équivalents, à l'aide d'une variété d'outils et de modèles, dans divers contextes"
+      ],
+      'C1 — Suites et relations': [
+        "C1.1 — reconnaître et décrire des suites à motif répété ainsi que des suites croissantes et des suites décroissantes, y compris des suites trouvées dans la vie quotidienne",
+        "C1.2 — créer des suites croissantes et des suites décroissantes, à l'aide d'une variété de représentations, y compris des tables de valeurs et des représentations graphiques, et établir des liens entre les différentes représentations",
+        "C1.3 — déterminer et utiliser des règles pour prolonger des suites, faire et justifier des prédictions, et trouver des termes manquants dans des suites à motif répété et des suites croissantes et décroissantes",
+        "C1.4 — créer et décrire des suites numériques comprenant des nombres naturels, des nombres décimaux jusqu'aux dixièmes et des nombres décimaux jusqu'aux centièmes, et représenter des relations entre les nombres"
+      ],
+      'C2 — Équations et inégalités': [
+        "C2.1 — décrire des relations d'équivalence à l'aide de mots, d'expressions algébriques et de représentations visuelles, et établir les liens entre les représentations",
+        "C2.2 — évaluer des expressions algébriques comprenant des nombres naturels",
+        "C2.3 — résoudre des équations qui comprennent des nombres naturels jusqu'à 100, dans divers contextes, et vérifier les solutions",
+        "C2.4 — résoudre des inégalités qui comprennent une opération et des nombres naturels jusqu'à 50, et vérifier et présenter les solutions à l'aide de modèles et de représentations graphiques"
+      ],
+      'C3 — Codage': [
+        "C3.1 — résoudre des problèmes et créer des représentations de situations mathématiques de façons computationnelles en écrivant et exécutant des codes, y compris des codes comprenant des instructions conditionnelles et d'autres structures de contrôle",
+        "C3.2 — lire et modifier des codes donnés, y compris des codes comprenant des instructions conditionnelles et d'autres structures de contrôle, et décrire l'incidence de ces changements sur les résultats"
+      ],
+      'D1 — Littératie statistique': [
+        "D1.1 — expliquer l'importance de diverses techniques d'échantillonnage pour collecter des données à partir d'un échantillon représentatif d'une population",
+        "D1.2 — collecter des données, en utilisant des techniques d'échantillonnage appropriées, pour répondre à des questions d'intérêt portant sur une population, et organiser les données dans des tableaux de fréquences relatives",
+        "D1.3 — choisir le diagramme le plus approprié pour représenter divers ensembles de données à partir d'une variété de diagrammes, y compris des diagrammes à bandes empilées; représenter ces données à l'aide de diagrammes comprenant des sources, des titres, des étiquettes et des échelles appropriés; et justifier son choix",
+        "D1.4 — créer une infographie pour représenter un ensemble de données de façon appropriée, y compris à l'aide de tableaux de fréquences relatives et de diagrammes à bandes empilées, ainsi qu'en incorporant d'autres renseignements pertinents qui permettent de raconter une histoire au sujet des données",
+        "D1.5 — déterminer la moyenne, la médiane et le ou les modes de divers ensembles de données représentées à l'aide de nombres naturels et de nombres décimaux, et expliquer ce que chacune de ces valeurs indique concernant les données",
+        "D1.6 — examiner divers ensembles de données présentées de différentes façons, y compris à l'aide de diagrammes à bandes empilées et de diagrammes trompeurs, en se posant des questions au sujet des données et en y répondant, en remettant en question des idées reçues et en tirant des conclusions, et ensuite formuler des arguments persuasifs et prendre des décisions éclairées"
+      ],
+      'D2 — Probabilité': [
+        "D2.1 — utiliser des fractions pour exprimer la probabilité que des événements se produisent, la représenter sur une ligne de probabilité et s'appuyer sur cette probabilité pour faire des prédictions et prendre des décisions éclairées",
+        "D2.2 — déterminer et comparer les probabilités théoriques et expérimentales qu'un événement se produise"
+      ],
+      'E1 — Raisonnement géométrique et spatial': [
+        "E1.1 — reconnaître les propriétés géométriques des triangles et construire divers types de triangles en utilisant des mesures d'angles ou de côtés données",
+        "E1.2 — reconnaître et construire des triangles, des rectangles et des parallélogrammes congruents",
+        "E1.3 — tracer les vues de côté, de face et de dessus de divers objets et faire correspondre le dessin à l'objet",
+        "E1.4 — situer et lire des coordonnées dans le premier quadrant d'un plan cartésien en utilisant diverses échelles, et décrire les déplacements d'une coordonnée à l'autre à l'aide de translations",
+        "E1.5 — décrire et effectuer des translations, des réflexions et des rotations jusqu'à 180° dans une grille, et prédire les résultats de ces transformations"
+      ],
+      'E2 — Sens de la mesure': [
+        "E2.1 — utiliser des unités de mesure métriques appropriées pour estimer et mesurer la longueur, l'aire, la masse et la capacité",
+        "E2.2 — résoudre des problèmes associés à la conversion de grandes unités de mesure métriques en des unités plus petites et décrire les relations en base dix entre les unités de mesure métriques",
+        "E2.3 — comparer des angles et déterminer leurs tailles respectives en les superposant et en les mesurant au moyen d'unités de mesure non conventionnelles appropriées",
+        "E2.4 — expliquer le fonctionnement d'un rapporteur d'angles et l'utiliser pour mesurer et construire des angles jusqu'à 180°, et se servir d'angles repères pour estimer la taille d'autres angles",
+        "E2.5 — utiliser les relations entre l'aire des rectangles, des parallélogrammes et des triangles afin de développer des formules pour l'aire d'un parallélogramme et d'un triangle, et résoudre des problèmes connexes",
+        "E2.6 — démontrer que des figures planes ayant la même aire peuvent avoir des périmètres différents et résoudre des problèmes connexes"
+      ],
+      'F1 — Argent et finances': [
+        "F1.1 — décrire différentes façons de transférer de l'argent entre des personnes, des organismes ou des entreprises",
+        "F1.2 — estimer et calculer le coût de transactions comprenant plusieurs articles dont le prix est exprimé en dollars et en cents, en incluant les taxes de vente, à l'aide de diverses stratégies",
+        "F1.3 — établir des exemples de budgets simples afin de gérer des finances dans diverses situations de revenu et de dépenses",
+        "F1.4 — expliquer les concepts de crédit et de dette, et décrire l'impact potentiel du crédit et de la dette sur les décisions financières",
+        "F1.5 — calculer des prix unitaires pour divers biens et services, et déterminer quels prix représentent l'achat le plus avantageux",
+        "F1.6 — décrire les types de taxes qui sont perçues par les divers ordres de gouvernement au Canada, et expliquer comment les recettes fiscales sont utilisées pour fournir des services à la communauté"
+      ]
+    },
+    '6': {
+      'A1 — Habiletés socioémotionnelles': [
+        "A1 — mettre en application, au mieux de ses capacités, diverses habiletés socioémotionnelles pour appuyer son utilisation des processus mathématiques et son apprentissage lié aux attentes et aux contenus d'apprentissage des cinq autres domaines d'étude du programme-cadre de mathématiques"
+      ],
+      'B1 — Sens du nombre': [
+        "B1.1 — lire et représenter les nombres naturels de 0 jusqu'à un million, à l'aide d'outils et de stratégies appropriés, et décrire de quelles façons ils sont utilisés dans la vie quotidienne",
+        "B1.2 — lire et représenter des nombres entiers, à l'aide d'outils et de stratégies, y compris des droites numériques horizontales et verticales",
+        "B1.3 — comparer et ordonner des nombres entiers, des nombres décimaux et des fractions, séparément et en les combinant, dans divers contextes",
+        "B1.4 — lire, représenter, comparer et ordonner les nombres décimaux jusqu'aux millièmes, dans divers contextes",
+        "B1.5 — arrondir des nombres à virgule, dont la partie décimale est finie ou périodique, au dixième et au centième près, ainsi qu'au nombre naturel près, selon le cas, dans divers contextes",
+        "B1.6 — décrire les relations et représenter l'équivalence entre des fractions et des nombres décimaux jusqu'aux millièmes, à l'aide d'outils et de schémas appropriés, dans divers contextes"
+      ],
+      'B2 — Sens des opérations': [
+        "B2.1 — utiliser les propriétés des opérations et les relations entre les opérations pour résoudre des problèmes comportant des nombres naturels, des nombres décimaux, des fractions, des rapports, des taux, et des pourcentages, y compris des problèmes à plusieurs étapes ou plusieurs opérations",
+        "B2.2 — comprendre les critères de divisibilité et les utiliser pour vérifier si les nombres sont divisibles par 2, 3, 4, 5, 6, 8, 9, et 10",
+        "B2.3 — utiliser des stratégies de calcul mental pour calculer des pourcentages de 1 %, 5 %, 10 %, 15 %, 25 % et 50 % de nombres naturels, et expliquer les stratégies utilisées",
+        "B2.4 — représenter et résoudre des problèmes relatifs à l'addition et à la soustraction de nombres naturels et de nombres décimaux, à l'aide d'estimations et d'algorithmes",
+        "B2.5 — additionner et soustraire des fractions avec et sans dénominateurs communs, à l'aide d'outils et de stratégies appropriés, dans divers contextes",
+        "B2.6 — représenter des nombres composés sous la forme d'une multiplication de ses facteurs premiers, y compris à l'aide de l'arbre de facteurs",
+        "B2.7 — représenter et résoudre des problèmes relatifs à la multiplication d'un nombre naturel à trois chiffres par un nombre décimal jusqu'aux dixièmes, à l'aide d'algorithmes",
+        "B2.8 — représenter et résoudre des problèmes relatifs à la division d'un nombre naturel à trois chiffres par un nombre décimal jusqu'aux dixièmes, à l'aide d'outils et de stratégies appropriés, et d'algorithmes, et exprimer le reste de façon appropriée",
+        "B2.9 — multiplier des nombres naturels par des fractions propres, à l'aide d'outils et de stratégies appropriés",
+        "B2.10 — diviser des nombres naturels par des fractions propres, à l'aide d'une variété d'outils et de stratégies",
+        "B2.11 — représenter et résoudre des problèmes relatifs à la division de nombres décimaux jusqu'aux millièmes par un nombre naturel égal ou inférieur à 10, à l'aide d'outils et de stratégies appropriés",
+        "B2.12 — résoudre des problèmes comprenant des rapports, y compris des pourcentages et des taux, à l'aide d'outils et de stratégies appropriés"
+      ],
+      'C1 — Suites et relations': [
+        "C1.1 — reconnaître et décrire des suites à motif répété ainsi que des suites croissantes et des suites décroissantes, y compris celles trouvées dans la vie quotidienne, et déterminer lesquelles sont des suites croissantes linéaires",
+        "C1.2 — créer des suites à motif répété, des suites croissantes et des suites décroissantes à l'aide d'une variété de représentations y compris des tables de valeurs, des représentations graphiques, ainsi que des expressions algébriques et des équations pour des suites croissantes linéaires, et établir des liens entre les différentes représentations",
+        "C1.3 — déterminer et utiliser les règles pour prolonger des suites, faire et justifier des prédictions, et trouver les termes manquants dans des suites à motif répété, des suites croissantes et des suites décroissantes, et utiliser les représentations symboliques des règles pour trouver des valeurs inconnues dans des suites croissantes linéaires",
+        "C1.4 — créer et décrire des suites numériques comprenant des nombres naturels et des nombres décimaux, et représenter des relations entre ces nombres"
+      ],
+      'C2 — Équations et inégalités': [
+        "C2.1 — additionner des monômes du premier degré comprenant des nombres naturels, à l'aide d'outils",
+        "C2.2 — évaluer des expressions algébriques comprenant des nombres naturels et des nombres décimaux jusqu'aux dixièmes",
+        "C2.3 — résoudre des équations qui comprennent des termes multiples et des nombres naturels, dans divers contextes, et vérifier les solutions",
+        "C2.4 — résoudre des inégalités qui comprennent deux opérations et des nombres naturels jusqu'à 100, et vérifier et présenter les solutions à l'aide de modèles et de représentations graphiques"
+      ],
+      'C3 — Codage': [
+        "C3.1 — résoudre des problèmes et créer des représentations de situations mathématiques de façons computationnelles en écrivant et exécutant des codes efficaces, y compris des codes comprenant des instructions conditionnelles et d'autres structures de contrôle",
+        "C3.2 — lire et modifier des codes donnés, y compris des codes comprenant des instructions conditionnelles et d'autres structures de contrôle, et décrire l'incidence de ces changements sur les résultats et l'efficacité"
+      ],
+      'D1 — Littératie statistique': [
+        "D1.1 — décrire la différence entre les données discrètes et les données continues, et en fournir des exemples",
+        "D1.2 — collecter des données qualitatives et des données quantitatives discrètes et continues pour répondre à des questions d'intérêt portant sur une population, et organiser les ensembles de données de façon appropriée, y compris à l'aide d'intervalles",
+        "D1.3 — choisir le diagramme le plus approprié pour représenter divers ensembles de données à partir d'une variété de diagrammes, y compris des histogrammes et des diagrammes à ligne brisée; représenter des données à l'aide de diagrammes comprenant des sources, des titres, des étiquettes et des échelles appropriés; et justifier son choix",
+        "D1.4 — créer une infographie pour représenter un ensemble de données de façon appropriée, y compris à l'aide de tableaux, d'histogrammes et de diagrammes à ligne brisée, ainsi qu'en incorporant d'autres renseignements pertinents qui permettent de raconter une histoire au sujet des données",
+        "D1.5 — déterminer l'étendue comme mesure de dispersion et les mesures de tendances centrales de divers ensembles de données, et utiliser ces renseignements pour comparer deux ensembles de données ou plus",
+        "D1.6 — examiner divers ensembles de données présentées de différentes façons, y compris à l'aide d'histogrammes, de diagrammes à ligne brisée et de diagrammes trompeurs, en se posant des questions au sujet des données et en y répondant, en remettant en question des idées reçues, et en tirant des conclusions, et ensuite formuler des arguments persuasifs et prendre des décisions éclairées"
+      ],
+      'D2 — Probabilité': [
+        "D2.1 — utiliser des fractions, des nombres décimaux et des pourcentages pour exprimer la probabilité que des événements se produisent, la représenter sur une ligne de probabilité et s'appuyer sur cette probabilité pour faire des prédictions et prendre des décisions éclairées",
+        "D2.2 — déterminer et comparer les probabilités théoriques et expérimentales que deux événements indépendants se produisent"
+      ],
+      'E1 — Raisonnement géométrique et spatial': [
+        "E1.1 — créer des listes des propriétés géométriques de divers types de quadrilatères, y compris les propriétés des diagonales, la symétrie rotationnelle et les axes de symétrie",
+        "E1.2 — construire des objets à trois dimensions à partir de vues de face, de côté et de dessus",
+        "E1.3 — situer et lire des coordonnées dans les quatre quadrants d'un plan cartésien, et décrire les déplacements d'une coordonnée à l'autre à l'aide de translations",
+        "E1.4 — décrire et effectuer des combinaisons de translations, de réflexions et de rotations jusqu'à 360° dans une grille, et prédire les résultats de ces transformations"
+      ],
+      'E2 — Sens de la mesure': [
+        "E2.1 — mesurer la longueur, l'aire, la masse et la capacité à l'aide d'unités métriques appropriées et résoudre des problèmes qui requièrent la conversion de petites unités en des unités plus grandes, et vice versa",
+        "E2.2 — utiliser un rapporteur pour mesurer et construire des angles jusqu'à 360° et indiquer la relation entre les angles mesurés dans le sens des aiguilles d'une montre et ceux mesurés dans le sens contraire des aiguilles d'une montre",
+        "E2.3 — utiliser les propriétés des angles supplémentaires, complémentaires, opposés ainsi que des angles intérieurs et extérieurs pour déterminer les mesures d'angles manquantes",
+        "E2.4 — déterminer l'aire de trapèzes, de losanges, de cerfs-volants ainsi que de polygones complexes en les décomposant en figures planes avec des aires connues",
+        "E2.5 — créer et utiliser les développements de solides pour déterminer les relations entre les faces de prismes et de pyramides et leur aire totale",
+        "E2.6 — déterminer l'aire totale de prismes et de pyramides en calculant les aires de chaque face à deux dimensions et en les additionnant"
+      ],
+      'F1 — Argent et finances': [
+        "F1.1 — décrire les avantages et les désavantages de divers modes de paiement qui peuvent être utilisés pour acheter des biens et des services",
+        "F1.2 — déterminer divers types d'objectifs financiers, y compris des objectifs d'épargne et de revenu, et présenter quelques étapes importantes nécessaires à leur atteinte",
+        "F1.3 — déterminer et décrire divers facteurs qui peuvent aider ou entraver l'atteinte d'objectifs financiers",
+        "F1.4 — expliquer le concept des taux d'intérêt et déterminer les types de taux d'intérêt et de frais associés à différents comptes et prêts offerts par diverses banques et autres institutions financières",
+        "F1.5 — décrire le commerce, le prêt, l'emprunt et le don comme différents moyens de répartir des ressources financières et autres entre les individus et les organismes"
+      ]
+    }
   },
   'Français': {
     '1': {
