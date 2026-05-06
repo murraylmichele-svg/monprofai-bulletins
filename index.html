@@ -3692,7 +3692,12 @@ async function generateClasse() {
   if (!annee) { alert('Veuillez sélectionner l\'année d\'études.'); return; }
   if (!rawPaste) { alert('Veuillez coller votre liste de classe.'); return; }
 
-  const students = rawPaste.split('\n').map(line => line.split('\t')).filter(cols => cols[0]?.trim());
+  const students = rawPaste.split('\n').map(line => line.split('\t')).filter(cols => {
+    const first = cols[0]?.trim().toLowerCase();
+    if (!first) return false;
+    if (first === 'nom de famille' || first === 'nom' || first === 'last name' || first === 'prénom') return false;
+    return true;
+  });
   if (!students.length) { alert('Aucune donnée trouvée. Vérifiez le format de votre liste.'); return; }
 
   const activeMatieres = MATIERE_COLS.filter(mc => students.some(s => s[mc.cote]?.trim()));
@@ -3742,10 +3747,12 @@ async function generateClasse() {
           })
         });
         const data = await resp.json();
-        const comment = data.content?.[0]?.text?.trim() || '[Erreur de génération]';
+        console.log('Railway response:', JSON.stringify(data).slice(0, 300));
+        const comment = data.content?.[0]?.text?.trim() || data.error?.message || '[Erreur de génération]';
         matiereResult.students.push({ nom, prenom, pronom, cote, comment });
       } catch(e) {
-        matiereResult.students.push({ nom, prenom, pronom, cote, comment: '[Erreur réseau]' });
+        console.error('Fetch error:', e);
+        matiereResult.students.push({ nom, prenom, pronom, cote, comment: '[Erreur réseau: ' + e.message + ']' });
       }
 
       doneComments++;
