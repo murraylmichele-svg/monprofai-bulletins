@@ -4284,8 +4284,25 @@ function assembleComment() {
   const prenom = document.getElementById('prenom-hab').value.trim() || '[Prénom]';
   const periode = document.getElementById('periode-hab').value;
 
-  const forceSentences = Object.values(selectedForces).map(s => s.replace(/\*N\*/g, prenom));
-  const prochaineSentences = Object.values(selectedProchaines).map(s => s.replace(/\*N\*/g, prenom));
+  const pronSuj = selectedPronomHab === 'il' ? 'Il' : selectedPronomHab === 'iel' ? 'Iel' : 'Elle';
+
+  const allSentences = [
+    ...Object.values(selectedForces),
+    ...Object.values(selectedProchaines)
+  ];
+
+  const processedSentences = allSentences.map((s, i) => {
+    if (i === 0) {
+      // First sentence: use prénom
+      return s.replace(/\*N\*/g, prenom);
+    } else {
+      // Subsequent sentences: replace *N* with pronoun, lowercase if mid-sentence
+      return s.replace(/^\*N\*/, pronSuj).replace(/\*N\*/g, pronSuj.toLowerCase());
+    }
+  });
+
+  const forceSentences = processedSentences.slice(0, Object.values(selectedForces).length);
+  const prochaineSentences = processedSentences.slice(Object.values(selectedForces).length);
 
   let comment = '';
   if (forceSentences.length) comment += forceSentences.join(' ') + ' ';
