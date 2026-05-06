@@ -4313,9 +4313,27 @@ function assembleComment() {
   const forceSentences = processedSentences.slice(0, Object.values(selectedForces).length);
   const prochaineSentences = processedSentences.slice(Object.values(selectedForces).length);
 
+  // Transitional markers for forces (2nd+ sentences)
+  const forceTransitions = ['De plus, ', 'Par ailleurs, ', 'En outre, ', 'Également, ', 'D'ailleurs, '];
+  // Transitional markers for prochaines étapes
+  const prochainTransitions = ['Comme prochaine étape, ', 'Afin de progresser, ', 'Pour poursuivre sa progression, ', 'Dans ce but, ', 'À cet effet, '];
+
+  const forcesWithTransitions = forceSentences.map((s, i) => {
+    if (i === 0) return s;
+    // Add transition, lowercasing the first letter of the original sentence
+    const transition = forceTransitions[(i - 1) % forceTransitions.length];
+    return transition + s.charAt(0).toLowerCase() + s.slice(1);
+  });
+
+  const prochainWithTransitions = prochaineSentences.map((s, i) => {
+    const transition = prochainTransitions[i % prochainTransitions.length];
+    // If sentence starts with pronoun (Elle/Il/Iel), lowercase it after transition
+    return transition + s.charAt(0).toLowerCase() + s.slice(1);
+  });
+
   let comment = '';
-  if (forceSentences.length) comment += forceSentences.join(' ') + ' ';
-  if (prochaineSentences.length) comment += prochaineSentences.join(' ');
+  if (forcesWithTransitions.length) comment += forcesWithTransitions.join(' ') + ' ';
+  if (prochainWithTransitions.length) comment += prochainWithTransitions.join(' ');
 
   if (document.getElementById('pei-check').checked) {
     const checkedHabs = [...document.querySelectorAll('.pei-hab-cb:checked')].map(cb => cb.value);
