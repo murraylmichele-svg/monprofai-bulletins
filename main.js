@@ -289,11 +289,13 @@ function renderFrancaisNotions(container) {
     document.getElementById('francais-notions-toggle').textContent = isOpen ? '▼' : '▲';
   });
 
-  // Open by default
+  // Append to DOM first, then set open state
+  wrapper.appendChild(body);
+  container.appendChild(wrapper);
+
+  // Open by default (must be after appending to DOM)
   body.style.display = 'block';
   document.getElementById('francais-notions-toggle').textContent = '▲';
-
-  container.appendChild(wrapper);
 }
 
 function toggleAllFrancaisNotions(checked) {
