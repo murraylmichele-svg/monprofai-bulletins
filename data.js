@@ -641,6 +641,12 @@ const ATTENTES = {
         "B1.4 — utiliser des stratégies pour présenter ses idées oralement avec précision et efficacité",
         "B1.5 — enrichir son vocabulaire et l'utiliser de façon appropriée dans ses communications"
       ],
+      "B2 — Notions fondamentales de la lecture et de l'écriture": [
+        "B2.1 — mettre en application ses connaissances des correspondances graphèmes-phonèmes pour lire et écrire des mots avec précision et automaticité",
+        "B2.2 — lire avec fluidité, précision et intonation des textes variés appropriés à son niveau",
+        "B2.3 — mettre en application ses connaissances morphologiques (préfixes, suffixes, bases) pour lire et orthographier des mots",
+        "B2.4 — développer et utiliser un vocabulaire académique riche dans ses productions orales et écrites"
+      ],
       'B3 — Apprentissages linguistiques': [
         "B3.1 — reconnaître et utiliser diverses structures de phrases dans ses productions orales et écrites",
         "B3.2 — appliquer ses connaissances des classes de mots et des groupes syntaxiques",
@@ -690,6 +696,12 @@ const ATTENTES = {
         "B1.4 — présenter ses idées oralement avec persuasion et nuance",
         "B1.5 — utiliser un vocabulaire riche et précis pour communiquer ses idées"
       ],
+      "B2 — Notions fondamentales de la lecture et de l'écriture": [
+        "B2.1 — lire avec précision et automaticité des textes variés en utilisant ses connaissances des correspondances graphèmes-phonèmes",
+        "B2.2 — lire avec fluidité et intonation en ajustant son rythme selon l'intention du texte",
+        "B2.3 — mettre en application ses connaissances morphologiques avancées pour lire et orthographier des mots complexes",
+        "B2.4 — enrichir et réinvestir son vocabulaire académique dans divers contextes de communication"
+      ],
       'B3 — Apprentissages linguistiques': [
         "B3.1 — analyser et utiliser des structures de phrases variées et complexes",
         "B3.2 — appliquer ses connaissances approfondies de la grammaire et de la syntaxe",
@@ -738,6 +750,12 @@ const ATTENTES = {
         "B1.3 — communiquer oralement de façon persuasive et nuancée dans des contextes formels et informels",
         "B1.4 — adapter son registre de langue et son ton selon l'intention et l'auditoire",
         "B1.5 — utiliser un vocabulaire sophistiqué et des figures de style pour enrichir ses communications"
+      ],
+      "B2 — Notions fondamentales de la lecture et de l'écriture": [
+        "B2.1 — lire avec précision, automaticité et compréhension des textes complexes et variés",
+        "B2.2 — lire avec fluidité et expression en adaptant son intonation et son rythme au sens du texte",
+        "B2.3 — analyser la structure morphologique des mots pour lire, comprendre et orthographier des termes complexes",
+        "B2.4 — utiliser de façon autonome un vocabulaire académique varié et précis dans ses productions"
       ],
       'B3 — Apprentissages linguistiques': [
         "B3.1 — maîtriser des structures syntaxiques complexes dans ses productions orales et écrites",

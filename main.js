@@ -289,6 +289,10 @@ function renderFrancaisNotions(container) {
     document.getElementById('francais-notions-toggle').textContent = isOpen ? '▼' : '▲';
   });
 
+  // Open by default
+  body.style.display = 'block';
+  document.getElementById('francais-notions-toggle').textContent = '▲';
+
   container.appendChild(wrapper);
 }
 
