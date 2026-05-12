@@ -235,67 +235,78 @@ function parsePaste(raw) {
   });
 }
 
-// ── FRANÇAIS NOTIONS CHECKLIST ────────────────────────────────
+// ── FRANÇAIS NOTIONS CHECKLIST ────────────────────────────
 function renderFrancaisNotions(container) {
-  const wrapper = document.createElement('div');
+  var wrapper = document.createElement('div');
   wrapper.id = 'francais-notions-wrapper';
   wrapper.style.cssText = 'margin-top:12px; border:1.5px solid var(--bleu); border-radius:8px; overflow:hidden;';
 
-  const header = document.createElement('div');
-  header.style.cssText = 'background:var(--bleu); color:#fff; padding:10px 14px; font-weight:700; font-size:13px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;';
-  header.innerHTML = '<span>📚 Notions enseignées ce trimestre — Français</span><span id="francais-notions-toggle">▼</span>';
-  wrapper.appendChild(header);
+  var toggleSpan = document.createElement('span');
+  toggleSpan.textContent = '▲';
 
-  const body = document.createElement('div');
-  body.id = 'francais-notions-body';
-  body.style.cssText = 'padding:12px 14px; background:#f8fbff; display:none;';
+  var panelHeader = document.createElement('div');
+  panelHeader.style.cssText = 'background:var(--bleu); color:#fff; padding:10px 14px; font-weight:700; font-size:13px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;';
+  var titleSpan = document.createElement('span');
+  titleSpan.textContent = 'Notions enseignées ce trimestre — Français';
+  panelHeader.appendChild(titleSpan);
+  panelHeader.appendChild(toggleSpan);
+  wrapper.appendChild(panelHeader);
 
-  const hint = document.createElement('p');
+  var body = document.createElement('div');
+  body.style.cssText = 'padding:12px 14px; background:#f8fbff; display:block;';
+
+  var hint = document.createElement('p');
   hint.style.cssText = 'font-size:11px; color:#666; font-style:italic; margin:0 0 10px;';
   hint.textContent = 'Cochez les notions travaillées ce trimestre. Le commentaire sera adapté selon la cote de chaque élève.';
   body.appendChild(hint);
 
-  const btnRow = document.createElement('div');
+  var btnRow = document.createElement('div');
   btnRow.style.cssText = 'display:flex; gap:8px; margin-bottom:12px;';
-  btnRow.innerHTML = `
-    <button onclick="toggleAllFrancaisNotions(true)" style="font-size:11px; padding:3px 10px; background:var(--bleu); color:#fff; border:none; border-radius:4px; cursor:pointer;">Tout sélectionner</button>
-    <button onclick="toggleAllFrancaisNotions(false)" style="font-size:11px; padding:3px 10px; background:#888; color:#fff; border:none; border-radius:4px; cursor:pointer;">Tout désélectionner</button>`;
+  var btnAll = document.createElement('button');
+  btnAll.textContent = 'Tout sélectionner';
+  btnAll.style.cssText = 'font-size:11px; padding:3px 10px; background:var(--bleu); color:#fff; border:none; border-radius:4px; cursor:pointer;';
+  btnAll.onclick = function() { toggleAllFrancaisNotions(true); };
+  var btnNone = document.createElement('button');
+  btnNone.textContent = 'Tout désélectionner';
+  btnNone.style.cssText = 'font-size:11px; padding:3px 10px; background:#888; color:#fff; border:none; border-radius:4px; cursor:pointer;';
+  btnNone.onclick = function() { toggleAllFrancaisNotions(false); };
+  btnRow.appendChild(btnAll);
+  btnRow.appendChild(btnNone);
   body.appendChild(btnRow);
 
-  Object.keys(FRANCAIS_NOTIONS).forEach(section => {
-    const sectionHeader = document.createElement('div');
+  Object.keys(FRANCAIS_NOTIONS).forEach(function(section) {
+    var sectionHeader = document.createElement('div');
     sectionHeader.style.cssText = 'font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--bleu); padding:6px 0 3px; margin-top:8px; border-bottom:1px solid #d0e4f7;';
     sectionHeader.textContent = section;
     body.appendChild(sectionHeader);
-
-    FRANCAIS_NOTIONS[section].forEach(notion => {
-      const label = document.createElement('label');
+    FRANCAIS_NOTIONS[section].forEach(function(notion) {
+      var label = document.createElement('label');
       label.className = 'francais-notion-item';
       label.style.cssText = 'display:flex; align-items:flex-start; gap:8px; padding:4px 0; font-size:12px; color:#333; cursor:pointer;';
-      label.innerHTML = `<input type="checkbox" class="francais-notion-cb" style="accent-color:var(--bleu); flex-shrink:0; margin-top:2px;"> <span>${notion}</span>`;
-      label.querySelector('input').addEventListener('change', function() {
+      var cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.className = 'francais-notion-cb';
+      cb.style.cssText = 'accent-color:var(--bleu); flex-shrink:0; margin-top:2px;';
+      cb.addEventListener('change', function() {
         label.style.fontWeight = this.checked ? '600' : '400';
         label.style.color = this.checked ? 'var(--bleu)' : '#333';
       });
+      var txt = document.createElement('span');
+      txt.textContent = notion;
+      label.appendChild(cb);
+      label.appendChild(txt);
       body.appendChild(label);
     });
   });
 
   wrapper.appendChild(body);
-
-  header.addEventListener('click', () => {
-    const isOpen = body.style.display !== 'none';
-    body.style.display = isOpen ? 'none' : 'block';
-    document.getElementById('francais-notions-toggle').textContent = isOpen ? '▼' : '▲';
-  });
-
-  // Append to DOM first, then set open state
-  wrapper.appendChild(body);
   container.appendChild(wrapper);
 
-  // Open by default (must be after appending to DOM)
-  body.style.display = 'block';
-  document.getElementById('francais-notions-toggle').textContent = '▲';
+  panelHeader.addEventListener('click', function() {
+    var isOpen = body.style.display !== 'none';
+    body.style.display = isOpen ? 'none' : 'block';
+    toggleSpan.textContent = isOpen ? '▼' : '▲';
+  });
 }
 
 function toggleAllFrancaisNotions(checked) {
