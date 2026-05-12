@@ -192,6 +192,11 @@ function updateClasseAttentes() {
         list.appendChild(item);
       });
     });
+
+    // Inject Français notions checklist inside the Français section body
+    if (matiere === 'Français') {
+      renderFrancaisNotions(section.querySelector('.matiere-body'));
+    }
   });
 }
 
@@ -228,6 +233,83 @@ function parsePaste(raw) {
       observations: cols[13] || ''
     };
   });
+}
+
+// ── FRANÇAIS NOTIONS CHECKLIST ────────────────────────────────
+function renderFrancaisNotions(container) {
+  const wrapper = document.createElement('div');
+  wrapper.id = 'francais-notions-wrapper';
+  wrapper.style.cssText = 'margin-top:12px; border:1.5px solid var(--bleu); border-radius:8px; overflow:hidden;';
+
+  const header = document.createElement('div');
+  header.style.cssText = 'background:var(--bleu); color:#fff; padding:10px 14px; font-weight:700; font-size:13px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;';
+  header.innerHTML = '<span>📚 Notions enseignées ce trimestre — Français</span><span id="francais-notions-toggle">▼</span>';
+  wrapper.appendChild(header);
+
+  const body = document.createElement('div');
+  body.id = 'francais-notions-body';
+  body.style.cssText = 'padding:12px 14px; background:#f8fbff; display:none;';
+
+  const hint = document.createElement('p');
+  hint.style.cssText = 'font-size:11px; color:#666; font-style:italic; margin:0 0 10px;';
+  hint.textContent = 'Cochez les notions travaillées ce trimestre. Le commentaire sera adapté selon la cote de chaque élève.';
+  body.appendChild(hint);
+
+  const btnRow = document.createElement('div');
+  btnRow.style.cssText = 'display:flex; gap:8px; margin-bottom:12px;';
+  btnRow.innerHTML = `
+    <button onclick="toggleAllFrancaisNotions(true)" style="font-size:11px; padding:3px 10px; background:var(--bleu); color:#fff; border:none; border-radius:4px; cursor:pointer;">Tout sélectionner</button>
+    <button onclick="toggleAllFrancaisNotions(false)" style="font-size:11px; padding:3px 10px; background:#888; color:#fff; border:none; border-radius:4px; cursor:pointer;">Tout désélectionner</button>`;
+  body.appendChild(btnRow);
+
+  Object.keys(FRANCAIS_NOTIONS).forEach(section => {
+    const sectionHeader = document.createElement('div');
+    sectionHeader.style.cssText = 'font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--bleu); padding:6px 0 3px; margin-top:8px; border-bottom:1px solid #d0e4f7;';
+    sectionHeader.textContent = section;
+    body.appendChild(sectionHeader);
+
+    FRANCAIS_NOTIONS[section].forEach(notion => {
+      const label = document.createElement('label');
+      label.className = 'francais-notion-item';
+      label.style.cssText = 'display:flex; align-items:flex-start; gap:8px; padding:4px 0; font-size:12px; color:#333; cursor:pointer;';
+      label.innerHTML = `<input type="checkbox" class="francais-notion-cb" style="accent-color:var(--bleu); flex-shrink:0; margin-top:2px;"> <span>${notion}</span>`;
+      label.querySelector('input').addEventListener('change', function() {
+        label.style.fontWeight = this.checked ? '600' : '400';
+        label.style.color = this.checked ? 'var(--bleu)' : '#333';
+      });
+      body.appendChild(label);
+    });
+  });
+
+  wrapper.appendChild(body);
+
+  header.addEventListener('click', () => {
+    const isOpen = body.style.display !== 'none';
+    body.style.display = isOpen ? 'none' : 'block';
+    document.getElementById('francais-notions-toggle').textContent = isOpen ? '▼' : '▲';
+  });
+
+  container.appendChild(wrapper);
+}
+
+function toggleAllFrancaisNotions(checked) {
+  document.querySelectorAll('.francais-notion-cb').forEach(cb => {
+    cb.checked = checked;
+    const label = cb.closest('label');
+    if (label) {
+      label.style.fontWeight = checked ? '600' : '400';
+      label.style.color = checked ? 'var(--bleu)' : '#333';
+    }
+  });
+}
+
+function getSelectedFrancaisNotions() {
+  const selected = [];
+  document.querySelectorAll('.francais-notion-cb:checked').forEach(cb => {
+    const label = cb.closest('label');
+    if (label) selected.push(label.querySelector('span').textContent);
+  });
+  return selected;
 }
 
 // ── GET SELECTED ATTENTES ─────────────────────────────────────
@@ -303,9 +385,17 @@ async function generateClasse() {
     progressText.textContent = `Génération pour ${matiere} (${i + 1}/${matieresActives.length})...`;
 
     const attentesMatiere = attentes[matiere] || [];
-    const attentesText = attentesMatiere.length > 0
+    let attentesText = attentesMatiere.length > 0
       ? `Attentes évaluées : ${attentesMatiere.join('; ')}`
       : 'Attentes générales de la matière';
+
+    // Pour Français, ajouter les notions sélectionnées dans le sélecteur de notions
+    if (matiere === 'Français') {
+      const notions = getSelectedFrancaisNotions();
+      if (notions.length > 0) {
+        attentesText += `\nNotions enseignées ce trimestre : ${notions.join('; ')}`;
+      }
+    }
 
     const prompt = buildClassePrompt(matiere, annee, studentsInMatiere, attentesText, bulletinType);
 

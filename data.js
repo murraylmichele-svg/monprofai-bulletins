@@ -1452,3 +1452,129 @@ const ATTENTES = {
   }
 
 }; // end ATTENTES
+
+// ════════════════════════════════════════════════════════════════
+// FRANCAIS_NOTIONS — Notions clés pour le sélecteur Français
+// Classe entière uniquement — notions atteignant A d'ici la 6e
+// ════════════════════════════════════════════════════════════════
+const FRANCAIS_NOTIONS = {
+  'Fondements de la lecture et de l\'ecriture': [
+    'Conscience phonémique (segmentation et fusion de phonèmes)',
+    'Correspondances graphèmes-phonèmes simples',
+    'Correspondances graphèmes-phonèmes complexes (au/eau, ou, ch, an, on, in, oi...)',
+    'Correspondances graphèmes-phonèmes contextuelles (c, g, s entre voyelles...)',
+    'Régularités orthographiques',
+    'Lecture de mots avec précision et automaticité (fluidité)',
+    'Lecture de phrases et de textes avec rythme et intonation',
+    'Habiletés morphologiques (préfixes, suffixes, bases de mots)',
+    'Vocabulaire académique (mots de niveau 2)'
+  ],
+  'Domaine A — Communication orale': [
+    'Écoute active et prise de parole',
+    'Participation aux discussions et aux échanges',
+    'Présentation orale (exposé, récit)',
+    'Justification d\'un point de vue à l\'oral',
+    'Registre de langue à l\'oral (familier, courant, soutenu)'
+  ],
+  'Domaine B — Lecture': [
+    'Stratégies de lecture (prédiction, inférence, survol)',
+    'Compréhension de textes variés (narratif, descriptif, explicatif)',
+    'Repérage d\'informations explicites et implicites',
+    'Réaction personnelle à un texte lu',
+    'Analyse de l\'intention de l\'auteure ou de l\'auteur'
+  ],
+  'Domaine B3 — La phrase': [
+    'La phrase graphique (majuscule et ponctuation forte)',
+    'La phrase syntaxique (sujet de P + prédicat de P)',
+    'Le complément de la phrase (complément de P)',
+    'Types de phrases (déclarative, interrogative, exclamative, impérative)',
+    'Formes positive et négative',
+    'Phrases complexes : coordination'
+  ],
+  'Domaine B3 — Groupes syntaxiques et classes de mots': [
+    'Le groupe nominal (GN) et ses constructions',
+    'Le nom (genre, nombre, propre/commun, simple/composé)',
+    'Le déterminant et son accord',
+    'L\'adjectif et son accord (féminin et pluriel)',
+    'Le groupe du verbe (GV)',
+    'Le groupe prépositionnel (GPrép)',
+    'Le groupe adverbial (GAdv)',
+    'Les pronoms personnels de conjugaison',
+    'Les pronoms possessifs',
+    'Les pronoms démonstratifs',
+    'La conjonction (coordination et subordination)',
+    'La préposition et les locutions prépositives'
+  ],
+  'Domaine B3 — Orthographe grammaticale': [
+    'Accord du déterminant avec le nom',
+    'Accord de l\'adjectif avec le nom',
+    'Accord du verbe avec un sujet simple',
+    'Accord du verbe avec un sujet composé',
+    'Accord du verbe avec un sujet séparé par un écran',
+    'Accord du participe passé avec l\'auxiliaire être'
+  ],
+  'Domaine B3 — Conjugaison': [
+    'Infinitif présent et distinction des formes simples et composées',
+    'Conjugaison : présent de l\'indicatif (verbes réguliers — aimer)',
+    'Conjugaison : verbes en -cer et en -ger',
+    'Conjugaison : verbes irréguliers fréquents (avoir, être, aller, faire, prendre, venir...)',
+    'Conjugaison : futur proche',
+    'Conjugaison : passé composé',
+    'Conjugaison : imparfait de l\'indicatif',
+    'Conjugaison : futur simple',
+    'Recours au verbe modèle pour choisir le radical'
+  ],
+  'Domaine B3 — Lexique': [
+    'Familles de mots (morphologie — base, préfixes, suffixes)',
+    'Synonymes, antonymes et homonymes',
+    'Champs lexicaux et familles sémantiques'
+  ],
+  'Domaine B3 — Figures de style': [
+    'Comparaison',
+    'Métaphore',
+    'Expressions figurées'
+  ],
+  'Domaine B3 — Registre de langue': [
+    'Les trois registres de langue (familier, courant, soutenu)'
+  ],
+  'Domaine B3 — Orthographe lexicale': [
+    'Graphèmes audibles et lettres muettes',
+    'Règles de position (c, ç, g, gu, s entre voyelles...)',
+    'Utilisation des référentiels pour orthographier des mots'
+  ],
+  'Domaine B3 — Ponctuation et majuscules': [
+    'Majuscule (début de phrase, noms propres, pays/peuples, titres)',
+    'Point, point d\'interrogation, point d\'exclamation',
+    'Virgule (énumération, complément en début de phrase)',
+    'Deux-points (explication et énumération)',
+    'Tiret, guillemets (discours rapporté)',
+    'Points de suspension'
+  ],
+  'Domaine B3 — Grammaire du texte': [
+    'Unité du sujet et pertinence de l\'information',
+    'Continuité et progression de l\'information',
+    'Reprise de l\'information (pronoms, GN générique, périphrase)',
+    'Marqueurs de relation (addition, opposition, but, comparaison...)',
+    'Organisateurs textuels (temps, lieu, ordre, transition)',
+    'Harmonisation des temps verbaux',
+    'Discours rapporté direct',
+    'Division en paragraphes cohérents',
+    'Structure et caractéristiques des genres de textes'
+  ],
+  'Domaine C — Ecriture': [
+    'Processus d\'écriture (planification, rédaction, révision, correction)',
+    'Genres de textes : texte narratif',
+    'Genres de textes : texte descriptif',
+    'Genres de textes : texte explicatif',
+    'Genres de textes : texte d\'opinion / argumentatif',
+    'Genres de textes : texte poétique',
+    'Structure du texte (introduction, développement, conclusion)',
+    'Paragraphes cohérents',
+    'Utilisation des référentiels et du dictionnaire',
+    'Calligraphie et présentation soignée'
+  ],
+  'Domaine D — Redaction et gestion de l\'ecriture': [
+    'Autocorrection et révision de ses textes',
+    'Portfolio / dossier d\'écriture'
+  ]
+};
