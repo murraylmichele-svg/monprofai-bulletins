@@ -1420,55 +1420,81 @@ const ATTENTES = {
   // ──────────────────────────────────────────────────────────────
   'Enseignement religieux': {
     '1': {
-      'Thème : Un Dieu présent': [
-        "1. Révélation — reconnaître des manifestations de la présence de Dieu dans la création, dans les personnes et dans les événements de la vie quotidienne",
-        "2. Foi vécue — identifier des façons de vivre en relation avec Dieu et avec les autres dans l'esprit de l'Évangile",
-        "3. Vie spirituelle et sacramentelle — participer à des moments de prière et reconnaître des signes et des symboles de la foi catholique",
-        "4. Agir et engagement — reconnaître des façons de vivre les valeurs évangéliques dans sa vie quotidienne"
+      'Thème : Un Dieu présent': [
+        "1. reconnaître des signes de la présence amoureuse de Dieu, Père, Fils et Esprit Saint, dans des récits bibliques, dans la création, chez les personnes et au cœur du monde",
+        "2. établir des liens entre des récits bibliques et la vie quotidienne",
+        "3. expliquer des convictions de la foi des catholiques au sujet de la présence de Dieu",
+        "4. reconnaître les principales fêtes chrétiennes et leurs symboles",
+        "5. démontrer des habiletés nécessaires au développement de la vie spirituelle et à la prière",
+        "6. démontrer que le langage symbolique des sacrements permet d’entrer en relation avec Dieu",
+        "7. analyser l’agir et l’engagement des chrétiennes et des chrétiens",
+        "8. démontrer les habiletés nécessaires à la démarche de discernement moral"
       ]
     },
     '2': {
-      'Thème : Un Dieu en relation avec les humains': [
-        "1. Révélation — explorer des récits bibliques qui illustrent la relation de Dieu avec les êtres humains",
-        "2. Foi vécue — identifier des façons dont les croyantes et les croyants vivent en relation avec Dieu et avec les autres",
-        "3. Vie spirituelle et sacramentelle — s'initier à des formules de prière et à des pratiques spirituelles de la tradition catholique",
-        "4. Agir et engagement — reconnaître des façons de manifester l'amour de Dieu en prenant soin des autres et de la création"
+      'Thème : Un Dieu en relation avec les humains': [
+        "1. reconnaître des traits de la relation de Dieu avec les humains et des humains entre eux dans des récits bibliques et au cœur du monde",
+        "2. établir des liens entre des récits bibliques et la vie quotidienne",
+        "3. expliquer des convictions de la foi des catholiques au sujet de la relation de Dieu avec les humains et des humains entre eux",
+        "4. reconnaître les principales fêtes chrétiennes et leurs symboles",
+        "5. démontrer des habiletés nécessaires au développement de la vie spirituelle et à la prière",
+        "6. démontrer que le langage symbolique des sacrements permet d’entrer en relation avec Dieu",
+        "7. analyser l’agir et l’engagement des chrétiennes et des chrétiens",
+        "8. démontrer les habiletés nécessaires à la démarche de discernement moral"
       ]
     },
     '3': {
-      'Thème : Le Royaume de Dieu': [
-        "1. Révélation — explorer le concept du Royaume de Dieu tel qu'il est présenté dans les paraboles et les enseignements de Jésus",
-        "2. Foi vécue — identifier des façons dont les membres de la communauté chrétienne travaillent à bâtir le Royaume de Dieu",
-        "3. Vie spirituelle et sacramentelle — s'initier à des activités d'intériorisation et à des pratiques sacramentelles de la foi catholique",
-        "4. Agir et engagement — reconnaître des façons de contribuer à la justice et à la paix dans sa communauté, à l'image des valeurs du Royaume"
+      'Thème : Le Royaume de Dieu': [
+        "1. reconnaître les caractéristiques du Royaume de Dieu dans des récits bibliques et au cœur du monde",
+        "2. établir des liens entre des récits bibliques et la vie quotidienne",
+        "3. expliquer des convictions de la foi des catholiques au sujet de l’avènement du Royaume de Dieu",
+        "4. reconnaître les principales fêtes chrétiennes et leurs symboles",
+        "5. démontrer des habiletés nécessaires au développement de la vie spirituelle et à la prière",
+        "6. démontrer que le langage symbolique des sacrements permet d’entrer en relation avec Dieu",
+        "7. analyser l’agir et l’engagement des chrétiennes et des chrétiens",
+        "8. démontrer les habiletés nécessaires à la démarche de discernement moral"
       ]
     },
     '4': {
-      'Thème : Jésus, Bonne Nouvelle': [
-        "1. Révélation — explorer les Évangiles pour découvrir qui est Jésus et quelle est sa mission",
-        "2. Foi vécue — identifier des façons dont les chrétiennes et les chrétiens vivent le message de Jésus aujourd'hui",
-        "3. Vie spirituelle et sacramentelle — approfondir sa compréhension des sacrements et des pratiques de la vie spirituelle catholique",
-        "4. Agir et engagement — démontrer des façons de mettre en pratique les valeurs évangéliques dans des situations de la vie quotidienne"
+      'Thème : Jésus, Bonne Nouvelle': [
+        "1. reconnaître, à l’aide de récits bibliques et au cœur du monde, que Jésus est la Bonne Nouvelle envoyée par le Père",
+        "2. établir des liens entre des récits bibliques et la vie quotidienne",
+        "3. démontrer sa compréhension de divers aspects de la Bible",
+        "4. expliquer des convictions de la foi des catholiques au sujet de Jésus, Bonne Nouvelle",
+        "5. reconnaître les principales fêtes chrétiennes et leurs symboles",
+        "6. démontrer des habiletés nécessaires au développement de la vie spirituelle et à la prière",
+        "7. démontrer que les sacrements sont pour la communauté chrétienne des signes de l’amour de Dieu",
+        "8. analyser l’agir et l’engagement des chrétiennes et des chrétiens",
+        "9. démontrer les habiletés nécessaires à la démarche de discernement moral"
       ]
     },
     '5': {
-      'Thème : L\'Esprit Saint, Dieu à l\'œuvre dans le monde': [
-        "1. Révélation — explorer le rôle de l'Esprit Saint dans la vie de l'Église et dans la vie des croyantes et des croyants",
-        "2. Foi vécue — identifier des façons dont l'Esprit Saint guide la communauté chrétienne et inspire l'engagement social",
-        "3. Vie spirituelle et sacramentelle — approfondir sa vie de prière et sa participation aux sacrements et aux célébrations liturgiques",
-        "4. Agir et engagement — expliquer comment les chrétiennes et les chrétiens sont appelés à s'engager pour la justice sociale et la protection de la création"
+      "Thème : L'Esprit Saint, Dieu à l'œuvre dans le monde": [
+        "1. reconnaître l’action de l’Esprit Saint dans des récits bibliques, dans l’histoire de l’Église et au cœur du monde",
+        "2. établir des liens entre des récits bibliques et la vie quotidienne",
+        "3. démontrer sa compréhension de divers aspects de la Bible",
+        "4. expliquer des convictions de la foi des catholiques au sujet de l’Esprit Saint",
+        "5. reconnaître les principales fêtes chrétiennes et leurs symboles",
+        "6. démontrer des habiletés nécessaires au développement de la vie spirituelle et à la prière",
+        "7. démontrer que les sacrements sont pour la communauté chrétienne des signes de l’amour de Dieu",
+        "8. analyser l’agir et l’engagement des chrétiennes et des chrétiens",
+        "9. démontrer les habiletés nécessaires à la démarche de discernement moral"
       ]
     },
     '6': {
-      'Thème : Jésus, chemin de Vie': [
-        "1. Révélation — analyser des textes évangéliques pour comprendre Jésus comme chemin, vérité et vie pour les croyantes et les croyants",
-        "2. Foi vécue — expliquer des façons dont les chrétiennes et les chrétiens sont appelés à suivre Jésus dans leur vie quotidienne",
-        "3. Vie spirituelle et sacramentelle — approfondir sa compréhension de la liturgie, des sacrements et des pratiques de la spiritualité catholique",
-        "4. Agir et engagement — démontrer comment les valeurs évangéliques inspirent un engagement concret pour la justice, la paix et la dignité humaine"
+      'Thème : Jésus, chemin de Vie': [
+        "1. reconnaître, dans des textes bibliques et au cœur du monde, que Jésus est chemin de Vie",
+        "2. établir des liens entre des récits bibliques et la vie quotidienne",
+        "3. démontrer sa compréhension de divers aspects de la Bible",
+        "4. expliquer des convictions de la foi des catholiques au sujet de Jésus, chemin de Vie",
+        "5. reconnaître les temps forts du calendrier liturgique, les principales fêtes chrétiennes et leurs symboles",
+        "6. démontrer des habiletés nécessaires au développement de la vie spirituelle et à la prière",
+        "7. démontrer que les sacrements sont pour la communauté chrétienne des signes de l’amour de Dieu",
+        "8. analyser l’agir et l’engagement des chrétiennes et des chrétiens",
+        "9. démontrer les habiletés nécessaires à la démarche de discernement moral"
       ]
     }
   }
-
 }; // end ATTENTES
 
 // ════════════════════════════════════════════════════════════════
