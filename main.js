@@ -200,8 +200,8 @@ function updateClasseAttentes() {
     }
   });
 
-  // Restore previously saved attentes state if same grade
-  restoreAttentesState(annee);
+  // Note: attentes are NOT auto-restored on grade change to avoid confusion
+  // State is only preserved within the same session tab switch
 }
 
 function saveAttentesState() {
@@ -271,44 +271,78 @@ function slugify(str) {
 }
 
 // ── PARSE CLASSE PASTE ────────────────────────────────────
+// Column layout (0-indexed):
+// 0=Nom, 1=Prénom, 2=Pronom
+// 3=Cote Maths, 4=Obs Maths
+// 5=Cote Français, 6=Obs Français
+// 7=Cote Études sociales, 8=Obs Études sociales
+// 9=Cote Sciences, 10=Obs Sciences
+// 11=Cote Arts visuels, 12=Obs Arts visuels
+// 13=Cote Arts musique, 14=Obs Arts musique
+// 15=Cote Arts danse, 16=Obs Arts danse
+// 17=Cote Arts dramatique, 18=Obs Arts dramatique
+// 19=Cote ÉPS, 20=Obs ÉPS
+// 21=Cote Religion, 22=Obs Religion
 function parsePaste(raw) {
-  const lines = raw.trim().split('\n').filter(function(l) { return l.trim(); });
+  var lines = raw.trim().split('\n').filter(function(l) { return l.trim(); });
 
-  // Normalize cote: extract just the grade letter
   function cleanCote(val) {
     if (!val) return '';
-    var match = val.trim().match(/^([ABCDT][+\-]?|N\/A)/i);
+    val = val.trim();
+    var match = val.match(/^([ABCDT][+\-]?|N\/A)$/i);
     return match ? match[1].toUpperCase() : '';
   }
 
-  // Skip header rows: if first col is "Nom" or grade col contains long header text
+  // Skip header rows
   var dataLines = lines.filter(function(line) {
     var cols = line.split('\t').map(function(c) { return c.trim(); });
-    var first = (cols[0] || '').toLowerCase();
-    if (first === 'nom' || first === 'name' || first === 'élève') return false;
-    var gradeCol = cols[3] || '';
-    if (gradeCol.length > 6 && gradeCol.indexOf(' ') !== -1) return false;
+    var first = (cols[0] || '').toLowerCase().trim();
+    var headerWords = ['nom', 'name', 'élève', 'last name', 'prénom', 'famille'];
+    for (var i = 0; i < headerWords.length; i++) {
+      if (first.indexOf(headerWords[i]) !== -1) return false;
+    }
+    // Skip if first grade column (col 3) has value but isn't a valid cote
+    var gradeVal = (cols[3] || '').trim();
+    if (gradeVal !== '' && cleanCote(gradeVal) === '') return false;
     return true;
   });
 
   return dataLines.map(function(line) {
     var cols = line.split('\t').map(function(c) { return c.trim(); });
+    function cleanCote(val) {
+      if (!val) return '';
+      val = val.trim();
+      var match = val.match(/^([ABCDT][+\-]?|N\/A)$/i);
+      return match ? match[1].toUpperCase() : '';
+    }
     return {
       nom: cols[0] || '',
       prenom: cols[1] || '',
       pronom: (cols[2] || 'elle').toLowerCase(),
       'Mathématiques': cleanCote(cols[3]),
-      'Français': cleanCote(cols[4]),
-      'Études sociales': cleanCote(cols[5]),
-      'Sciences et technologie': cleanCote(cols[6]),
-      'Arts (arts visuels)': cleanCote(cols[7]),
-      'Arts (musique)': cleanCote(cols[8]),
-      'Arts (danse)': cleanCote(cols[9]),
-      'Arts (art dramatique)': cleanCote(cols[10]),
-      'Éducation physique et santé': cleanCote(cols[11]),
-      'Enseignement religieux': cleanCote(cols[12]),
-      observations: cols[13] || ''
+      'Mathématiques_obs': cols[4] || '',
+      'Français': cleanCote(cols[5]),
+      'Français_obs': cols[6] || '',
+      'Études sociales': cleanCote(cols[7]),
+      'Études sociales_obs': cols[8] || '',
+      'Sciences et technologie': cleanCote(cols[9]),
+      'Sciences et technologie_obs': cols[10] || '',
+      'Arts (arts visuels)': cleanCote(cols[11]),
+      'Arts (arts visuels)_obs': cols[12] || '',
+      'Arts (musique)': cleanCote(cols[13]),
+      'Arts (musique)_obs': cols[14] || '',
+      'Arts (danse)': cleanCote(cols[15]),
+      'Arts (danse)_obs': cols[16] || '',
+      'Arts (art dramatique)': cleanCote(cols[17]),
+      'Arts (art dramatique)_obs': cols[18] || '',
+      'Éducation physique et santé': cleanCote(cols[19]),
+      'Éducation physique et santé_obs': cols[20] || '',
+      'Enseignement religieux': cleanCote(cols[21]),
+      'Enseignement religieux_obs': cols[22] || '',
+      observations: cols[23] || ''
     };
+  }).filter(function(e) {
+    return e.nom.trim() !== '' || e.prenom.trim() !== '';
   });
 }
 // ── FRANÇAIS NOTIONS CHECKLIST ────────────────────────────
@@ -577,7 +611,9 @@ async function generateClasse() {
 function buildClassePrompt(matiere, annee, eleves, attentesText, type) {
   const typeLabel = getBulletinTypeLabel(type);
   const elevesList = eleves.map(e => {
-    const obs = e.observations ? ` [Note : ${e.observations}]` : '';
+    // Use subject-specific observations if available, fall back to general observations
+    const subjectObs = e[matiere + '_obs'] || e.observations || '';
+    const obs = subjectObs ? ` [Note : ${subjectObs}]` : '';
     return `- ${e.prenom} ${e.nom} (${e.pronom}) : cote ${e[matiere]}${obs}`;
   }).join('\n');
 
@@ -1385,6 +1421,8 @@ async function callClaude(prompt) {
 
 // ── INIT ──────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  // Clear saved attentes state so checkboxes don't persist across page reloads
+  try { sessionStorage.removeItem('monprof_attentes'); } catch(e) {}
   renderNiveauButtonsInd();
   renderForcesProchaines();
 });
