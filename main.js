@@ -481,7 +481,7 @@ async function generateClasse() {
         <td class="edit-cell">
           <button class="btn-mini" onclick="copyComment('${rowId}')">Copier</button>
           <button class="btn-mini" onclick="editComment('${rowId}')">✏️</button>
-          <div style="font-size:10px; color:${over ? 'var(--rouge-doux)' : '#888'}; margin-top:4px;" id="count-${rowId}">${charCount} / ${limit}</div>
+          <div style="font-size:11px; font-weight:${over ? '700' : '400'}; color:${over ? 'var(--rouge-doux)' : '#666'}; margin-top:6px; padding:2px 6px; background:${over ? '#fff0f0' : '#f4f4f4'}; border-radius:4px; display:inline-block;" id="count-${rowId}">${charCount} / ${limit}</div>
         </td>`;
       tbody.appendChild(tr);
     });
@@ -588,6 +588,19 @@ function editComment(rowId) {
   } else {
     cell.contentEditable = 'true';
     cell.focus();
+    // Live counter while editing
+    const countEl = document.getElementById('count-' + rowId);
+    if (countEl) {
+      const parts = countEl.textContent.split('/');
+      const limit = parseInt(parts[1]);
+      cell.addEventListener('input', function() {
+        const count = cell.textContent.length;
+        const over = count > limit;
+        countEl.textContent = count + ' / ' + limit;
+        countEl.style.color = over ? 'var(--rouge-doux)' : '#888';
+        countEl.style.fontWeight = over ? '700' : '400';
+      });
+    }
   }
 }
 
