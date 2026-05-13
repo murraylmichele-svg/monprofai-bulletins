@@ -271,73 +271,85 @@ function slugify(str) {
 }
 
 // ── PARSE CLASSE PASTE ────────────────────────────────────
-// Column layout (0-indexed):
-// 0=Nom, 1=Prénom, 2=Pronom
-// 3=Cote Maths, 4=Obs Maths
-// 5=Cote Français, 6=Obs Français
-// 7=Cote Études sociales, 8=Obs Études sociales
-// 9=Cote Sciences, 10=Obs Sciences
-// 11=Cote Arts visuels, 12=Obs Arts visuels
-// 13=Cote Arts musique, 14=Obs Arts musique
-// 15=Cote Arts danse, 16=Obs Arts danse
-// 17=Cote Arts dramatique, 18=Obs Arts dramatique
-// 19=Cote ÉPS, 20=Obs ÉPS
-// 21=Cote Religion, 22=Obs Religion
+// Column layout (0-indexed) matches Google Sheets template:
+// 0=Nom 1=Prénom 2=Pronom
+// 3=Cote Maths 4=Obs Maths
+// 5=Cote Français 6=Obs Français
+// 7=Cote ÉtSoc 8=Obs ÉtSoc
+// 9=Cote Sciences 10=Obs Sciences
+// 11=Cote Arts visuels 12=Obs Arts visuels
+// 13=Cote Arts musique 14=Obs Arts musique
+// 15=Cote Arts danse 16=Obs Arts danse
+// 17=Cote Arts dram 18=Obs Arts dram
+// 19=Cote ÉPS 20=Obs ÉPS
+// 21=Cote Religion 22=Obs Religion
 function parsePaste(raw) {
   var lines = raw.trim().split('\n').filter(function(l) { return l.trim(); });
+
+  function isCote(val) {
+    if (!val) return false;
+    return /^[ABCDT][+\-]?$/.test(val.trim());
+  }
 
   function cleanCote(val) {
     if (!val) return '';
     val = val.trim();
-    var match = val.match(/^([ABCDT][+\-]?|N\/A)$/i);
+    var match = val.match(/^([ABCDT][+\-]?)$/i);
     return match ? match[1].toUpperCase() : '';
   }
 
   // Skip header rows
   var dataLines = lines.filter(function(line) {
     var cols = line.split('\t').map(function(c) { return c.trim(); });
-    var first = (cols[0] || '').toLowerCase().trim();
-    var headerWords = ['nom', 'name', 'élève', 'last name', 'prénom', 'famille'];
+    var first = (cols[0] || '').toLowerCase();
+    var headerWords = ['nom', 'name', 'élève', 'prénom', 'famille'];
     for (var i = 0; i < headerWords.length; i++) {
       if (first.indexOf(headerWords[i]) !== -1) return false;
     }
-    // Skip if first grade column (col 3) has value but isn't a valid cote
+    // Skip if col3 has value but isn't a cote (header text in grade column)
     var gradeVal = (cols[3] || '').trim();
-    if (gradeVal !== '' && cleanCote(gradeVal) === '') return false;
+    if (gradeVal.length > 3) return false;
     return true;
   });
 
   return dataLines.map(function(line) {
     var cols = line.split('\t').map(function(c) { return c.trim(); });
-    function cleanCote(val) {
-      if (!val) return '';
-      val = val.trim();
-      var match = val.match(/^([ABCDT][+\-]?|N\/A)$/i);
-      return match ? match[1].toUpperCase() : '';
+
+    // Helper: get cote at position, handling potential column shift
+    // If the expected obs column looks like a cote, the obs was empty and cols shifted
+    function getCote(coteIdx) {
+      return cleanCote(cols[coteIdx] || '');
     }
+    function getObs(obsIdx, nextCoteIdx) {
+      var val = cols[obsIdx] || '';
+      // If this looks like a cote and next col also looks like a cote, obs was skipped
+      if (isCote(val) && isCote(cols[nextCoteIdx] || '')) return '';
+      return val;
+    }
+
     return {
       nom: cols[0] || '',
       prenom: cols[1] || '',
       pronom: (cols[2] || 'elle').toLowerCase(),
-      'Mathématiques': cleanCote(cols[3]),
+      'Mathématiques': getCote(3),
       'Mathématiques_obs': cols[4] || '',
-      'Français': cleanCote(cols[5]),
+      'Français': getCote(5),
       'Français_obs': cols[6] || '',
-      'Études sociales': cleanCote(cols[7]),
+      'Études sociales': getCote(7),
       'Études sociales_obs': cols[8] || '',
-      'Sciences et technologie': cleanCote(cols[9]),
+      'Sciences et technologie': getCote(9),
       'Sciences et technologie_obs': cols[10] || '',
-      'Arts (arts visuels)': cleanCote(cols[11]),
+      'Arts (arts visuels)': getCote(11),
       'Arts (arts visuels)_obs': cols[12] || '',
-      'Arts (musique)': cleanCote(cols[13]),
+      'Arts (musique)': getCote(13),
       'Arts (musique)_obs': cols[14] || '',
-      'Arts (danse)': cleanCote(cols[15]),
+      'Arts (danse)': getCote(15),
       'Arts (danse)_obs': cols[16] || '',
-      'Arts (art dramatique)': cleanCote(cols[17]),
+      'Arts (art dramatique)': getCote(17),
       'Arts (art dramatique)_obs': cols[18] || '',
-      'Éducation physique et santé': cleanCote(cols[19]),
+      'Éducation physique et santé': getCote(19),
       'Éducation physique et santé_obs': cols[20] || '',
-      'Enseignement religieux': cleanCote(cols[21]),
+      'Enseignement religieux': getCote(21),
       'Enseignement religieux_obs': cols[22] || '',
       observations: cols[23] || ''
     };
@@ -476,6 +488,18 @@ async function generateClasse() {
 
   const eleves = parsePaste(raw);
   if (eleves.length === 0) { alert('Aucun élève trouvé dans la liste collée.'); return; }
+
+  // Debug: log first student's cotes to console
+  if (eleves.length > 0) {
+    var e0 = eleves[0];
+    console.log('Student 1:', e0.prenom, e0.nom,
+      '| Maths:', e0['Mathématiques'],
+      '| Fr:', e0['Français'],
+      '| ÉtSoc:', e0['Études sociales'],
+      '| Sci:', e0['Sciences et technologie'],
+      '| ÉPS:', e0['Éducation physique et santé'],
+      '| Rel:', e0['Enseignement religieux']);
+  }
 
   const attentes = getSelectedAttentes();
   const btn = document.getElementById('btn-gen-classe');
