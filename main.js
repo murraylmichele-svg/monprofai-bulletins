@@ -270,30 +270,47 @@ function slugify(str) {
   return str.toLowerCase().replace(/[^a-z0-9]/g, '-');
 }
 
-// ── PARSE CLASSE PASTE ────────────────────────────────────────
+// ── PARSE CLASSE PASTE ────────────────────────────────────
 function parsePaste(raw) {
-  const lines = raw.trim().split('\n').filter(l => l.trim());
-  return lines.map(line => {
-    const cols = line.split('\t').map(c => c.trim());
+  const lines = raw.trim().split('\n').filter(function(l) { return l.trim(); });
+
+  // Normalize cote: extract just the grade letter
+  function cleanCote(val) {
+    if (!val) return '';
+    var match = val.trim().match(/^([ABCDT][+\-]?|N\/A)/i);
+    return match ? match[1].toUpperCase() : '';
+  }
+
+  // Skip header rows: if first col is "Nom" or grade col contains long header text
+  var dataLines = lines.filter(function(line) {
+    var cols = line.split('\t').map(function(c) { return c.trim(); });
+    var first = (cols[0] || '').toLowerCase();
+    if (first === 'nom' || first === 'name' || first === 'élève') return false;
+    var gradeCol = cols[3] || '';
+    if (gradeCol.length > 6 && gradeCol.indexOf(' ') !== -1) return false;
+    return true;
+  });
+
+  return dataLines.map(function(line) {
+    var cols = line.split('\t').map(function(c) { return c.trim(); });
     return {
       nom: cols[0] || '',
       prenom: cols[1] || '',
       pronom: (cols[2] || 'elle').toLowerCase(),
-      Mathématiques: cols[3] || '',
-      Français: cols[4] || '',
-      'Études sociales': cols[5] || '',
-      'Sciences et technologie': cols[6] || '',
-      'Arts (arts visuels)': cols[7] || '',
-      'Arts (musique)': cols[8] || '',
-      'Arts (danse)': cols[9] || '',
-      'Arts (art dramatique)': cols[10] || '',
-      'Éducation physique et santé': cols[11] || '',
-      'Enseignement religieux': cols[12] || '',
+      'Mathématiques': cleanCote(cols[3]),
+      'Français': cleanCote(cols[4]),
+      'Études sociales': cleanCote(cols[5]),
+      'Sciences et technologie': cleanCote(cols[6]),
+      'Arts (arts visuels)': cleanCote(cols[7]),
+      'Arts (musique)': cleanCote(cols[8]),
+      'Arts (danse)': cleanCote(cols[9]),
+      'Arts (art dramatique)': cleanCote(cols[10]),
+      'Éducation physique et santé': cleanCote(cols[11]),
+      'Enseignement religieux': cleanCote(cols[12]),
       observations: cols[13] || ''
     };
   });
 }
-
 // ── FRANÇAIS NOTIONS CHECKLIST ────────────────────────────
 function renderFrancaisNotions(container) {
   var wrapper = document.createElement('div');
