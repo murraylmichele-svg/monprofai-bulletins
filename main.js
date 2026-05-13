@@ -709,57 +709,232 @@ const COTES_STATE = {};
 
 const FORCES_PHRASES = {
   oral: {
-    E: ["[Prénom] s'exprime avec aisance et assurance en français dans toutes les situations.", "[Prénom] communique ses idées clairement et enrichit les discussions par ses interventions de qualité."],
-    T: ["[Prénom] s'exprime généralement bien en français et contribue positivement aux échanges.", "[Prénom] participe activement aux discussions et utilise le français avec confiance."],
-    S: ["[Prénom] fait des efforts constants pour communiquer en français lors des activités de classe.", "[Prénom] utilise le français en classe et continue à développer sa fluidité à l'oral."],
-    N: ["[Prénom] est encouragé(e) à prendre davantage d'initiatives pour communiquer en français.", "[Prénom] travaille à renforcer son utilisation du français dans les contextes scolaires."]
+    E: [
+      "[Prénom] s'exprime avec aisance et assurance en français dans toutes les situations.",
+      "[Prénom] communique ses idées clairement et enrichit les discussions par ses interventions de qualité.",
+      "[Prénom] utilise un vocabulaire riche et varié et s'exprime avec fluidité en français.",
+      "[Prénom] prend la parole avec confiance et articule ses pensées de façon précise et organisée."
+    ],
+    T: [
+      "[Prénom] s'exprime généralement bien en français et contribue positivement aux échanges.",
+      "[Prénom] participe activement aux discussions et utilise le français avec confiance.",
+      "[Prénom] communique ses idées de façon claire et respecte les règles de la communication orale.",
+      "[Prénom] s'exprime avec aisance dans la plupart des contextes et enrichit les échanges de la classe."
+    ],
+    S: [
+      "[Prénom] fait des efforts constants pour communiquer en français lors des activités de classe.",
+      "[Prénom] utilise le français en classe et continue à développer sa fluidité à l'oral.",
+      "[Prénom] participe aux échanges et fait des progrès dans l'utilisation du français oral.",
+      "[Prénom] s'améliore dans sa capacité à exprimer ses idées en français lors des activités."
+    ],
+    N: [
+      "[Prénom] est encouragé(e) à prendre davantage d'initiatives pour communiquer en français.",
+      "[Prénom] travaille à renforcer son utilisation du français dans les contextes scolaires.",
+      "[Prénom] est invité(e) à s'exprimer plus régulièrement en français lors des discussions et des activités.",
+      "[Prénom] bénéficierait de pratiquer davantage la communication orale en français au quotidien."
+    ]
   },
   fiabilite: {
-    E: ["[Prénom] remet toujours ses travaux dans les délais et assume ses responsabilités avec soin.", "[Prénom] fait preuve d'une fiabilité exemplaire : les tâches sont complètes, soignées et ponctuelles."],
-    T: ["[Prénom] est généralement fiable et remet la plupart de ses travaux à temps.", "[Prénom] assume ses responsabilités scolaires avec sérieux et constance."],
-    S: ["[Prénom] remet habituellement ses travaux, bien que des rappels soient parfois nécessaires.", "[Prénom] fait des efforts pour respecter les attentes en matière de fiabilité."],
-    N: ["[Prénom] est invité(e) à développer de meilleures habitudes pour remettre ses travaux à temps.", "[Prénom] travaille à améliorer sa constance dans le respect des délais et des consignes."]
+    E: [
+      "[Prénom] remet toujours ses travaux dans les délais et assume ses responsabilités avec soin.",
+      "[Prénom] fait preuve d'une fiabilité exemplaire : les tâches sont complètes, soignées et ponctuelles.",
+      "[Prénom] respecte toutes les échéances et produit un travail de qualité constante.",
+      "[Prénom] démontre un sens aigu des responsabilités et peut toujours compter sur sa propre constance."
+    ],
+    T: [
+      "[Prénom] est généralement fiable et remet la plupart de ses travaux à temps.",
+      "[Prénom] assume ses responsabilités scolaires avec sérieux et constance.",
+      "[Prénom] fait preuve de fiabilité dans la majorité des situations et respecte les consignes données.",
+      "[Prénom] remet ses travaux dans les délais et démontre un bon sens des responsabilités."
+    ],
+    S: [
+      "[Prénom] remet habituellement ses travaux, bien que des rappels soient parfois nécessaires.",
+      "[Prénom] fait des efforts pour respecter les attentes en matière de fiabilité.",
+      "[Prénom] progresse dans le respect des délais et des responsabilités scolaires.",
+      "[Prénom] s'améliore dans la remise de ses travaux et dans le suivi des consignes."
+    ],
+    N: [
+      "[Prénom] est invité(e) à développer de meilleures habitudes pour remettre ses travaux à temps.",
+      "[Prénom] travaille à améliorer sa constance dans le respect des délais et des consignes.",
+      "[Prénom] gagnerait à développer des stratégies pour mieux gérer ses responsabilités scolaires.",
+      "[Prénom] est encouragé(e) à prendre ses engagements scolaires plus au sérieux et de façon constante."
+    ]
   },
   organisation: {
-    E: ["[Prénom] gère son matériel et son temps de façon exemplaire, ce qui favorise sa réussite.", "[Prénom] fait preuve d'un excellent sens de l'organisation : son espace de travail et son agenda sont toujours en ordre."],
-    T: ["[Prénom] s'organise bien et gère efficacement son matériel scolaire.", "[Prénom] démontre un bon sens de l'organisation dans la gestion de ses tâches et de son matériel."],
-    S: ["[Prénom] fait des progrès dans l'organisation de son travail et de son matériel.", "[Prénom] s'améliore dans la gestion de son temps et de ses responsabilités scolaires."],
-    N: ["[Prénom] est encouragé(e) à développer des stratégies d'organisation plus efficaces.", "[Prénom] bénéficierait de soutien pour améliorer l'organisation de son travail et de son matériel."]
+    E: [
+      "[Prénom] gère son matériel et son temps de façon exemplaire, ce qui favorise sa réussite.",
+      "[Prénom] fait preuve d'un excellent sens de l'organisation : son espace de travail et son agenda sont toujours en ordre.",
+      "[Prénom] planifie son travail avec méthode et utilise efficacement les outils organisationnels à sa disposition.",
+      "[Prénom] démontre une organisation irréprochable qui lui permet d'aborder les tâches avec sérénité et efficacité."
+    ],
+    T: [
+      "[Prénom] s'organise bien et gère efficacement son matériel scolaire.",
+      "[Prénom] démontre un bon sens de l'organisation dans la gestion de ses tâches et de son matériel.",
+      "[Prénom] utilise des stratégies organisationnelles efficaces pour gérer son travail et ses responsabilités.",
+      "[Prénom] maintient un espace de travail ordonné et gère son temps de façon satisfaisante."
+    ],
+    S: [
+      "[Prénom] fait des progrès dans l'organisation de son travail et de son matériel.",
+      "[Prénom] s'améliore dans la gestion de son temps et de ses responsabilités scolaires.",
+      "[Prénom] développe des stratégies pour mieux s'organiser et gérer ses tâches quotidiennes.",
+      "[Prénom] fait des efforts pour maintenir son matériel en ordre et respecter les échéances."
+    ],
+    N: [
+      "[Prénom] est encouragé(e) à développer des stratégies d'organisation plus efficaces.",
+      "[Prénom] bénéficierait de soutien pour améliorer l'organisation de son travail et de son matériel.",
+      "[Prénom] gagnerait à utiliser des outils de planification pour mieux gérer son temps et ses responsabilités.",
+      "[Prénom] est invité(e) à développer de meilleures habitudes organisationnelles pour favoriser sa réussite."
+    ]
   },
   autonomie: {
-    E: ["[Prénom] travaille de façon très autonome et sait trouver des ressources pour surmonter les défis.", "[Prénom] fait preuve d'une grande autonomie : elle/il prend des initiatives et résout les problèmes de façon indépendante."],
-    T: ["[Prénom] travaille généralement de façon autonome et cherche de l'aide au bon moment.", "[Prénom] démontre une bonne autonomie dans la réalisation de ses tâches scolaires."],
-    S: ["[Prénom] développe son autonomie et fait des progrès dans sa capacité à travailler de façon indépendante.", "[Prénom] s'efforce de compléter ses tâches de façon plus autonome."],
-    N: ["[Prénom] est encouragé(e) à tenter de résoudre les problèmes avant de demander de l'aide.", "[Prénom] travaille à développer sa confiance et son autonomie dans les tâches scolaires."]
+    E: [
+      "[Prénom] travaille de façon très autonome et sait trouver des ressources pour surmonter les défis.",
+      "[Prénom] fait preuve d'une grande autonomie : elle/il prend des initiatives et résout les problèmes de façon indépendante.",
+      "[Prénom] aborde les tâches avec confiance et persévère de façon autonome face aux difficultés.",
+      "[Prénom] démontre une autonomie remarquable : elle/il gère son travail de façon indépendante et efficace."
+    ],
+    T: [
+      "[Prénom] travaille généralement de façon autonome et cherche de l'aide au bon moment.",
+      "[Prénom] démontre une bonne autonomie dans la réalisation de ses tâches scolaires.",
+      "[Prénom] complète la plupart de ses tâches de façon indépendante et sait quand demander de l'aide.",
+      "[Prénom] fait preuve d'une bonne capacité à travailler seul(e) et à gérer son apprentissage."
+    ],
+    S: [
+      "[Prénom] développe son autonomie et fait des progrès dans sa capacité à travailler de façon indépendante.",
+      "[Prénom] s'efforce de compléter ses tâches de façon plus autonome.",
+      "[Prénom] fait des efforts pour travailler de façon plus indépendante et recourir moins souvent à l'aide.",
+      "[Prénom] progresse dans son autonomie et développe sa confiance lors des tâches individuelles."
+    ],
+    N: [
+      "[Prénom] est encouragé(e) à tenter de résoudre les problèmes avant de demander de l'aide.",
+      "[Prénom] travaille à développer sa confiance et son autonomie dans les tâches scolaires.",
+      "[Prénom] gagnerait à développer des stratégies pour travailler de façon plus indépendante.",
+      "[Prénom] est invité(e) à persévérer davantage avant de chercher l'aide de l'enseignant(e)."
+    ]
   },
   collaboration: {
-    E: ["[Prénom] collabore de façon exemplaire : elle/il écoute les autres, partage ses idées et contribue positivement au travail d'équipe.", "[Prénom] est un(e) coéquipier(ère) remarquable, toujours prêt(e) à soutenir ses pairs et à travailler dans un esprit d'équipe."],
-    T: ["[Prénom] collabore bien avec ses pairs et contribue positivement aux travaux d'équipe.", "[Prénom] démontre un bon esprit de collaboration et respecte les idées des autres."],
-    S: ["[Prénom] fait des efforts pour collaborer avec ses pairs lors des travaux d'équipe.", "[Prénom] développe ses habiletés de collaboration et participe aux activités de groupe."],
-    N: ["[Prénom] est invité(e) à développer davantage son esprit de collaboration lors des travaux en équipe.", "[Prénom] travaille à améliorer sa façon d'interagir et de contribuer lors des activités collaboratives."]
+    E: [
+      "[Prénom] collabore de façon exemplaire : elle/il écoute les autres, partage ses idées et contribue positivement au travail d'équipe.",
+      "[Prénom] est un(e) coéquipier(ère) remarquable, toujours prêt(e) à soutenir ses pairs et à travailler dans un esprit d'équipe.",
+      "[Prénom] démontre d'excellentes habiletés de collaboration : elle/il valorise les idées des autres et contribue avec enthousiasme.",
+      "[Prénom] joue un rôle positif dans les travaux d'équipe et encourage ses coéquipiers avec bienveillance."
+    ],
+    T: [
+      "[Prénom] collabore bien avec ses pairs et contribue positivement aux travaux d'équipe.",
+      "[Prénom] démontre un bon esprit de collaboration et respecte les idées des autres.",
+      "[Prénom] participe activement aux activités de groupe et fait preuve d'écoute envers ses pairs.",
+      "[Prénom] travaille bien en équipe et s'assure que chacun peut contribuer au projet commun."
+    ],
+    S: [
+      "[Prénom] fait des efforts pour collaborer avec ses pairs lors des travaux d'équipe.",
+      "[Prénom] développe ses habiletés de collaboration et participe aux activités de groupe.",
+      "[Prénom] progresse dans sa capacité à travailler en équipe et à respecter les idées des autres.",
+      "[Prénom] s'améliore dans son rôle de coéquipier(ère) et fait des efforts pour contribuer au groupe."
+    ],
+    N: [
+      "[Prénom] est invité(e) à développer davantage son esprit de collaboration lors des travaux en équipe.",
+      "[Prénom] travaille à améliorer sa façon d'interagir et de contribuer lors des activités collaboratives.",
+      "[Prénom] gagnerait à pratiquer l'écoute active et le partage des responsabilités dans les travaux de groupe.",
+      "[Prénom] est encouragé(e) à s'engager plus activement dans les projets d'équipe et à respecter les rôles de chacun."
+    ]
   },
   initiative: {
-    E: ["[Prénom] fait preuve d'un remarquable sens de l'initiative : elle/il cherche toujours à dépasser les attentes et propose des idées nouvelles.", "[Prénom] prend des initiatives de façon proactive et enrichit les apprentissages par sa curiosité et son leadership."],
-    T: ["[Prénom] prend souvent des initiatives et cherche à approfondir ses apprentissages.", "[Prénom] démontre un bon sens de l'initiative et participe activement à la vie de la classe."],
-    S: ["[Prénom] commence à prendre davantage d'initiatives dans son apprentissage.", "[Prénom] fait des efforts pour s'impliquer de façon plus proactive dans les activités de classe."],
-    N: ["[Prénom] est encouragé(e) à prendre plus d'initiatives et à s'impliquer davantage dans ses apprentissages.", "[Prénom] bénéficierait de s'engager plus activement dans les activités et de proposer ses idées."]
+    E: [
+      "[Prénom] fait preuve d'un remarquable sens de l'initiative : elle/il cherche toujours à dépasser les attentes et propose des idées nouvelles.",
+      "[Prénom] prend des initiatives de façon proactive et enrichit les apprentissages par sa curiosité et son leadership.",
+      "[Prénom] va au-delà des attentes et s'engage avec enthousiasme dans des projets qui stimulent sa créativité.",
+      "[Prénom] démontre un leadership naturel et propose régulièrement des idées originales qui enrichissent la classe."
+    ],
+    T: [
+      "[Prénom] prend souvent des initiatives et cherche à approfondir ses apprentissages.",
+      "[Prénom] démontre un bon sens de l'initiative et participe activement à la vie de la classe.",
+      "[Prénom] s'engage avec enthousiasme dans les projets et propose régulièrement des idées pertinentes.",
+      "[Prénom] fait preuve d'initiative dans son travail et cherche souvent à en apprendre davantage."
+    ],
+    S: [
+      "[Prénom] commence à prendre davantage d'initiatives dans son apprentissage.",
+      "[Prénom] fait des efforts pour s'impliquer de façon plus proactive dans les activités de classe.",
+      "[Prénom] progresse dans sa capacité à prendre des initiatives et à s'engager dans son apprentissage.",
+      "[Prénom] développe son sens de l'initiative et commence à proposer ses idées avec plus de confiance."
+    ],
+    N: [
+      "[Prénom] est encouragé(e) à prendre plus d'initiatives et à s'impliquer davantage dans ses apprentissages.",
+      "[Prénom] bénéficierait de s'engager plus activement dans les activités et de proposer ses idées.",
+      "[Prénom] gagnerait à se fixer des défis personnels et à chercher à dépasser les attentes minimales.",
+      "[Prénom] est invité(e) à s'impliquer davantage dans les projets et à prendre davantage d'initiatives."
+    ]
   },
   autoregulation: {
-    E: ["[Prénom] gère ses émotions et ses comportements de façon exemplaire, même dans des situations difficiles.", "[Prénom] fait preuve d'une excellente autorégulation : elle/il reconnaît ses besoins et utilise des stratégies efficaces."],
-    T: ["[Prénom] gère généralement bien ses émotions et ses comportements en classe.", "[Prénom] utilise des stratégies d'autorégulation efficaces et maintient un comportement positif."],
-    S: ["[Prénom] développe des stratégies pour mieux gérer ses émotions et ses comportements.", "[Prénom] fait des progrès dans sa capacité à s'autoréguler en situation de défi."],
-    N: ["[Prénom] est soutenu(e) dans le développement de stratégies d'autorégulation plus efficaces.", "[Prénom] travaille à développer des outils pour mieux gérer ses émotions et ses réactions."]
+    E: [
+      "[Prénom] gère ses émotions et ses comportements de façon exemplaire, même dans des situations difficiles.",
+      "[Prénom] fait preuve d'une excellente autorégulation : elle/il reconnaît ses besoins et utilise des stratégies efficaces.",
+      "[Prénom] démontre une maturité remarquable dans la gestion de ses émotions et de ses réactions.",
+      "[Prénom] utilise des stratégies d'autorégulation variées et efficaces qui lui permettent de maintenir un comportement positif."
+    ],
+    T: [
+      "[Prénom] gère généralement bien ses émotions et ses comportements en classe.",
+      "[Prénom] utilise des stratégies d'autorégulation efficaces et maintient un comportement positif.",
+      "[Prénom] reconnaît ses besoins émotionnels et utilise des stratégies appropriées pour y répondre.",
+      "[Prénom] démontre une bonne capacité à gérer ses réactions et à maintenir un environnement de travail positif."
+    ],
+    S: [
+      "[Prénom] développe des stratégies pour mieux gérer ses émotions et ses comportements.",
+      "[Prénom] fait des progrès dans sa capacité à s'autoréguler en situation de défi.",
+      "[Prénom] s'améliore dans la gestion de ses émotions et fait des efforts pour maintenir un comportement approprié.",
+      "[Prénom] apprend à utiliser des stratégies d'autorégulation et progresse dans ce domaine."
+    ],
+    N: [
+      "[Prénom] est soutenu(e) dans le développement de stratégies d'autorégulation plus efficaces.",
+      "[Prénom] travaille à développer des outils pour mieux gérer ses émotions et ses réactions.",
+      "[Prénom] bénéficierait d'un soutien pour développer des stratégies adaptées à la gestion de ses émotions.",
+      "[Prénom] est encouragé(e) à pratiquer les stratégies d'autorégulation apprises pour mieux gérer les situations difficiles."
+    ]
   }
 };
 
 const PROCHAINES_PHRASES = {
-  oral: ["continuer à utiliser le français dans tous les contextes, y compris lors des échanges informels", "enrichir son vocabulaire et prendre des risques linguistiques en français"],
-  fiabilite: ["développer des stratégies pour respecter les délais de façon plus constante", "renforcer sa routine de vérification avant de remettre ses travaux"],
-  organisation: ["développer un système personnel d'organisation de son agenda et de son matériel", "utiliser des outils de planification pour mieux gérer son temps"],
-  autonomie: ["pratiquer des stratégies de résolution de problèmes avant de demander de l'aide", "développer sa confiance en ses propres capacités lors des tâches individuelles"],
-  collaboration: ["pratiquer l'écoute active et le partage des responsabilités lors des travaux en équipe", "développer des stratégies pour contribuer positivement aux discussions de groupe"],
-  initiative: ["se fixer des objectifs personnels et chercher à les dépasser", "s'impliquer de façon proactive dans les projets de classe et proposer des idées"],
-  autoregulation: ["identifier et pratiquer des stratégies d'autorégulation efficaces en situation de stress", "reconnaître ses déclencheurs émotionnels et utiliser des stratégies de gestion apprises"]
+  oral: [
+    "continuer à utiliser le français dans tous les contextes, y compris lors des échanges informels",
+    "enrichir son vocabulaire et prendre des risques linguistiques en français",
+    "s'exercer à structurer ses interventions orales de façon plus claire et organisée",
+    "participer plus régulièrement aux discussions en classe et oser s'exprimer en français"
+  ],
+  fiabilite: [
+    "développer des stratégies pour respecter les délais de façon plus constante",
+    "renforcer sa routine de vérification avant de remettre ses travaux",
+    "utiliser un agenda ou une liste de tâches pour mieux suivre ses responsabilités",
+    "s'engager à remettre tous ses travaux complets et dans les délais établis"
+  ],
+  organisation: [
+    "développer un système personnel d'organisation de son agenda et de son matériel",
+    "utiliser des outils de planification pour mieux gérer son temps",
+    "prendre l'habitude de préparer son matériel à l'avance et de vérifier son espace de travail",
+    "utiliser un cahier de planification ou un organisateur pour structurer ses tâches quotidiennes"
+  ],
+  autonomie: [
+    "pratiquer des stratégies de résolution de problèmes avant de demander de l'aide",
+    "développer sa confiance en ses propres capacités lors des tâches individuelles",
+    "s'exercer à relire les consignes attentivement avant de demander une explication",
+    "développer des stratégies pour aborder les tâches difficiles de façon plus indépendante"
+  ],
+  collaboration: [
+    "pratiquer l'écoute active et le partage des responsabilités lors des travaux en équipe",
+    "développer des stratégies pour contribuer positivement aux discussions de groupe",
+    "apprendre à valoriser les idées des autres et à chercher des compromis lors des désaccords",
+    "s'exercer à prendre un rôle actif et à respecter les contributions de chaque membre de l'équipe"
+  ],
+  initiative: [
+    "se fixer des objectifs personnels et chercher à les dépasser",
+    "s'impliquer de façon proactive dans les projets de classe et proposer des idées",
+    "chercher des occasions d'approfondir ses apprentissages au-delà des attentes minimales",
+    "développer sa curiosité intellectuelle en posant des questions et en explorant de nouveaux sujets"
+  ],
+  autoregulation: [
+    "identifier et pratiquer des stratégies d'autorégulation efficaces en situation de stress",
+    "reconnaître ses déclencheurs émotionnels et utiliser des stratégies de gestion apprises",
+    "s'exercer à utiliser des techniques de gestion des émotions lors des moments difficiles",
+    "développer un répertoire de stratégies personnelles pour maintenir un comportement positif en classe"
+  ]
 };
 
 const HAB_LABELS = {
@@ -967,8 +1142,58 @@ function togglePEI() {
 // ── TÉLÉCHARGER WORD (HTML) ───────────────────────────────────
 function downloadWord() {
   const annee = document.getElementById('classe-annee').value;
-  const content = document.getElementById('results-classe-content').innerHTML;
-  const html = buildDownloadHTML(`Bulletin — ${annee}e année`, content);
+  const resultsDiv = document.getElementById('results-classe-content');
+  if (!resultsDiv || resultsDiv.innerHTML.trim() === '') {
+    alert('Aucun commentaire à télécharger. Veuillez générer les commentaires d’abord.');
+    return;
+  }
+
+  // Build clean HTML from actual data — not from DOM innerHTML
+  let bodyContent = '';
+
+  // Find all subject sections
+  const subjectSections = resultsDiv.querySelectorAll('.subject-results');
+  subjectSections.forEach(section => {
+    const title = section.querySelector('.subject-results-title');
+    const rows = section.querySelectorAll('tbody tr');
+    if (!title || rows.length === 0) return;
+
+    bodyContent += `<h2 style="font-family:Calibri,sans-serif; font-size:13pt; color:#1a3a5c; margin:24px 0 4px; border-bottom:2px solid #1a3a5c; padding-bottom:4px;">${title.textContent}</h2>`;
+    bodyContent += `<table style="width:100%; border-collapse:collapse; margin-bottom:20px; font-family:Calibri,sans-serif; font-size:10.5pt;">`;
+    bodyContent += `<thead><tr>
+      <th style="background:#1a3a5c; color:#fff; padding:7px 10px; text-align:left; width:18%;">Élève</th>
+      <th style="background:#1a3a5c; color:#fff; padding:7px 10px; text-align:left; width:8%;">Cote</th>
+      <th style="background:#1a3a5c; color:#fff; padding:7px 10px; text-align:left;">Commentaire</th>
+    </tr></thead><tbody>`;
+
+    rows.forEach((row, idx) => {
+      const nameCell = row.querySelector('.name-cell');
+      const coteCell = row.querySelector('.cote-cell');
+      const commentCell = row.querySelector('.comment-cell');
+      if (!nameCell || !commentCell) return;
+
+      const bg = idx % 2 === 0 ? '#ffffff' : '#f4f7fb';
+      const nom = nameCell.textContent.trim();
+      const cote = coteCell ? coteCell.textContent.trim() : '';
+      const commentaire = commentCell.textContent.trim();
+
+      bodyContent += `<tr style="background:${bg};">
+        <td style="padding:7px 10px; border-bottom:1px solid #ddd; vertical-align:top;">${nom}</td>
+        <td style="padding:7px 10px; border-bottom:1px solid #ddd; vertical-align:top; font-weight:bold;">${cote}</td>
+        <td style="padding:7px 10px; border-bottom:1px solid #ddd; vertical-align:top; line-height:1.5;">${commentaire}</td>
+      </tr>`;
+    });
+
+    bodyContent += `</tbody></table>`;
+  });
+
+  if (!bodyContent) {
+    alert('Aucun commentaire trouvé. Veuillez générer les commentaires d’abord.');
+    return;
+  }
+
+  const anneeLabel = annee === '1' ? '1re' : annee + 'e';
+  const html = buildDownloadHTML(`Commentaires de bulletin — ${anneeLabel} année`, bodyContent);
   triggerDownload(html, `bulletins-${annee}e-annee.html`);
 }
 
