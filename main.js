@@ -188,6 +188,7 @@ function updateClasseAttentes() {
         item.innerHTML = `<input type="checkbox" style="accent-color:var(--bleu); flex-shrink:0; margin-top:2px;"> <span>${att}</span>`;
         item.querySelector('input').addEventListener('change', function() {
           item.classList.toggle('selected', this.checked);
+          saveAttentesState(); // persist across tab switches
         });
         list.appendChild(item);
       });
@@ -198,6 +199,64 @@ function updateClasseAttentes() {
       renderFrancaisNotions(section.querySelector('.matiere-body'));
     }
   });
+
+  // Restore previously saved attentes state if same grade
+  restoreAttentesState(annee);
+}
+
+function saveAttentesState() {
+  const annee = document.getElementById('classe-annee').value;
+  const state = {};
+  document.querySelectorAll('.attente-item input[type="checkbox"]').forEach(cb => {
+    const label = cb.closest('label');
+    const matiere = label ? label.dataset.matiere : null;
+    const text = label ? label.querySelector('span').textContent : null;
+    if (matiere && text) {
+      if (!state[matiere]) state[matiere] = [];
+      if (cb.checked) state[matiere].push(text);
+    }
+  });
+  // Also save selected Français notions
+  const francaisNotions = [];
+  document.querySelectorAll('.francais-notion-cb:checked').forEach(cb => {
+    const span = cb.closest('label') ? cb.closest('label').querySelector('span') : null;
+    if (span) francaisNotions.push(span.textContent);
+  });
+  state['__francaisNotions__'] = francaisNotions;
+  state['__annee__'] = annee;
+  try {
+    sessionStorage.setItem('monprof_attentes', JSON.stringify(state));
+  } catch(e) {}
+}
+
+function restoreAttentesState(annee) {
+  try {
+    const saved = sessionStorage.getItem('monprof_attentes');
+    if (!saved) return;
+    const state = JSON.parse(saved);
+    if (state['__annee__'] !== annee) return; // different grade - don't restore
+    document.querySelectorAll('.attente-item input[type="checkbox"]').forEach(cb => {
+      const label = cb.closest('label');
+      const matiere = label ? label.dataset.matiere : null;
+      const text = label ? label.querySelector('span').textContent : null;
+      if (matiere && text && state[matiere] && state[matiere].includes(text)) {
+        cb.checked = true;
+        label.classList.add('selected');
+      }
+    });
+    // Restore Français notions
+    const savedNotions = state['__francaisNotions__'] || [];
+    if (savedNotions.length > 0) {
+      document.querySelectorAll('.francais-notion-cb').forEach(cb => {
+        const span = cb.closest('label') ? cb.closest('label').querySelector('span') : null;
+        if (span && savedNotions.includes(span.textContent)) {
+          cb.checked = true;
+          const label = cb.closest('label');
+          if (label) { label.style.fontWeight = '600'; label.style.color = 'var(--bleu)'; }
+        }
+      });
+    }
+  } catch(e) {}
 }
 
 function toggleMatiere(header) {
@@ -1040,18 +1099,26 @@ function assembleComment() {
     }
   }
 
-  // Build comment
+  // Build comment — replace [Prénom] with pronoun after first sentence
+  const pronSujet = pronom === 'elle' ? 'Elle' : pronom === 'il' ? 'Il' : 'Iel';
+  const pronObj   = pronom === 'elle' ? 'elle' : pronom === 'il' ? 'il' : 'iel';
+
   const parts = [];
 
   if (forcePhrases.length > 0) {
-    parts.push(forcePhrases.join(' '));
+    // First sentence uses the name, subsequent sentences use the pronoun
+    const joined = forcePhrases.map((phrase, idx) => {
+      if (idx === 0) return phrase;
+      // Replace [Prénom] with pronoun (capitalize if start of sentence after period+space)
+      return phrase.replace(prenom, pronSujet);
+    }).join(' ');
+    parts.push(joined);
   }
 
   if (prochainePhrases.length > 0) {
-    const pronSujet = pronom === 'elle' ? 'Elle' : pronom === 'il' ? 'Il' : 'Iel';
     const objectif = periode === 'etape1'
-      ? `Pour la prochaine étape, ${pronSujet.toLowerCase()} est invité(e) à ${prochainePhrases.join(' et à ')}.`
-      : `Pour continuer à progresser, ${pronSujet.toLowerCase()} est encouragé(e) à ${prochainePhrases.join(' et à ')}.`;
+      ? `Pour la prochaine étape, ${pronObj} est invité(e) à ${prochainePhrases.join(' et à ')}.`
+      : `Pour continuer à progresser, ${pronObj} est encouragé(e) à ${prochainePhrases.join(' et à ')}.`;
     parts.push(objectif);
   }
 
