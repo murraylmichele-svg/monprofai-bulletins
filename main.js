@@ -489,18 +489,7 @@ async function generateClasse() {
   const eleves = parsePaste(raw);
   if (eleves.length === 0) { alert('Aucun élève trouvé dans la liste collée.'); return; }
 
-  // Debug: log first student's cotes to console
-  if (eleves.length > 0) {
-    var e0 = eleves[0];
-    console.log('Student 1:', e0.prenom, e0.nom,
-      '| Maths:', e0['Mathématiques'],
-      '| Fr:', e0['Français'],
-      '| ÉtSoc:', e0['Études sociales'],
-      '| Sci:', e0['Sciences et technologie'],
-      '| ÉPS:', e0['Éducation physique et santé'],
-      '| Rel:', e0['Enseignement religieux']);
-  }
-
+ 
   const attentes = getSelectedAttentes();
   const btn = document.getElementById('btn-gen-classe');
   btn.disabled = true;
@@ -654,9 +643,12 @@ Le commentaire doit :
 - Utiliser le bon pronom (elle/il/iel)
 - Mentionner des forces observées et des pistes de progrès
 - Être en lien avec les attentes évaluées
-- Faire entre 150 et 350 mots (ou respecter la limite de la matière)
+- Respecter STRICTEMENT la limite de ${CHAR_LIMITS[matiere] || 700} caractères MAXIMUM (espaces compris)
+- Viser entre 80% et 95% de cette limite — ni trop court, ni au-dessus
+- Cette limite est absolue : un commentaire trop long sera coupé dans Aspen
 - Utiliser un ton professionnel, bienveillant et encourageant
-- Ne pas commencer par le prénom de l'élève
+- Commencer OBLIGATOIREMENT par le prénom de l'élève (ex: "Sophie démontre...", "Marc maîtrise...")
+- Utiliser ensuite le bon pronom (elle/il/iel) naturellement dans le reste du commentaire
 
 Élèves :
 ${elevesList}
@@ -778,7 +770,8 @@ Chaque version doit :
 - Mentionner des forces et des pistes de progrès
 - Utiliser le bon pronom
 - Avoir un ton professionnel et encourageant
-- Ne pas commencer par le prénom
+- Commencer OBLIGATOIREMENT par le prénom de l'élève (ex: "Sophie démontre...", "Marc maîtrise...")
+- Utiliser ensuite le bon pronom (elle/il/iel) naturellement dans le reste du commentaire
 
 Utilise ce format :
 ===VERSION 1===
