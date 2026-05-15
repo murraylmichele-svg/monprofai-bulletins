@@ -31,7 +31,10 @@ function setBulletinType(type) {
   bulletinType = type;
   document.getElementById('btn-type-progres').classList.toggle('active', type === 'progres');
   document.getElementById('btn-type-scolaire').classList.toggle('active', type === 'scolaire');
+  saveAttentesState();
+  const annee = document.getElementById('classe-annee').value;
   updateClasseAttentes();
+  if (annee) restoreAttentesState(annee);
 }
 
 function setIndBulletinType(type) {
