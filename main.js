@@ -511,25 +511,29 @@ async function generateClasse() {
     if (studentsWithGrade.length > 0) matiereMap[m] = studentsWithGrade;
   });
 
+ const BATCH_SIZE = 8;
   const matieresActives = Object.keys(matiereMap);
   if (matieresActives.length === 0) { alert('Aucune cote trouvée dans la liste.'); btn.disabled = false; return; }
 
   const allResults = {};
   eleves.forEach(e => { allResults[`${e.nom} ${e.prenom}`] = {}; });
 
+  // Count total batches for progress bar
+  let totalBatches = 0;
+  matieresActives.forEach(m => {
+    totalBatches += Math.ceil(matiereMap[m].length / BATCH_SIZE);
+  });
+  let batchDone = 0;
+
   for (let i = 0; i < matieresActives.length; i++) {
     const matiere = matieresActives[i];
     const studentsInMatiere = matiereMap[matiere];
-    const pct = Math.round(((i) / matieresActives.length) * 100);
-    progressFill.style.width = pct + '%';
-    progressText.textContent = `Génération pour ${matiere} (${i + 1}/${matieresActives.length})...`;
 
     const attentesMatiere = attentes[matiere] || [];
     let attentesText = attentesMatiere.length > 0
       ? `Attentes évaluées : ${attentesMatiere.join('; ')}`
       : 'Attentes générales de la matière';
 
-    // Pour Français, ajouter les notions sélectionnées dans le sélecteur de notions
     if (matiere === 'Français') {
       const notions = getSelectedFrancaisNotions();
       if (notions.length > 0) {
@@ -537,18 +541,33 @@ async function generateClasse() {
       }
     }
 
-    const prompt = buildClassePrompt(matiere, annee, studentsInMatiere, attentesText, bulletinType);
+    // Split students into batches of BATCH_SIZE
+    for (let b = 0; b < studentsInMatiere.length; b += BATCH_SIZE) {
+      const batch = studentsInMatiere.slice(b, b + BATCH_SIZE);
+      const batchNum = Math.floor(b / BATCH_SIZE) + 1;
+      const totalBatchesForMatiere = Math.ceil(studentsInMatiere.length / BATCH_SIZE);
 
-    try {
-      const response = await callClaude(prompt);
-      const parsed = parseClasseResponse(response, studentsInMatiere, matiere);
-      parsed.forEach(({ eleve, commentaire }) => {
-        const key = `${eleve.nom} ${eleve.prenom}`;
-        if (!allResults[key]) allResults[key] = {};
-        allResults[key][matiere] = { cote: eleve[matiere], commentaire };
-      });
-    } catch (err) {
-      console.error('Erreur pour', matiere, err);
+      const pct = Math.round((batchDone / totalBatches) * 100);
+      progressFill.style.width = pct + '%';
+      progressText.textContent = totalBatchesForMatiere > 1
+        ? `Génération pour ${matiere} — groupe ${batchNum}/${totalBatchesForMatiere}...`
+        : `Génération pour ${matiere}...`;
+
+      const prompt = buildClassePrompt(matiere, annee, batch, attentesText, bulletinType);
+
+      try {
+        const response = await callClaude(prompt);
+        const parsed = parseClasseResponse(response, batch, matiere);
+        parsed.forEach(({ eleve, commentaire }) => {
+          const key = `${eleve.nom} ${eleve.prenom}`;
+          if (!allResults[key]) allResults[key] = {};
+          allResults[key][matiere] = { cote: eleve[matiere], commentaire };
+        });
+      } catch (err) {
+        console.error('Erreur pour', matiere, 'groupe', batchNum, err);
+      }
+
+      batchDone++;
     }
   }
 
