@@ -1418,6 +1418,68 @@ const ATTENTES = {
   // Curriculum catholique de l'Ontario
   // 4 rubriques : 1-Révélation, 2-Foi vécue, 3-Vie spirituelle et sacramentelle, 4-Agir et engagement
   // ──────────────────────────────────────────────────────────────
+  'Anglais': {
+  '4': {
+    'Communication orale': [
+      'Utiliser des stratégies d\'écoute active pour comprendre des communications orales simples',
+      'Contribuer des idées et opinions aux discussions en classe avec courtoisie et respect',
+      'Utiliser un vocabulaire de base et des conventions de langage parlé appropriés',
+      'Préparer et présenter de courtes présentations orales simples'
+    ],
+    'Lecture et interprétation': [
+      'Utiliser des stratégies de compréhension simples pour comprendre des textes variés',
+      'Identifier les idées importantes dans des textes littéraires et informatifs',
+      'Identifier la forme, la structure et les éléments de différents types de textes',
+      'Démontrer des habiletés de littératie critique de base'
+    ],
+    'Écriture et représentation': [
+      'Générer et organiser des idées pour écrire selon un but et un public cibles',
+      'Écrire des textes simples dans diverses formes (poèmes, paragraphes narratifs, textes descriptifs)',
+      'Réviser et corriger ses textes en appliquant les conventions linguistiques de base',
+      'Produire un travail final propre en utilisant des techniques de mise en page simples'
+    ]
+  },
+  '5': {
+    'Communication orale': [
+      'Utiliser des stratégies d\'écoute active et des habiletés de pensée variées pour comprendre des communications orales',
+      'Contribuer des idées et opinions aux discussions en défendant ses opinions avec des preuves',
+      'Utiliser un vocabulaire nouveau et familier et les conventions du langage parlé correctement',
+      'Préparer et présenter des présentations orales variées de façon indépendante ou collaborative'
+    ],
+    'Lecture et interprétation': [
+      'Utiliser des stratégies de compréhension pour comprendre des textes littéraires et informatifs variés',
+      'Identifier et expliquer les causes des événements et conflits dans des textes narratifs',
+      'Identifier la forme, la structure et les éléments de textes variés (romans, poèmes, scripts, textes explicatifs)',
+      'Démontrer des habiletés de littératie critique en identifiant les messages et perspectives dans les textes'
+    ],
+    'Écriture et représentation': [
+      'Générer et organiser des idées pour écrire selon un but et un public cibles',
+      'Écrire des textes dans diverses formes (poèmes avec rime, scripts, paragraphes explicatifs, textes procéduraux)',
+      'Réviser et corriger ses textes en appliquant les conventions linguistiques appropriées',
+      'Produire un travail final en utilisant diverses techniques de mise en page et de présentation'
+    ]
+  },
+  '6': {
+    'Communication orale': [
+      'Utiliser des stratégies d\'écoute active pour comprendre des communications orales variées et identifier les points de vue',
+      'Contribuer des idées aux discussions en comparant ses propres points de vue à ceux des autres',
+      'Incorporer un vocabulaire nouveau et spécialisé dans les discussions et présentations',
+      'Préparer et présenter des présentations orales variées en appliquant les techniques appropriées'
+    ],
+    'Lecture et interprétation': [
+      'Identifier et résumer les idées importantes dans des textes littéraires et informatifs en fournissant des interprétations',
+      'Distinguer faits et opinions dans des textes informatifs provenant de divers médias',
+      'Identifier les éléments de différentes formes de textes (roman fantastique, poèmes, paragraphes persuasifs, biographies)',
+      'Démontrer des habiletés de littératie critique en analysant les messages, perspectives et techniques dans les textes'
+    ],
+    'Écriture et représentation': [
+      'Générer et organiser des idées pour écrire selon un but et un public cibles',
+      'Écrire des textes variés (fiction, narration personnelle, poèmes, paragraphes persuasifs, résumés d\'événements, biographies)',
+      'Réviser et corriger ses textes en appliquant les conventions linguistiques appropriées à la 6e année',
+      'Produire un travail final soigné en utilisant diverses techniques et ressources de mise en page'
+    ]
+  }
+},
   'Enseignement religieux': {
     '1': {
       'Thème : Un Dieu présent': [
