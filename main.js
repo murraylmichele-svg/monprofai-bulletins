@@ -357,7 +357,6 @@ function parsePaste(raw) {
       'Enseignement religieux': getCote(23),
       'Enseignement religieux_obs': cols[24] || '',
       observations: cols[25] || ''
-      observations: cols[23] || ''
     };
   }).filter(function(e) {
     return e.nom.trim() !== '' || e.prenom.trim() !== '';
