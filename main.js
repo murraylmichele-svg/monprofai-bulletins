@@ -1410,12 +1410,39 @@ function triggerDownload(html, filename) {
 
 // ── SHEET HEADERS ─────────────────────────────────────────────
 function copySheetHeaders(type) {
-  const headers = [
+  const progresHeaders = [
     'Nom', 'Prénom', 'Pronom',
-    'Mathématiques', 'Français', 'Anglais', 'Études sociales', 'Sciences et technologie',
-    'Arts (arts visuels)', 'Arts (musique)', 'Arts (danse)', 'Arts (art dramatique)',
-    'Éducation physique et santé', 'Enseignement religieux', 'Observations'
+    'Mathématiques', 'Obs Mathématiques',
+    'Français', 'Obs Français',
+    'Anglais', 'Obs Anglais',
+    'Études sociales', 'Obs Études sociales',
+    'Sciences et technologie', 'Obs Sciences et technologie',
+    'Arts (arts visuels)', 'Obs Arts (arts visuels)',
+    'Arts (musique)', 'Obs Arts (musique)',
+    'Arts (danse)', 'Obs Arts (danse)',
+    'Arts (art dramatique)', 'Obs Arts (art dramatique)',
+    'Éducation physique et santé', 'Obs Éducation physique et santé',
+    'Enseignement religieux', 'Obs Enseignement religieux',
+    'Observations'
   ].join('\t');
+
+  const scolaireHeaders = [
+    'Nom', 'Prénom', 'Pronom',
+    'Mathématiques', 'Obs Mathématiques',
+    'Français', 'Obs Français',
+    'Anglais', 'Obs Anglais',
+    'Études sociales', 'Obs Études sociales',
+    'Sciences et technologie', 'Obs Sciences et technologie',
+    'Arts (arts visuels)', 'Obs Arts (arts visuels)',
+    'Arts (musique)', 'Obs Arts (musique)',
+    'Arts (danse)', 'Obs Arts (danse)',
+    'Arts (art dramatique)', 'Obs Arts (art dramatique)',
+    'Éducation physique et santé', 'Obs Éducation physique et santé',
+    'Enseignement religieux', 'Obs Enseignement religieux',
+    'Observations'
+  ].join('\t');
+
+  const headers = type === 'progres' ? progresHeaders : scolaireHeaders;
 
   navigator.clipboard.writeText(headers).then(() => {
     const successEl = document.getElementById('headers-success');
