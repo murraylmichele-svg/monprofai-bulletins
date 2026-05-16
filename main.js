@@ -669,6 +669,7 @@ Le commentaire doit :
 - Viser entre 80% et 95% de cette limite — ni trop court, ni au-dessus
 - Cette limite est absolue : un commentaire trop long sera coupé dans Aspen
 - Utiliser un ton professionnel, bienveillant et encourageant
+- Ne jamais utiliser "je" ou "nous" — utiliser uniquement un ton impersonnel (ex: "il est encouragé à...", "elle bénéficierait de...")
 - Commencer OBLIGATOIREMENT par le prénom de l'élève (ex: "Sophie démontre...", "Marc maîtrise...")
 - Utiliser ensuite le bon pronom (elle/il/iel) naturellement dans le reste du commentaire
 
