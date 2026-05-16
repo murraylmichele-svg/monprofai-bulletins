@@ -278,14 +278,15 @@ function slugify(str) {
 // 0=Nom 1=Prénom 2=Pronom
 // 3=Cote Maths 4=Obs Maths
 // 5=Cote Français 6=Obs Français
-// 7=Cote ÉtSoc 8=Obs ÉtSoc
-// 9=Cote Sciences 10=Obs Sciences
-// 11=Cote Arts visuels 12=Obs Arts visuels
-// 13=Cote Arts musique 14=Obs Arts musique
-// 15=Cote Arts danse 16=Obs Arts danse
-// 17=Cote Arts dram 18=Obs Arts dram
-// 19=Cote ÉPS 20=Obs ÉPS
-// 21=Cote Religion 22=Obs Religion
+// 7=Cote Anglais 8=Obs Anglais
+// 9=Cote ÉtSoc 10=Obs ÉtSoc
+// 11=Cote Sciences 12=Obs Sciences
+// 13=Cote Arts visuels 14=Obs Arts visuels
+// 15=Cote Arts musique 16=Obs Arts musique
+// 17=Cote Arts danse 18=Obs Arts danse
+// 19=Cote Arts dram 20=Obs Arts dram
+// 21=Cote ÉPS 22=Obs ÉPS
+// 23=Cote Religion 24=Obs Religion
 function parsePaste(raw) {
   var lines = raw.trim().split('\n').filter(function(l) { return l.trim(); });
 
@@ -337,23 +338,25 @@ function parsePaste(raw) {
       'Mathématiques': getCote(3),
       'Mathématiques_obs': cols[4] || '',
       'Français': getCote(5),
-      'Français_obs': cols[6] || '',
-      'Études sociales': getCote(7),
-      'Études sociales_obs': cols[8] || '',
-      'Sciences et technologie': getCote(9),
-      'Sciences et technologie_obs': cols[10] || '',
-      'Arts (arts visuels)': getCote(11),
-      'Arts (arts visuels)_obs': cols[12] || '',
-      'Arts (musique)': getCote(13),
-      'Arts (musique)_obs': cols[14] || '',
-      'Arts (danse)': getCote(15),
-      'Arts (danse)_obs': cols[16] || '',
-      'Arts (art dramatique)': getCote(17),
-      'Arts (art dramatique)_obs': cols[18] || '',
-      'Éducation physique et santé': getCote(19),
-      'Éducation physique et santé_obs': cols[20] || '',
-      'Enseignement religieux': getCote(21),
-      'Enseignement religieux_obs': cols[22] || '',
+      'Anglais': getCote(7),
+      'Anglais_obs': cols[8] || '',
+      'Études sociales': getCote(9),
+      'Études sociales_obs': cols[10] || '',
+      'Sciences et technologie': getCote(11),
+      'Sciences et technologie_obs': cols[12] || '',
+      'Arts (arts visuels)': getCote(13),
+      'Arts (arts visuels)_obs': cols[14] || '',
+      'Arts (musique)': getCote(15),
+      'Arts (musique)_obs': cols[16] || '',
+      'Arts (danse)': getCote(17),
+      'Arts (danse)_obs': cols[18] || '',
+      'Arts (art dramatique)': getCote(19),
+      'Arts (art dramatique)_obs': cols[20] || '',
+      'Éducation physique et santé': getCote(21),
+      'Éducation physique et santé_obs': cols[22] || '',
+      'Enseignement religieux': getCote(23),
+      'Enseignement religieux_obs': cols[24] || '',
+      observations: cols[25] || ''
       observations: cols[23] || ''
     };
   }).filter(function(e) {
@@ -1410,7 +1413,7 @@ function triggerDownload(html, filename) {
 function copySheetHeaders(type) {
   const headers = [
     'Nom', 'Prénom', 'Pronom',
-    'Mathématiques', 'Français', 'Études sociales', 'Sciences et technologie',
+    'Mathématiques', 'Français', 'Anglais', 'Études sociales', 'Sciences et technologie',
     'Arts (arts visuels)', 'Arts (musique)', 'Arts (danse)', 'Arts (art dramatique)',
     'Éducation physique et santé', 'Enseignement religieux', 'Observations'
   ].join('\t');
