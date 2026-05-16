@@ -1433,7 +1433,10 @@ function copySheetHeaders(type) {
 async function callClaude(prompt) {
   const response = await fetch(RAILWAY_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Proxy-Secret': 'monprof-juin2026'
+    },
     body: JSON.stringify({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 8000,
