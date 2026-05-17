@@ -1478,7 +1478,7 @@ const ATTENTES = {
       'Réviser et corriger ses textes en appliquant les conventions linguistiques appropriées à la 6e année',
       'Produire un travail final soigné en utilisant diverses techniques et ressources de mise en page'
     ]
-  }
+  },
 
   'Enseignement religieux': {
     '1': {
