@@ -1479,6 +1479,7 @@ const ATTENTES = {
       'Produire un travail final soigné en utilisant diverses techniques et ressources de mise en page'
     ]
   },
+  },
 
   'Enseignement religieux': {
     '1': {
