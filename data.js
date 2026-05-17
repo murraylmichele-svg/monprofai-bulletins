@@ -4,7 +4,7 @@
 // ════════════════════════════════════════════════════════════════
 
 const MATIERES = [
-  'Mathématiques','Français','Études sociales','Sciences et technologie',
+  'Mathématiques','Français','Anglais','Études sociales','Sciences et technologie',
   'Arts (arts visuels)','Arts (musique)','Arts (danse)','Arts (art dramatique)',
   'Éducation physique et santé','Enseignement religieux'
 ];
