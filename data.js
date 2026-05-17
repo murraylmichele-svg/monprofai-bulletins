@@ -1421,7 +1421,7 @@ const ATTENTES = {
   'Anglais': {
   '4': {
     'Communication orale': [
-      'Utiliser des stratégies d\'écoute active pour comprendre des communications orales simples',
+      "Utiliser des strategies d'ecoute active pour comprendre des communications orales simples",
       'Contribuer des idées et opinions aux discussions en classe avec courtoisie et respect',
       'Utiliser un vocabulaire de base et des conventions de langage parlé appropriés',
       'Préparer et présenter de courtes présentations orales simples'
@@ -1441,7 +1441,7 @@ const ATTENTES = {
   },
   '5': {
     'Communication orale': [
-      'Utiliser des stratégies d\'écoute active et des habiletés de pensée variées pour comprendre des communications orales',
+      "Utiliser des strategies d'ecoute active et des habiletes de pensee variees pour comprendre des communications orales",
       'Contribuer des idées et opinions aux discussions en défendant ses opinions avec des preuves',
       'Utiliser un vocabulaire nouveau et familier et les conventions du langage parlé correctement',
       'Préparer et présenter des présentations orales variées de façon indépendante ou collaborative'
@@ -1461,7 +1461,7 @@ const ATTENTES = {
   },
   '6': {
     'Communication orale': [
-      'Utiliser des stratégies d\'écoute active pour comprendre des communications orales variées et identifier les points de vue',
+      "Utiliser des strategies d'ecoute active pour comprendre des communications orales variees et identifier les points de vue",
       'Contribuer des idées aux discussions en comparant ses propres points de vue à ceux des autres',
       'Incorporer un vocabulaire nouveau et spécialisé dans les discussions et présentations',
       'Préparer et présenter des présentations orales variées en appliquant les techniques appropriées'
