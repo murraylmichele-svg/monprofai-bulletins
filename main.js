@@ -1245,7 +1245,15 @@ function assembleComment() {
 
   if (peiSentence) parts.push(peiSentence);
 
-  const comment = parts.join(' ').trim();
+  let comment = parts.join(' ').trim();
+// Resolve pronoun placeholders
+if (pronom === 'elle') {
+  comment = comment.replace(/elle\/il/g, 'elle').replace(/encouragé\(e\)/g, 'encouragée').replace(/invité\(e\)/g, 'invitée').replace(/soutenu\(e\)/g, 'soutenue');
+} else if (pronom === 'il') {
+  comment = comment.replace(/elle\/il/g, 'il').replace(/encouragé\(e\)/g, 'encouragé').replace(/invité\(e\)/g, 'invité').replace(/soutenu\(e\)/g, 'soutenu');
+} else {
+  comment = comment.replace(/elle\/il/g, 'iel').replace(/encouragé\(e\)/g, 'encouragé·e').replace(/invité\(e\)/g, 'invité·e').replace(/soutenu\(e\)/g, 'soutenu·e');
+}
   const box = document.getElementById('hab-assembled-box');
   if (comment) {
     box.textContent = comment;
