@@ -1361,14 +1361,44 @@ function downloadWord() {
 }
 
 function downloadCombinedWord() {
-  let content = '<h1 style="font-family:Calibri,sans-serif; color:#1a3a5c;">Habiletés et habitudes de travail</h1>';
+  const HAB_DISPLAY = {
+    oral: "Utilisation du français oral",
+    fiabilite: "Fiabilité",
+    organisation: "Sens de l'organisation",
+    autonomie: "Autonomie",
+    collaboration: "Esprit de collaboration",
+    initiative: "Sens de l'initiative",
+    autoregulation: "Autorégulation"
+  };
+
+  let content = '';
   habRoster.forEach(e => {
+    // Build cotes table
+    let cotesRows = '';
+    Object.keys(HAB_DISPLAY).forEach(hab => {
+      const cote = e.cotes[hab] || '—';
+      cotesRows += `<tr>
+        <td style="padding:4px 10px; border-bottom:1px solid #eee; font-size:10pt;">${HAB_DISPLAY[hab]}</td>
+        <td style="padding:4px 10px; border-bottom:1px solid #eee; font-size:10pt; font-weight:bold; text-align:center;">${cote}</td>
+      </tr>`;
+    });
+
     content += `
-      <div style="margin-bottom:20px; border:1px solid #ddd; padding:16px; border-radius:6px;">
-        <h3 style="font-family:Calibri,sans-serif; margin:0 0 6px; color:#1a3a5c;">${e.nom ? e.nom + ', ' : ''}${e.prenom}</h3>
-        <p style="font-family:Calibri,sans-serif; font-size:11pt; line-height:1.5; margin:0;">${e.comment}</p>
+      <div style="margin-bottom:28px; border:1px solid #ddd; padding:16px; border-radius:6px; font-family:Calibri,sans-serif;">
+        <h3 style="margin:0 0 12px; color:#1a3a5c; font-size:13pt;">${e.nom ? e.nom + ', ' : ''}${e.prenom}</h3>
+        <table style="width:50%; border-collapse:collapse; margin-bottom:12px;">
+          <thead>
+            <tr>
+              <th style="background:#1a3a5c; color:#fff; padding:5px 10px; text-align:left; font-size:10pt;">Habileté</th>
+              <th style="background:#1a3a5c; color:#fff; padding:5px 10px; text-align:center; font-size:10pt; width:60px;">Cote</th>
+            </tr>
+          </thead>
+          <tbody>${cotesRows}</tbody>
+        </table>
+        <p style="font-size:11pt; line-height:1.5; margin:0; border-top:1px solid #eee; padding-top:10px;">${e.comment}</p>
       </div>`;
   });
+
   const html = buildDownloadHTML('Habiletés et habitudes de travail', content);
   triggerDownload(html, 'habiletes-habitudes.html');
 }
