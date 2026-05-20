@@ -105,7 +105,10 @@ function selectPronomHab(p) {
     const btn = document.getElementById('btn-' + x + '-hab');
     if (btn) btn.classList.toggle('selected', x === p);
   });
-  assembleComment();
+  // Only reassemble if there's already a comment built — don't wipe manual edits
+  const box = document.getElementById('hab-assembled-box');
+  const hasContent = box && box.textContent.trim() && !box.textContent.includes('assemblera ici');
+  if (hasContent) assembleComment();
 }
 
 // ── INDIVIDUEL — MATIÈRE / ATTENTES ──────────────────────────
@@ -1136,7 +1139,18 @@ function renderForcesProchaines() {
     phrases.forEach((phrase, idx) => {
       const label = document.createElement('label');
       label.style.cssText = 'display:flex; gap:8px; align-items:flex-start; font-size:13px; margin-bottom:6px; cursor:pointer;';
-      label.innerHTML = `<input type="radio" name="force-${hab}" value="${idx}" style="accent-color:var(--bleu); margin-top:3px; flex-shrink:0;" onchange="assembleComment()"> <span>${phrase}</span>`;
+      label.innerHTML = `<input type="radio" name="force-${hab}" value="${idx}" style="accent-color:var(--bleu); margin-top:3px; flex-shrink:0;"> <span>${phrase}</span>`;
+const radio = label.querySelector('input');
+radio.addEventListener('click', function() {
+  if (this.dataset.wasChecked === 'true') {
+    this.checked = false;
+    this.dataset.wasChecked = 'false';
+  } else {
+    document.querySelectorAll(`input[name="force-${hab}"]`).forEach(r => r.dataset.wasChecked = 'false');
+    this.dataset.wasChecked = 'true';
+  }
+  assembleComment();
+});
       block.appendChild(label);
     });
     forcesContainer.appendChild(block);
@@ -1152,7 +1166,18 @@ function renderForcesProchaines() {
     phrases.forEach((phrase, idx) => {
       const label = document.createElement('label');
       label.style.cssText = 'display:flex; gap:8px; align-items:flex-start; font-size:13px; margin-bottom:6px; cursor:pointer;';
-      label.innerHTML = `<input type="radio" name="prochaine-${hab}" value="${idx}" style="accent-color:var(--bleu); margin-top:3px; flex-shrink:0;" onchange="assembleComment()"> <span>${phrase}</span>`;
+      label.innerHTML = `<input type="radio" name="prochaine-${hab}" value="${idx}" style="accent-color:var(--bleu); margin-top:3px; flex-shrink:0;"> <span>${phrase}</span>`;
+const radio = label.querySelector('input');
+radio.addEventListener('click', function() {
+  if (this.dataset.wasChecked === 'true') {
+    this.checked = false;
+    this.dataset.wasChecked = 'false';
+  } else {
+    document.querySelectorAll(`input[name="prochaine-${hab}"]`).forEach(r => r.dataset.wasChecked = 'false');
+    this.dataset.wasChecked = 'true';
+  }
+  assembleComment();
+});
       block.appendChild(label);
     });
     prochinesContainer.appendChild(block);
@@ -1519,6 +1544,24 @@ async function callClaude(prompt) {
   } else {
     throw new Error('Réponse API inattendue: ' + JSON.stringify(data));
   }
+}
+
+function prochainEleve() {
+  saveHabComment();
+  document.getElementById('prenom-hab').value = '';
+  document.getElementById('nom-hab').value = '';
+  selectPronomHab('elle');
+  Object.keys(COTES_STATE).forEach(h => {
+    COTES_STATE[h] = null;
+    const container = document.getElementById('hab-' + h);
+    if (container) container.querySelectorAll('.cote-btn').forEach(b => b.className = 'cote-btn');
+  });
+  document.getElementById('hab-assembled-box').innerHTML = '<p style="color:#999; font-style:italic; font-size:13px;">Le commentaire s\'assemblera ici au fur et à mesure de vos sélections.</p>';
+  document.getElementById('hab-char-count').textContent = '0 / 2560 caractères';
+  const peiCheck = document.getElementById('pei-check');
+  if (peiCheck) { peiCheck.checked = false; togglePEI(); }
+  renderForcesProchaines();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── INIT ──────────────────────────────────────────────────────
