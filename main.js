@@ -707,12 +707,14 @@ function parseClasseResponse(text, eleves, matiere) {
       : block.substring(nameEnd + 3).trim();
 
     const eleve = eleves.find(e => {
-        const fullName = e.prenom.toLowerCase() + ' ' + e.nom.toLowerCase();
-        const nameL = name.toLowerCase();
-        return nameL === fullName || nameL.includes(fullName) || nameL.includes(e.prenom.toLowerCase() + ' ');
+        const nameL = name.toLowerCase().trim();
+        const prenomNom = (e.prenom + ' ' + e.nom).toLowerCase();
+        const nomPrenom = (e.nom + ' ' + e.prenom).toLowerCase();
+        return nameL === prenomNom || nameL === nomPrenom;
+      }) || eleves.find(e => {
+        const nameL = name.toLowerCase().trim();
+        return nameL.includes(e.prenom.toLowerCase()) && nameL.includes(e.nom.toLowerCase());
       });
-    if (eleve) results.push({ eleve, commentaire });
-  });
 
   // Fallback: match by order if parsing fails
   if (results.length === 0 && eleves.length === 1) {
