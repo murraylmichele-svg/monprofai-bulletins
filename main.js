@@ -664,29 +664,31 @@ Année d'études : ${annee}e année
 ${typeLabel}
 ${attentesText}
 
-Génère un commentaire de bulletin en français pour chacun des élèves suivants. 
-Le commentaire doit :
-- Être personnalisé selon la cote et le prénom de l'élève
-- Utiliser le bon pronom (elle/il/iel)
+Tu dois générer un commentaire de bulletin en français pour CHACUN des ${eleves.length} élèves listés ci-dessous.
+IMPORTANT : Tu dois produire exactement ${eleves.length} commentaire(s) — un par élève — sans en omettre aucun.
+
+RÈGLES ABSOLUES pour chaque commentaire :
+- Commencer OBLIGATOIREMENT par le prénom de l'élève (ex : "Sophie démontre...", "Marc maîtrise...")
+- Le pronom de chaque élève est indiqué entre parenthèses — utiliser CE pronom exactement pour TOUS les accords grammaticaux (sujet, adjectifs, participes passés avec être)
+- Si le pronom est "il" : utiliser "il", "son", "encouragé", "invité", "motivé" (formes masculines)
+- Si le pronom est "elle" : utiliser "elle", "sa", "encouragée", "invitée", "motivée" (formes féminines)
+- Ne JAMAIS mélanger les pronoms dans un même commentaire
 - Mentionner des forces observées et des pistes de progrès
 - Être en lien avec les attentes évaluées
 - Respecter STRICTEMENT la limite de ${CHAR_LIMITS[matiere] || 700} caractères MAXIMUM (espaces compris)
-- Viser entre 80% et 95% de cette limite — ni trop court, ni au-dessus
-- Cette limite est absolue : un commentaire trop long sera coupé dans Aspen
+- Viser entre 80% et 95% de cette limite
 - Utiliser un ton professionnel, bienveillant et encourageant
-- Ne jamais utiliser "je" ou "nous" — utiliser uniquement un ton impersonnel (ex: "il est encouragé à...", "elle bénéficierait de...")
-- Commencer OBLIGATOIREMENT par le prénom de l'élève (ex: "Sophie démontre...", "Marc maîtrise...")
-- Utiliser ensuite le bon pronom (elle/il/iel) naturellement dans le reste du commentaire
+- Ne jamais utiliser "je" ou "nous" — ton impersonnel uniquement
 
-Élèves :
+Élèves (prénom nom — pronom — cote) :
 ${elevesList}
 
-Format de réponse OBLIGATOIRE (utiliser exactement ces séparateurs) :
-===ÉLÈVE: [Prénom Nom]===
+Format de réponse OBLIGATOIRE — utiliser exactement ces séparateurs, dans cet ordre :
+===ÉLÈVE: [Prénom] [Nom]===
 [commentaire]
 ===FIN===
 
-Génère les commentaires pour tous les élèves listés.`;
+Répète ce bloc pour chacun des ${eleves.length} élèves. Ne saute aucun élève.`;
 }
 
 function parseClasseResponse(text, eleves, matiere) {
@@ -702,12 +704,13 @@ function parseClasseResponse(text, eleves, matiere) {
       ? block.substring(nameEnd + 3, endIdx).trim()
       : block.substring(nameEnd + 3).trim();
 
-    const eleve = eleves.find(e =>
-      name.toLowerCase().includes(e.prenom.toLowerCase()) ||
-      name.toLowerCase().includes(e.nom.toLowerCase())
-    );
-    if (eleve) results.push({ eleve, commentaire });
-  });
+    const eleve = eleves.find(e => {
+      const fullName = `${e.prenom} ${e.nom}`.toLowerCase();
+      const nameL = name.toLowerCase();
+      return nameL === fullName ||
+        nameL.includes(e.prenom.toLowerCase() + ' ' + e.nom.toLowerCase()) ||
+        nameL.includes(e.nom.toLowerCase() + ' ' + e.prenom.toLowerCase());
+    }) || eleves.find(e => name.toLowerCase().includes(e.prenom.toLowerCase()));
 
   // Fallback: match by order if parsing fails
   if (results.length === 0 && eleves.length === 1) {
