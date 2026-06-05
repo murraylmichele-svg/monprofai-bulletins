@@ -651,42 +651,46 @@ async function generateClasse() {
 function buildClassePrompt(matiere, annee, eleves, attentesText, type) {
   const typeLabel = getBulletinTypeLabel(type);
   const elevesList = eleves.map(e => {
-    // Use subject-specific observations if available, fall back to general observations
     const subjectObs = e[matiere + '_obs'] || e.observations || '';
-    const obs = subjectObs ? ` [Note : ${subjectObs}]` : '';
-    return `- ${e.prenom} ${e.nom} (${e.pronom}) : cote ${e[matiere]}${obs}`;
+    const obs = subjectObs ? ' [Note : ' + subjectObs + ']' : '';
+    return '- ' + e.prenom + ' ' + e.nom + ' (' + e.pronom + ') : cote ' + e[matiere] + obs;
   }).join('\n');
 
-  return `Tu es un expert en rédaction de bulletins scolaires pour les écoles de langue française catholiques de l'Ontario.
-
-Matière : ${matiere}
-Année d'études : ${annee}e année
-${typeLabel}
-${attentesText}
-
-Génère un commentaire de bulletin en français pour chacun des élèves suivants. 
-Le commentaire doit :
-- Être personnalisé selon la cote et le prénom de l'élève
-- Utiliser le bon pronom (elle/il/iel)
-- Mentionner des forces observées et des pistes de progrès
-- Être en lien avec les attentes évaluées
-- Respecter STRICTEMENT la limite de ${CHAR_LIMITS[matiere] || 700} caractères MAXIMUM (espaces compris)
-- Viser entre 80% et 95% de cette limite — ni trop court, ni au-dessus
-- Cette limite est absolue : un commentaire trop long sera coupé dans Aspen
-- Utiliser un ton professionnel, bienveillant et encourageant
-- Ne jamais utiliser "je" ou "nous" — utiliser uniquement un ton impersonnel (ex: "il est encouragé à...", "elle bénéficierait de...")
-- Commencer OBLIGATOIREMENT par le prénom de l'élève (ex: "Sophie démontre...", "Marc maîtrise...")
-- Utiliser ensuite le bon pronom (elle/il/iel) naturellement dans le reste du commentaire
-
-Élèves :
-${elevesList}
-
-Format de réponse OBLIGATOIRE (utiliser exactement ces séparateurs) :
-===ÉLÈVE: [Prénom Nom]===
-[commentaire]
-===FIN===
-
-Génère les commentaires pour tous les élèves listés.`;
+  const limit = CHAR_LIMITS[matiere] || 700;
+  const lines = [
+    'Tu es un expert en redaction de bulletins scolaires pour les ecoles de langue francaise catholiques de l\'Ontario.',
+    '',
+    'Matiere : ' + matiere,
+    'Annee : ' + annee + 'e annee',
+    typeLabel,
+    attentesText,
+    '',
+    'Tu dois generer un commentaire pour CHACUN des ' + eleves.length + ' eleves ci-dessous.',
+    'IMPORTANT : Produire exactement ' + eleves.length + ' commentaire(s), sans en omettre aucun.',
+    '',
+    'REGLES ABSOLUES :',
+    '- Commencer par le prenom de l\'eleve',
+    '- Utiliser le pronom indique entre parentheses pour TOUS les accords',
+    '- Si pronom il : formes masculines (encourage, invite, motive)',
+    '- Si pronom elle : formes feminines (encouragee, invitee, motivee)',
+    '- Ne jamais melanger les pronoms',
+    '- Mentionner forces et pistes de progres',
+    '- Respecter la limite de ' + limit + ' caracteres MAXIMUM',
+    '- Viser entre 80% et 95% de cette limite',
+    '- Ton professionnel, bienveillant et encourageant',
+    '- Jamais je ou nous - ton impersonnel uniquement',
+    '',
+    'Eleves (prenom nom - pronom - cote) :',
+    elevesList,
+    '',
+    'Format OBLIGATOIRE :',
+    '===ELEVE: [Prenom] [Nom]===',
+    '[commentaire]',
+    '===FIN===',
+    '',
+    'Repete ce bloc pour chacun des ' + eleves.length + ' eleves. Ne saute aucun eleve.'
+  ];
+  return lines.join('\n');
 }
 
 function parseClasseResponse(text, eleves, matiere) {
