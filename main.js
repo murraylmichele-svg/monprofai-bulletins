@@ -706,13 +706,16 @@ function parseClasseResponse(text, eleves, matiere) {
       ? block.substring(nameEnd + 3, endIdx).trim()
       : block.substring(nameEnd + 3).trim();
 
-    const eleve = eleves.find(e => {
-        if (results.some(r => r.eleve === e)) return false;
-        const nameL = name.toLowerCase().trim();
+    const nameL = name.toLowerCase().trim();
+      const eleve = eleves.find(e => {
         const prenomNom = (e.prenom + ' ' + e.nom).toLowerCase();
         const nomPrenom = (e.nom + ' ' + e.prenom).toLowerCase();
         return nameL === prenomNom || nameL === nomPrenom;
       }) || eleves.find(e => {
+        const prenomNom = (e.prenom + ' ' + e.nom).toLowerCase();
+        const nomPrenom = (e.nom + ' ' + e.prenom).toLowerCase();
+        return nameL.includes(prenomNom) || nameL.includes(nomPrenom);
+      });
         if (results.some(r => r.eleve === e)) return false;
         const nameL = name.toLowerCase().trim();
         return nameL.includes(e.prenom.toLowerCase()) && nameL.includes(e.nom.toLowerCase());
