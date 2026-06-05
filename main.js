@@ -695,7 +695,7 @@ function buildClassePrompt(matiere, annee, eleves, attentesText, type) {
 
 function parseClasseResponse(text, eleves, matiere) {
   const results = [];
-  const blocks = text.split(/===ÉL[EÈ]VE:|===ELEVE:/);
+  const blocks = text.split('===ELEVE:');
   blocks.forEach(block => {
     if (!block.trim()) return;
     const endIdx = block.indexOf('===FIN===');
