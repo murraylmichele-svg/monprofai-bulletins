@@ -631,7 +631,7 @@ async function generateClasse() {
         <td class="edit-cell">
           <button class="btn-mini" onclick="copyComment('${rowId}')">Copier</button>
           <button class="btn-mini" onclick="editComment('${rowId}')">✏️</button>
-          <div style="font-size:11px; font-weight:${over ? '700' : '400'}; color:${over ? 'var(--rouge-doux)' : '#666'}; margin-top:6px; padding:2px 6px; background:${over ? '#fff0f0' : '#f4f4f4'}; border-radius:4px; display:inline-block;" id="count-${rowId}">${charCount} / ${limit}</div>
+          <div style="font-size:11px; font-weight:${over ? '700' : '400'}; color:${over ? 'var(--rouge-doux)' : '#666'}; margin-top:6px; padding:2px 6px; background:${over ? '#fff0f0' : '#f4f4f4'}; border-radius:4px; display:inline-block;" id="count-${rowId}">${charCount} / ${limit}</div>
         </td>`;
       tbody.appendChild(tr);
     });
@@ -651,37 +651,44 @@ async function generateClasse() {
 function buildClassePrompt(matiere, annee, eleves, attentesText, type) {
   const typeLabel = getBulletinTypeLabel(type);
   const elevesList = eleves.map(e => {
+    // Use subject-specific observations if available, fall back to general observations
     const subjectObs = e[matiere + '_obs'] || e.observations || '';
-    const obs = subjectObs ? ' [Note : ' + subjectObs + ']' : '';
-    return '- ' + e.prenom + ' ' + e.nom + ' (' + e.pronom + ') : cote ' + e[matiere] + obs;
+    const obs = subjectObs ? ` [Note : ${subjectObs}]` : '';
+    return `- ${e.prenom} ${e.nom} (${e.pronom}) : cote ${e[matiere]}${obs}`;
   }).join('\n');
 
-  return 'Tu es un expert en redaction de bulletins scolaires pour les ecoles de langue francaise catholiques de l\'Ontario.\n\n'
-    + 'Matiere : ' + matiere + '\n'
-    + 'Annee : ' + annee + 'e annee\n'
-    + typeLabel + '\n'
-    + attentesText + '\n\n'
-    + 'Tu dois generer un commentaire pour CHACUN des ' + eleves.length + ' eleves ci-dessous.\n'
-    + 'IMPORTANT : Produire exactement ' + eleves.length + ' commentaire(s), sans en omettre aucun.\n\n'
-    + 'REGLES ABSOLUES :\n'
-    + '- Commencer par le prenom de l\'eleve\n'
-    + '- Utiliser le pronom indique entre parentheses pour TOUS les accords\n'
-    + '- Si pronom "il" : formes masculines (encourage, invite, motive)\n'
-    + '- Si pronom "elle" : formes feminines (encouragee, invitee, motivee)\n'
-    + '- Ne jamais melanger les pronoms\n'
-    + '- Mentionner forces et pistes de progres\n'
-    + '- Respecter la limite de ' + (CHAR_LIMITS[matiere] || 700) + ' caracteres MAXIMUM\n'
-    + '- Viser entre 80% et 95% de cette limite\n'
-    + '- Ton professionnel, bienveillant et encourageant\n'
-    + '- Jamais "je" ou "nous" - ton impersonnel uniquement\n\n'
-    + 'Eleves (prenom nom - pronom - cote) :\n'
-    + elevesList + '\n\n'
-    + 'Format OBLIGATOIRE :\n'
-    + '===ELEVE: [Prenom] [Nom]===\n'
-    + '[commentaire]\n'
-    + '===FIN===\n\n'
-    + 'Repete ce bloc pour chacun des ' + eleves.length + ' eleves. Ne saute aucun eleve.';
+  return `Tu es un expert en rédaction de bulletins scolaires pour les écoles de langue française catholiques de l'Ontario.
+
+Matière : ${matiere}
+Année d'études : ${annee}e année
+${typeLabel}
+${attentesText}
+
+Génère un commentaire de bulletin en français pour chacun des élèves suivants. 
+Le commentaire doit :
+- Être personnalisé selon la cote et le prénom de l'élève
+- Utiliser le bon pronom (elle/il/iel)
+- Mentionner des forces observées et des pistes de progrès
+- Être en lien avec les attentes évaluées
+- Respecter STRICTEMENT la limite de ${CHAR_LIMITS[matiere] || 700} caractères MAXIMUM (espaces compris)
+- Viser entre 80% et 95% de cette limite — ni trop court, ni au-dessus
+- Cette limite est absolue : un commentaire trop long sera coupé dans Aspen
+- Utiliser un ton professionnel, bienveillant et encourageant
+- Ne jamais utiliser "je" ou "nous" — utiliser uniquement un ton impersonnel (ex: "il est encouragé à...", "elle bénéficierait de...")
+- Commencer OBLIGATOIREMENT par le prénom de l'élève (ex: "Sophie démontre...", "Marc maîtrise...")
+- Utiliser ensuite le bon pronom (elle/il/iel) naturellement dans le reste du commentaire
+
+Élèves :
+${elevesList}
+
+Format de réponse OBLIGATOIRE (utiliser exactement ces séparateurs) :
+===ÉLÈVE: [Prénom Nom]===
+[commentaire]
+===FIN===
+
+Génère les commentaires pour tous les élèves listés.`;
 }
+
 function parseClasseResponse(text, eleves, matiere) {
   const results = [];
   const blocks = text.split('===ÉLÈVE:');
@@ -695,13 +702,12 @@ function parseClasseResponse(text, eleves, matiere) {
       ? block.substring(nameEnd + 3, endIdx).trim()
       : block.substring(nameEnd + 3).trim();
 
-    const eleve = eleves.find(e => {
-      const fullName = `${e.prenom} ${e.nom}`.toLowerCase();
-      const nameL = name.toLowerCase();
-      return nameL === fullName ||
-        nameL.includes(e.prenom.toLowerCase() + ' ' + e.nom.toLowerCase()) ||
-        nameL.includes(e.nom.toLowerCase() + ' ' + e.prenom.toLowerCase());
-    }) || eleves.find(e => name.toLowerCase().includes(e.prenom.toLowerCase()));
+    const eleve = eleves.find(e =>
+      name.toLowerCase().includes(e.prenom.toLowerCase()) ||
+      name.toLowerCase().includes(e.nom.toLowerCase())
+    );
+    if (eleve) results.push({ eleve, commentaire });
+  });
 
   // Fallback: match by order if parsing fails
   if (results.length === 0 && eleves.length === 1) {
