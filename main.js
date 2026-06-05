@@ -651,46 +651,37 @@ async function generateClasse() {
 function buildClassePrompt(matiere, annee, eleves, attentesText, type) {
   const typeLabel = getBulletinTypeLabel(type);
   const elevesList = eleves.map(e => {
-    // Use subject-specific observations if available, fall back to general observations
     const subjectObs = e[matiere + '_obs'] || e.observations || '';
-    const obs = subjectObs ? ` [Note : ${subjectObs}]` : '';
-    return `- ${e.prenom} ${e.nom} (${e.pronom}) : cote ${e[matiere]}${obs}`;
+    const obs = subjectObs ? ' [Note : ' + subjectObs + ']' : '';
+    return '- ' + e.prenom + ' ' + e.nom + ' (' + e.pronom + ') : cote ' + e[matiere] + obs;
   }).join('\n');
 
-  return `Tu es un expert en rédaction de bulletins scolaires pour les écoles de langue française catholiques de l'Ontario.
-
-Matière : ${matiere}
-Année d'études : ${annee}e année
-${typeLabel}
-${attentesText}
-
-Tu dois générer un commentaire de bulletin en français pour CHACUN des ${eleves.length} élèves listés ci-dessous.
-IMPORTANT : Tu dois produire exactement ${eleves.length} commentaire(s) — un par élève — sans en omettre aucun.
-
-RÈGLES ABSOLUES pour chaque commentaire :
-- Commencer OBLIGATOIREMENT par le prénom de l'élève (ex : "Sophie démontre...", "Marc maîtrise...")
-- Le pronom de chaque élève est indiqué entre parenthèses — utiliser CE pronom exactement pour TOUS les accords grammaticaux (sujet, adjectifs, participes passés avec être)
-- Si le pronom est "il" : utiliser "il", "son", "encouragé", "invité", "motivé" (formes masculines)
-- Si le pronom est "elle" : utiliser "elle", "sa", "encouragée", "invitée", "motivée" (formes féminines)
-- Ne JAMAIS mélanger les pronoms dans un même commentaire
-- Mentionner des forces observées et des pistes de progrès
-- Être en lien avec les attentes évaluées
-- Respecter STRICTEMENT la limite de ${CHAR_LIMITS[matiere] || 700} caractères MAXIMUM (espaces compris)
-- Viser entre 80% et 95% de cette limite
-- Utiliser un ton professionnel, bienveillant et encourageant
-- Ne jamais utiliser "je" ou "nous" — ton impersonnel uniquement
-
-Élèves (prénom nom — pronom — cote) :
-${elevesList}
-
-Format de réponse OBLIGATOIRE — utiliser exactement ces séparateurs, dans cet ordre :
-===ÉLÈVE: [Prénom] [Nom]===
-[commentaire]
-===FIN===
-
-Répète ce bloc pour chacun des ${eleves.length} élèves. Ne saute aucun élève.`;
+  return 'Tu es un expert en redaction de bulletins scolaires pour les ecoles de langue francaise catholiques de l\'Ontario.\n\n'
+    + 'Matiere : ' + matiere + '\n'
+    + 'Annee : ' + annee + 'e annee\n'
+    + typeLabel + '\n'
+    + attentesText + '\n\n'
+    + 'Tu dois generer un commentaire pour CHACUN des ' + eleves.length + ' eleves ci-dessous.\n'
+    + 'IMPORTANT : Produire exactement ' + eleves.length + ' commentaire(s), sans en omettre aucun.\n\n'
+    + 'REGLES ABSOLUES :\n'
+    + '- Commencer par le prenom de l\'eleve\n'
+    + '- Utiliser le pronom indique entre parentheses pour TOUS les accords\n'
+    + '- Si pronom "il" : formes masculines (encourage, invite, motive)\n'
+    + '- Si pronom "elle" : formes feminines (encouragee, invitee, motivee)\n'
+    + '- Ne jamais melanger les pronoms\n'
+    + '- Mentionner forces et pistes de progres\n'
+    + '- Respecter la limite de ' + (CHAR_LIMITS[matiere] || 700) + ' caracteres MAXIMUM\n'
+    + '- Viser entre 80% et 95% de cette limite\n'
+    + '- Ton professionnel, bienveillant et encourageant\n'
+    + '- Jamais "je" ou "nous" - ton impersonnel uniquement\n\n'
+    + 'Eleves (prenom nom - pronom - cote) :\n'
+    + elevesList + '\n\n'
+    + 'Format OBLIGATOIRE :\n'
+    + '===ELEVE: [Prenom] [Nom]===\n'
+    + '[commentaire]\n'
+    + '===FIN===\n\n'
+    + 'Repete ce bloc pour chacun des ' + eleves.length + ' eleves. Ne saute aucun eleve.';
 }
-
 function parseClasseResponse(text, eleves, matiere) {
   const results = [];
   const blocks = text.split('===ÉLÈVE:');
