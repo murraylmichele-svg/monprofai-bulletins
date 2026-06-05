@@ -712,13 +712,6 @@ function parseClasseResponse(text, eleves, matiere) {
         return nameL === prenomNom || nameL === nomPrenom
           || nameL.includes(prenomNom) || nameL.includes(nomPrenom);
       });
-    
-        if (results.some(r => r.eleve === e)) return false;
-        const nameL = name.toLowerCase().trim();
-        return nameL.includes(e.prenom.toLowerCase()) && nameL.includes(e.nom.toLowerCase());
-      });
-        return nameL.includes(e.prenom.toLowerCase()) && nameL.includes(e.nom.toLowerCase());
-      });
 
   // Fallback: match by order if parsing fails
   if (results.length === 0 && eleves.length === 1) {
