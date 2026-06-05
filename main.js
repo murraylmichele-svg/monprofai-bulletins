@@ -706,10 +706,11 @@ function parseClasseResponse(text, eleves, matiere) {
       ? block.substring(nameEnd + 3, endIdx).trim()
       : block.substring(nameEnd + 3).trim();
 
-    const eleve = eleves.find(e =>
-      name.toLowerCase().includes(e.prenom.toLowerCase()) ||
-      name.toLowerCase().includes(e.nom.toLowerCase())
-    );
+    const eleve = eleves.find(e => {
+        const fullName = e.prenom.toLowerCase() + ' ' + e.nom.toLowerCase();
+        const nameL = name.toLowerCase();
+        return nameL === fullName || nameL.includes(fullName) || nameL.includes(e.prenom.toLowerCase() + ' ');
+      });
     if (eleve) results.push({ eleve, commentaire });
   });
 
