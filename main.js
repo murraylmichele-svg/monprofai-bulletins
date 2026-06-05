@@ -686,7 +686,7 @@ Format de réponse OBLIGATOIRE (utiliser exactement ces séparateurs) :
 [commentaire]
 ===FIN===
 
-Génère les commentaires pour tous les élèves listés.`;
+Genere les commentaires pour tous les eleves listes.`;
 }
 
 function parseClasseResponse(text, eleves, matiere) {
