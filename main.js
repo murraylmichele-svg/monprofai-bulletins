@@ -690,26 +690,17 @@ Genere les commentaires pour tous les eleves listes.`;
 }
 
 function parseClasseResponse(text, eleves, matiere) {
-  const results = [];
-  const blocks = text.split('===ÉLÈVE:');
-  blocks.forEach(block => {
-    if (!block.trim()) return;
-    const endIdx = block.indexOf('===FIN===');
-    const nameEnd = block.indexOf('===');
-    if (nameEnd === -1) return;
-    const name = block.substring(0, nameEnd).trim();
-    const commentaire = endIdx !== -1
-      ? block.substring(nameEnd + 3, endIdx).trim()
-      : block.substring(nameEnd + 3).trim();
-
-    const eleve = eleves.find(e =>
-      name.toLowerCase().includes(e.prenom.toLowerCase()) ||
-      name.toLowerCase().includes(e.nom.toLowerCase())
-    );
-    if (eleve) results.push({ eleve, commentaire });
+  var results = [];
+  eleves.forEach(function(eleve, idx) {
+    var marker = '===ELEVE_' + (idx + 1) + '===';
+    var nextMarker = '===ELEVE_' + (idx + 2) + '===';
+    var start = text.indexOf(marker);
+    if (start === -1) return;
+    start += marker.length;
+    var end = text.indexOf(nextMarker);
+    var commentaire = (end !== -1 ? text.substring(start, end) : text.substring(start)).trim();
+    if (commentaire) results.push({ eleve: eleve, commentaire: commentaire });
   });
-
-  // Fallback: match by order if parsing fails
   if (results.length === 0 && eleves.length === 1) {
     results.push({ eleve: eleves[0], commentaire: text.trim() });
   }
