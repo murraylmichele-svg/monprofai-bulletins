@@ -650,11 +650,11 @@ async function generateClasse() {
 
 function buildClassePrompt(matiere, annee, eleves, attentesText, type) {
   const typeLabel = getBulletinTypeLabel(type);
-  const elevesList = eleves.map(e => {
+  const elevesList = eleves.map((e, idx) => {
     // Use subject-specific observations if available, fall back to general observations
     const subjectObs = e[matiere + '_obs'] || e.observations || '';
     const obs = subjectObs ? ` [Note : ${subjectObs}]` : '';
-    return `- ${e.prenom} ${e.nom} (${e.pronom}) : cote ${e[matiere]}${obs}`;
+    return 'ELEVE_' + (idx + 1) + ' | ' + e.prenom + ' ' + e.nom + ' (' + e.pronom + ') : cote ' + e[matiere] + obs;
   }).join('\n');
 
   return `Tu es un expert en rédaction de bulletins scolaires pour les écoles de langue française catholiques de l'Ontario.
