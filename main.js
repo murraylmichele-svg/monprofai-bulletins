@@ -681,10 +681,12 @@ Le commentaire doit :
 Élèves :
 ${elevesList}
 
-Format de réponse OBLIGATOIRE (utiliser exactement ces séparateurs) :
-===ÉLÈVE: [Prénom Nom]===
-[commentaire]
-===FIN===
+Format de reponse OBLIGATOIRE - utiliser exactement ces separateurs numerotes :
+    ===ELEVE_1===
+    [commentaire pour ELEVE_1]
+    ===ELEVE_2===
+    [commentaire pour ELEVE_2]
+    (continuer pour tous les eleves)
 
 Genere les commentaires pour tous les eleves listes.`;
 }
