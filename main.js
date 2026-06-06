@@ -548,174 +548,64 @@ async function generateClasse() {
         attentesText += `\nNotions enseignées ce trimestre : ${notions.join('; ')}`;
       }
     }
-
-    // Split students into batches of BATCH_SIZE
-    for (let b = 0; b < studentsInMatiere.length; b += BATCH_SIZE) {
-      const batch = studentsInMatiere.slice(b, b + BATCH_SIZE);
-      const batchNum = Math.floor(b / BATCH_SIZE) + 1;
-      const totalBatchesForMatiere = Math.ceil(studentsInMatiere.length / BATCH_SIZE);
-
-      const pct = Math.round((batchDone / totalBatches) * 100);
-      progressFill.style.width = pct + '%';
-      progressText.textContent = totalBatchesForMatiere > 1
-        ? `Génération pour ${matiere} — groupe ${batchNum}/${totalBatchesForMatiere}...`
-        : `Génération pour ${matiere}...`;
-
-      const prompt = buildClassePrompt(matiere, annee, batch, attentesText, bulletinType);
-
-      try {
-        const response = await callClaude(prompt);
-        const parsed = parseClasseResponse(response, batch, matiere);
-        parsed.forEach(({ eleve, commentaire }) => {
-          const key = `${eleve.nom} ${eleve.prenom}`;
-          if (!allResults[key]) allResults[key] = {};
-          allResults[key][matiere] = { cote: eleve[matiere], commentaire };
-        });
-      } catch (err) {
-        console.error('Erreur pour', matiere, 'groupe', batchNum, err);
-      }
-
-      batchDone++;
-    }
-  }
-
-  progressFill.style.width = '100%';
-  progressText.textContent = 'Terminé !';
-
-  // Render results
-  const matieresBySubject = {};
-  matieresActives.forEach(m => { matieresBySubject[m] = []; });
-  eleves.forEach(e => {
-    const key = `${e.nom} ${e.prenom}`;
-    matieresActives.forEach(m => {
-      if (allResults[key] && allResults[key][m]) {
-        matieresBySubject[m].push({
-          nom: e.nom, prenom: e.prenom, pronom: e.pronom,
-          cote: allResults[key][m].cote,
-          commentaire: allResults[key][m].commentaire
-        });
-      }
-    });
-  });
-
-  resultsContent.innerHTML = '';
-  matieresActives.forEach(matiere => {
-    const students = matieresBySubject[matiere];
-    if (!students || students.length === 0) return;
-    const limit = CHAR_LIMITS[matiere] || CHAR_LIMITS[matiere.split(' ')[0]] || 700;
-
-    const div = document.createElement('div');
-    div.className = 'subject-results';
-    div.innerHTML = `
-      <div class="subject-results-title">${matiere}</div>
-      <div class="subject-attentes-note">Limite Aspen : ${limit} caractères</div>
-      <table class="results-table">
-        <thead><tr>
-          <th>Élève</th><th>Cote</th><th>Commentaire</th>
-          <th style="width:110px;">Actions</th>
-        </tr></thead>
-        <tbody id="tbody-${slugify(matiere)}"></tbody>
-      </table>`;
-    resultsContent.appendChild(div);
-
-    const tbody = div.querySelector('tbody');
-    students.forEach((s, idx) => {
-      const charCount = (s.commentaire || '').length;
-      const over = charCount > limit;
-      const tr = document.createElement('tr');
-      const rowId = `${slugify(matiere)}-${idx}`;
-      tr.innerHTML = `
-        <td class="name-cell">${s.nom}, ${s.prenom}</td>
-        <td class="cote-cell">${s.cote}</td>
-        <td class="comment-cell" id="comment-${rowId}">${s.commentaire || '(aucun commentaire)'}</td>
-        <td class="edit-cell">
-          <button class="btn-mini" onclick="copyComment('${rowId}')">Copier</button>
-          <button class="btn-mini" onclick="editComment('${rowId}')">✏️</button>
-          <div style="font-size:11px; font-weight:${over ? '700' : '400'}; color:${over ? 'var(--rouge-doux)' : '#666'}; margin-top:6px; padding:2px 6px; background:${over ? '#fff0f0' : '#f4f4f4'}; border-radius:4px; display:inline-block;" id="count-${rowId}">${charCount} / ${limit}</div>
-        </td>`;
-      tbody.appendChild(tr);
-    });
-  });
-
-  resultsSection.classList.add('visible');
-  document.getElementById('results-classe-title').textContent =
-    `Commentaires générés — ${eleves.length} élève(s) · ${matieresActives.length} matière(s)`;
-
-  setTimeout(() => {
-    progressSection.classList.remove('visible');
-  }, 2000);
-
-  btn.disabled = false;
-}
-
 function buildClassePrompt(matiere, annee, eleves, attentesText, type) {
-  const typeLabel = getBulletinTypeLabel(type);
-  const elevesList = eleves.map(e => {
-    // Use subject-specific observations if available, fall back to general observations
-    const subjectObs = e[matiere + '_obs'] || e.observations || '';
-    const obs = subjectObs ? ` [Note : ${subjectObs}]` : '';
-    return `- ${e.prenom} ${e.nom} (${e.pronom}) : cote ${e[matiere]}${obs}`;
+  var typeLabel = getBulletinTypeLabel(type);
+  var elevesList = eleves.map(function(e, idx) {
+    var subjectObs = e[matiere + '_obs'] || e.observations || '';
+    var obs = subjectObs ? ' [Note : ' + subjectObs + ']' : '';
+    return 'ELEVE_' + (idx + 1) + ' | ' + e.prenom + ' ' + e.nom + ' (' + e.pronom + ') : cote ' + e[matiere] + obs;
   }).join('\n');
 
-  return `Tu es un expert en rédaction de bulletins scolaires pour les écoles de langue française catholiques de l'Ontario.
-
-Matière : ${matiere}
-Année d'études : ${annee}e année
-${typeLabel}
-${attentesText}
-
-Génère un commentaire de bulletin en français pour chacun des élèves suivants. 
-Le commentaire doit :
-- Être personnalisé selon la cote et le prénom de l'élève
-- Utiliser le bon pronom (elle/il/iel)
-- Mentionner des forces observées et des pistes de progrès
-- Être en lien avec les attentes évaluées
-- Respecter STRICTEMENT la limite de ${CHAR_LIMITS[matiere] || 700} caractères MAXIMUM (espaces compris)
-- Viser entre 80% et 95% de cette limite — ni trop court, ni au-dessus
-- Cette limite est absolue : un commentaire trop long sera coupé dans Aspen
-- Utiliser un ton professionnel, bienveillant et encourageant
-- Ne jamais utiliser "je" ou "nous" — utiliser uniquement un ton impersonnel (ex: "il est encouragé à...", "elle bénéficierait de...")
-- Commencer OBLIGATOIREMENT par le prénom de l'élève (ex: "Sophie démontre...", "Marc maîtrise...")
-- Utiliser ensuite le bon pronom (elle/il/iel) naturellement dans le reste du commentaire
-
-Élèves :
-${elevesList}
-
-Format de réponse OBLIGATOIRE (utiliser exactement ces séparateurs) :
-===ÉLÈVE: [Prénom Nom]===
-[commentaire]
-===FIN===
-
-Genere les commentaires pour tous les eleves listes.`;
+  return 'Tu es un expert en redaction de bulletins scolaires pour les ecoles de langue francaise catholiques de l\'Ontario.\n\n'
+    + 'Matiere : ' + matiere + '\n'
+    + 'Annee d\'etudes : ' + annee + 'e annee\n'
+    + typeLabel + '\n'
+    + attentesText + '\n\n'
+    + 'Genere un commentaire de bulletin en francais pour chacun des eleves suivants.\n'
+    + 'Le commentaire doit :\n'
+    + '- Etre personnalise selon la cote et le prenom de l\'eleve\n'
+    + '- Utiliser le bon pronom (elle/il/iel)\n'
+    + '- Mentionner des forces observees et des pistes de progres\n'
+    + '- Etre en lien avec les attentes evaluees\n'
+    + '- Respecter STRICTEMENT la limite de ' + (CHAR_LIMITS[matiere] || 700) + ' caracteres MAXIMUM\n'
+    + '- Viser entre 80% et 95% de cette limite\n'
+    + '- Utiliser un ton professionnel, bienveillant et encourageant\n'
+    + '- Ne jamais utiliser "je" ou "nous"\n'
+    + '- Commencer OBLIGATOIREMENT par le prenom de l\'eleve\n'
+    + '- Utiliser ensuite le bon pronom naturellement dans le reste du commentaire\n\n'
+    + 'Eleves :\n'
+    + elevesList + '\n\n'
+    + 'Format de reponse OBLIGATOIRE - utiliser exactement ces separateurs numerotes :\n'
+    + '===ELEVE_1===\n'
+    + '[commentaire pour ELEVE_1]\n'
+    + '===ELEVE_2===\n'
+    + '[commentaire pour ELEVE_2]\n'
+    + '(continuer pour tous les eleves)\n\n'
+    + 'IMPORTANT : Utilise le numero exact (ELEVE_1, ELEVE_2, etc.) comme separateur. Genere un commentaire pour CHAQUE eleve liste sans exception.';
 }
 
 function parseClasseResponse(text, eleves, matiere) {
-  const results = [];
-  const blocks = text.split('===ÉLÈVE:');
-  blocks.forEach(block => {
-    if (!block.trim()) return;
-    const endIdx = block.indexOf('===FIN===');
-    const nameEnd = block.indexOf('===');
-    if (nameEnd === -1) return;
-    const name = block.substring(0, nameEnd).trim();
-    const commentaire = endIdx !== -1
-      ? block.substring(nameEnd + 3, endIdx).trim()
-      : block.substring(nameEnd + 3).trim();
+  var results = [];
 
-    const eleve = eleves.find(e =>
-      name.toLowerCase().includes(e.prenom.toLowerCase()) ||
-      name.toLowerCase().includes(e.nom.toLowerCase())
-    );
-    if (eleve) results.push({ eleve, commentaire });
+  eleves.forEach(function(eleve, idx) {
+    var marker = '===ELEVE_' + (idx + 1) + '===';
+    var nextMarker = '===ELEVE_' + (idx + 2) + '===';
+    var start = text.indexOf(marker);
+    if (start === -1) return;
+    start += marker.length;
+    var end = text.indexOf(nextMarker);
+    var commentaire = (end !== -1 ? text.substring(start, end) : text.substring(start)).trim();
+    if (commentaire) {
+      results.push({ eleve: eleve, commentaire: commentaire });
+    }
   });
 
-  // Fallback: match by order if parsing fails
   if (results.length === 0 && eleves.length === 1) {
     results.push({ eleve: eleves[0], commentaire: text.trim() });
   }
+
   return results;
 }
-
 function copyComment(rowId) {
   const cell = document.getElementById('comment-' + rowId);
   const text = cell.textContent;
