@@ -1524,7 +1524,7 @@ async function callClaude(prompt) {
       'X-Proxy-Secret': 'monprof-juin2026'
     },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-5',
       max_tokens: 8000,
       messages: [{ role: 'user', content: prompt }]
     })
